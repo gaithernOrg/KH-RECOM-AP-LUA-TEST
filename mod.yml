@@ -1,0 +1,9 @@
+title: RECOM Archipelago Companion
+originalAuthor: Gicu
+description: Necessary files for the KHRECOM Archipelago
+assets:
+#Lua Script
+- name: scripts/connector_khrecom.lua
+  method: copy
+  source:
+  - name: connector_khrecom.lua
