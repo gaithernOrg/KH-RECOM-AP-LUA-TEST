@@ -57,7 +57,7 @@ function define_journal_byte_location_ids()
                                 ,nil    , nil    , nil    , nil    , nil    , nil    , nil                                                                                               --100 Acre Wood
                                 ,nil    , nil    , nil                                                                                                                                   --Destiny Island
                                 ,2691424, 2691425, 2691416, 2691420, 2691407, 2691431, 2691415, 2691419, 2691408, 2691402, 2691404, 2691413, 2691405, 2691423, 2691422, 2691421, 2691403 --Heartless 1
-                                ,2691428, 2691414, 2691418, 2691401, 2691411, 2691412, 2691430, 2691429, 2691417, 2691427, 2691406, 2691409 ,2691426, 2691410, nil    , nil    , nil     --Heartless 2
+                                ,2691428, 2691414, 2691418, 2691401, 2691411, 2691412, 2691430, 2691429, 2691417, 2691427, 2691406, 2691409 ,2671426, 2691410, nil    , nil    , nil     --Heartless 2
                                 ,nil                                                                                                                                                     --Heartless 3
                                 ,nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil     --Offset E3 - F3
                                 ,nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil     --Offset F4 - 104
@@ -690,34 +690,36 @@ function set_initial_battle_cards(card_array)
 end
 
 function send_checks(friends_array)
-    location_ids = get_checked_journal_location_ids(get_journal_array())
-    for k,v in pairs(location_ids) do
-        if not file_exists(client_communication_path .. "send" .. tostring(v)) then
-            file = io.open(client_communication_path .. "send" .. tostring(v), "w")
-            io.output(file)
-            io.write("")
-            io.close(file)
+    if get_time_played() > 0 then
+        location_ids = get_checked_journal_location_ids(get_journal_array())
+        for k,v in pairs(location_ids) do
+            if not file_exists(client_communication_path .. "send" .. tostring(v)) then
+                file = io.open(client_communication_path .. "send" .. tostring(v), "w")
+                io.output(file)
+                io.write("")
+                io.close(file)
+            end
         end
-    end
-    location_ids = get_checked_room_location_ids(get_room_array())
-    for k,v in pairs(location_ids) do
-        if not file_exists(client_communication_path .. "send" .. tostring(v)) then
-            file = io.open(client_communication_path .. "send" .. tostring(v), "w")
-            io.output(file)
-            io.write("")
-            io.close(file)
+        location_ids = get_checked_room_location_ids(get_room_array())
+        for k,v in pairs(location_ids) do
+            if not file_exists(client_communication_path .. "send" .. tostring(v)) then
+                file = io.open(client_communication_path .. "send" .. tostring(v), "w")
+                io.output(file)
+                io.write("")
+                io.close(file)
+            end
         end
-    end
-    friends = 0
-    for k,v in pairs(friends_array) do
-        friends = friends + v
-    end
-    if friends == 7 then
-        if not file_exists(client_communication_path .. "victory") then
-            file = io.open(client_communication_path .. "victory", "w")
-            io.output(file)
-            io.write("")
-            io.close(file)
+        friends = 0
+        for k,v in pairs(friends_array) do
+            friends = friends + v
+        end
+        if friends == 7 then
+            if not file_exists(client_communication_path .. "victory") then
+                file = io.open(client_communication_path .. "victory", "w")
+                io.output(file)
+                io.write("")
+                io.close(file)
+            end
         end
     end
 end
