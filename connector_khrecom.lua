@@ -467,8 +467,7 @@ function define_item_ids()
     item_ids["Enemy Card Parasite Cage"]         = 2682032
     item_ids["Enemy Card Trickmaster"]           = 2682033
     item_ids["Enemy Card Darkside"]              = 2682034
-    item_ids["Enemy Card Card Soldier (Red)"]    = 2682035
-    item_ids["Enemy Card Card Soldier (Black)"]  = 2682036
+    item_ids["Enemy Card Card Soldier"]          = 2682035
     item_ids["Enemy Card Hades"]                 = 2682037
     item_ids["Enemy Card Jafar"]                 = 2682039
     item_ids["Enemy Card Oogie Boogie"]          = 2682040
