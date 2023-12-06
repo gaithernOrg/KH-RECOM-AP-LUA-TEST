@@ -57,7 +57,7 @@ function define_journal_byte_location_ids()
                                 ,nil    , nil    , nil    , nil    , nil    , nil    , nil                                                                                               --100 Acre Wood
                                 ,nil    , nil    , nil                                                                                                                                   --Destiny Island
                                 ,2691424, 2691425, 2691416, 2691420, 2691407, 2691431, 2691415, 2691419, 2691408, 2691402, 2691404, 2691413, 2691405, 2691423, 2691422, 2691421, 2691403 --Heartless 1
-                                ,2691428, 2691414, 2691418, 2691401, 2691411, 2691412, 2691430, 2691429, 2691417, 2691427, 2691406, 2691409 ,2671426, 2691410, nil    , nil    , nil     --Heartless 2
+                                ,2691428, 2691414, 2691418, 2691401, 2691411, 2691412, 2691430, 2691429, 2691417, 2691427, 2691406, 2691409 ,2691426, 2691410, nil    , nil    , nil     --Heartless 2
                                 ,nil                                                                                                                                                     --Heartless 3
                                 ,nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil     --Offset E3 - F3
                                 ,nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil     --Offset F4 - 104
