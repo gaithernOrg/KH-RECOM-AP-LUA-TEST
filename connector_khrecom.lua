@@ -689,6 +689,22 @@ function set_initial_battle_cards(card_array)
     return card_array
 end
 
+function write_initial_deck()
+    initial_deck_array = {1, 0, 8, 17, 1, 0, 7, 17, 1, 0, 6, 17}
+    i = 3
+    while i < 99 do
+        initial_deck_array[(i*4)+1] = 0
+        initial_deck_array[(i*4)+2] = 0
+        initial_deck_array[(i*4)+3] = 0
+        initial_deck_array[(i*4)+4] = 0
+        i = i + 1
+    end
+    deck_pointer_offset = 0x394D98
+    deck_value_offset = -0x8D8
+    deck_pointer = GetPointer(deck_pointer_offset, deck_value_offset)
+    WriteArray(deck_pointer, initial_deck_array, true)
+end
+
 function send_checks(friends_array)
     if get_time_played() > 0 then
         location_ids = get_checked_journal_location_ids(get_journal_array())
@@ -822,6 +838,9 @@ function receive_items()
     set_friends(friends_array)
     set_gold_map_cards(gold_map_cards_array)
     set_cutscene_array(calculate_cutscene_array())
+    if get_time_played() < 10 then
+        write_initial_deck()
+    end
     return friends_array
 end
 
