@@ -683,14 +683,14 @@ function set_initial_map_cards(card_array)
 end
 
 function set_initial_battle_cards(card_array)
-    card_array = add_card(card_array, "Kingdom Key", 8)
-    card_array = add_card(card_array, "Kingdom Key", 7)
     card_array = add_card(card_array, "Kingdom Key", 6)
+    card_array = add_card(card_array, "Kingdom Key", 5)
+    card_array = add_card(card_array, "Kingdom Key", 4)
     return card_array
 end
 
 function write_initial_deck()
-    initial_deck_array = {1, 0, 8, 17, 1, 0, 7, 17, 1, 0, 6, 17}
+    initial_deck_array = {1, 0, 6, 17, 1, 0, 5, 17, 1, 0, 4, 17}
     i = 3
     while i < 99 do
         initial_deck_array[(i*4)+1] = 0
