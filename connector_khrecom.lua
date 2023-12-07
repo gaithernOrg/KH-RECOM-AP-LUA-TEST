@@ -341,10 +341,10 @@ function define_item_ids()
     item_ids["Diamond Dust 4-6"]                 = 2681152
     item_ids["Diamond Dust 7-9"]                 = 2681153
     item_ids["Diamond Dust 0"]                   = 2681154
-    item_ids["One Winged Angel 1-3"]             = 2681161
-    item_ids["One Winged Angel 4-6"]             = 2681162
-    item_ids["One Winged Angel 7-9"]             = 2681163
-    item_ids["One Winged Angel 0"]               = 2681164
+    item_ids["One-Winged Angel 1-3"]             = 2681161
+    item_ids["One-Winged Angel 4-6"]             = 2681162
+    item_ids["One-Winged Angel 7-9"]             = 2681163
+    item_ids["One-Winged Angel 0"]               = 2681164
     item_ids["Ultima Weapon 1-3"]                = 2681171
     item_ids["Ultima Weapon 4-6"]                = 2681172
     item_ids["Ultima Weapon 7-9"]                = 2681173
