@@ -754,7 +754,6 @@ function receive_items()
     gold_map_cards_array = get_empty_gold_map_cards_array()
     friends_array = get_empty_friends_array()
     current_floor = get_current_floor()
-    progressive_bosses = 0
     local i = 1
     card_array = set_initial_battle_cards(card_array)
     card_array = set_initial_map_cards(card_array)
@@ -840,6 +839,8 @@ function receive_items()
     set_cutscene_array(calculate_cutscene_array())
     if get_time_played() < 10 then
         write_initial_deck()
+    else
+        remove_premium_cards()
     end
     return friends_array
 end
@@ -913,6 +914,17 @@ function has_key_of_rewards()
         end
     end
     return false
+end
+
+function remove_premium_cards()
+    deck_pointer_offset = 0x394D98
+    deck_value_offset = -0x8D8
+    deck_pointer = GetPointer(deck_pointer_offset, deck_value_offset)
+    i = 0
+    while i < 99 do
+        WriteByte(deck_pointer+((i*4)+1), 0, true)
+        i = i + 1
+    end
 end
 
 function _OnInit()
