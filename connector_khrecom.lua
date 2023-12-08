@@ -863,19 +863,23 @@ function add_enemy_card(enemy_card_array, card_name)
 end
 
 function calculate_cutscene_array()
-    journal_byte_pointer_offset = 0x394DA8
-    journal_byte_value_offset_axel    = 0x132
-    journal_byte_value_offset_larxene = 0x134
-    journal_byte_value_offset_riku    = 0x138
-    journal_byte_value_offset_vexen   = 0x144
+    journal_byte_pointer_offset           = 0x394DA8
+    journal_byte_value_offset_axel        = 0x132
+    journal_byte_value_offset_larxene     = 0x134
+    journal_byte_value_offset_riku        = 0x138
+    journal_byte_value_offset_larxene_2   = 0x185
     
     
     journal_byte_pointer = GetPointer(journal_byte_pointer_offset, 0x0)
-    axel_byte    = ReadByte(journal_byte_pointer+journal_byte_value_offset_axel   ,true)
-    larxene_byte = ReadByte(journal_byte_pointer+journal_byte_value_offset_larxene,true)
-    riku_byte    = ReadByte(journal_byte_pointer+journal_byte_value_offset_riku   ,true)
+    axel_byte            = ReadByte(journal_byte_pointer+journal_byte_value_offset_axel      ,true)
+    larxene_byte         = ReadByte(journal_byte_pointer+journal_byte_value_offset_larxene   ,true)
+    riku_byte            = ReadByte(journal_byte_pointer+journal_byte_value_offset_riku      ,true)
+    larxene_2_byte       = ReadByte(journal_byte_pointer+journal_byte_value_offset_larxene_2 ,true)
     
-    if larxene_byte == 1 and riku_byte == 1 and axel_byte == 1 then
+    if larxene_2_byte == 1 and larxene_byte == 1 and riku_byte == 1 and axel_byte == 1 then
+        return {0x01, 0x00, 0x02, 0x00, 0x03, 0x00, 0x04, 0x00, 0x05, 0x00, 0x06, 0x00, 0x07, 0x00, 0x08, 0x00, 0x09, 0x00, 0x0A, 0x00, 0x0B, 0x00, 0x0C, 0x00, 0x0D, 0x00, 0x0E, 0x00, 0x0F, 
+                0x00, 0x10, 0x00, 0x11, 0x00, 0x12, 0x00, 0x13, 0x00, 0x14, 0x00, 0x15, 0x00, 0x16, 0x00, 0x17, 0x00, 0x18, 0x00}
+    elseif larxene_byte == 1 and riku_byte == 1 and axel_byte == 1 then
         return {0x01, 0x00, 0x02, 0x00, 0x03, 0x00, 0x04, 0x00, 0x05, 0x00, 0x06, 0x00, 0x07, 0x00, 0x08, 0x00, 0x09, 0x00, 0x0A, 0x00, 0x0B, 0x00, 0x0C, 0x00, 0x0D, 0x00, 0x0E, 0x00, 0x0F, 
                 0x00, 0x10, 0x00, 0x11, 0x00, 0x12, 0x00, 0x13, 0x00, 0x14, 0x00, 0x15, 0x00, 0x16, 0x00, 0x17, 0x00, 0xE8, 0x07}
     elseif larxene_byte == 1 and axel_byte == 1 then
