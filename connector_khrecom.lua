@@ -918,11 +918,17 @@ end
 
 function remove_premium_cards()
     deck_pointer_offset = 0x394D98
-    deck_value_offset = -0x8D8
-    deck_pointer = GetPointer(deck_pointer_offset, deck_value_offset)
+    deck_1_value_offset = -0x8D8
+    deck_2_value_offset = -0x8D8 + (99*4)
+    deck_3_value_offset = -0x8D8 + (99*4*2)
+    deck_1_pointer = GetPointer(deck_pointer_offset, deck_1_value_offset)
+    deck_2_pointer = GetPointer(deck_pointer_offset, deck_2_value_offset)
+    deck_3_pointer = GetPointer(deck_pointer_offset, deck_3_value_offset)
     i = 0
     while i < 99 do
-        WriteByte(deck_pointer+((i*4)+1), 0, true)
+        WriteByte(deck_1_pointer+((i*4)+1), 0, true)
+        WriteByte(deck_2_pointer+((i*4)+1), 0, true)
+        WriteByte(deck_3_pointer+((i*4)+1), 0, true)
         i = i + 1
     end
 end
