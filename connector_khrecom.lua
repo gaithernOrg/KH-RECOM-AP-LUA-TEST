@@ -63,23 +63,23 @@ function define_journal_byte_location_ids()
                                 ,nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil     --Offset F4 - 104
                                 ,nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil     --Offset 105 - 115
                                 ,nil    , nil    , nil    , nil    , nil                                                                                                                 --Offset 116 - 11A
-                                ,2690001, 2690502, 2690701, 2690601, 2690801, 2690401, 2691004, 2690308, 2690301, 2690107, 2690202, 2690901, 2691201, 2691202, nil    , 2691303, 2691304 --Keyblades 1
-                                ,nil    , nil    , nil    , nil    , nil    , nil                                                                                                        --Keyblades 2
+                                ,2690001, 2690502, 2690701, 2690601, 2690801, 2690401, 2691004, 2690308, 2690301, 2690107, 2690202, 2690901, 2691201, 2691202, nil    , nil    , nil     --Keyblades 1
+                                ,2691305, 2690309, 2690807, 2690108, 2691210, 2690607                                                                                                    --Keyblades 2
                                 ,2690101, 2690003, 2690602, 2690004, 2690501, 2690201, 2690702                                                                                           --Magic Cards
                                 ,2690103, 2690508, 2691001, 2690406, 2690806, 2690906, 2690307                                                                                           --Summon Cards
                                 ,2690002, 2690304, 2691101, 2690505, 2691003, 2691002, 2691208                                                                                           --Item Cards
                                 ,nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil                                                                                      --Friend Cards
                                 ,nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil     --Enemy Cards 1
                                 ,nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , 2690106, 2690306, 2690207, 2690507 --Enemy Cards 2
-                                ,2690706, 2690606, 2690404, 2690805, 2690905, 2691207, 2691204, 2690204, nil    , nil    , nil    , nil    , 2691103, nil    , nil    , nil    , 2691303 --Enemy Cards 3
-                                ,nil    , nil    , 2691301, 2691203, nil                                                                                                                 --Enemy Cards 4
+                                ,2690706, 2690606, 2690404, 2690805, 2690905, 2691207, 2691204, 2690204, 2691105, 2690208, 2690907, 2690407, 2691103, 2691304, 2691209, 2690109, 2691303 --Enemy Cards 3
+                                ,2690707, 2690509, 2691301, 2691203, 2691104                                                                                                             --Enemy Cards 4
                                 }
     return journal_byte_location_ids
 end
 
 function define_room_byte_location_ids()
     room_byte_location_ids = {2690102, 2690104, 2690105
-                             ,2690203, 2690205, 2690207
+                             ,2690203, 2690205, 2690206
                              ,2690302, 2690303, 2690305
                              ,2690402, 2690403, 2690405
                              ,2690503, 2690504, 2690506
@@ -433,6 +433,34 @@ function define_item_ids()
     item_ids["Megalixir 4-6"]                    = 2681382
     item_ids["Megalixir 7-9"]                    = 2681383
     item_ids["Megalixir 0"]                      = 2681384
+    item_ids["Soul Eater 1-3"]                   = 2681391
+    item_ids["Soul Eater 4-6"]                   = 2681392
+    item_ids["Soul Eater 7-9"]                   = 2681393
+    item_ids["Star Seeker 0"]                    = 2681394
+    item_ids["Star Seeker 1-3"]                  = 2681401
+    item_ids["Star Seeker 4-6"]                  = 2681402
+    item_ids["Star Seeker 7-9"]                  = 2681403
+    item_ids["Star Seeker 0"]                    = 2681404
+    item_ids["Total Eclipse 1-3"]                = 2681411
+    item_ids["Total Eclipse 4-6"]                = 2681412
+    item_ids["Total Eclipse 7-9"]                = 2681413
+    item_ids["Total Eclipse 0"]                  = 2681414
+    item_ids["Midnight Roar 1-3"]                = 2681421
+    item_ids["Midnight Roar 4-6"]                = 2681422
+    item_ids["Midnight Roar 7-9"]                = 2681423
+    item_ids["Midnight Roar 0"]                  = 2681424
+    item_ids["Maverick Flare 1-3"]               = 2681431
+    item_ids["Maverick Flare 4-6"]               = 2681432
+    item_ids["Maverick Flare 7-9"]               = 2681433
+    item_ids["Maverick Flare 0"]                 = 2681434
+    item_ids["Two Become One 1-3"]               = 2681441
+    item_ids["Two Become One 4-6"]               = 2681442
+    item_ids["Two Become One 7-9"]               = 2681443
+    item_ids["Two Become One 0"]                 = 2681444
+    item_ids["Bond of Flame 1-3"]                = 2681451
+    item_ids["Bond of Flame 4-6"]                = 2681452
+    item_ids["Bond of Flame 7-9"]                = 2681453
+    item_ids["Bond of Flame 0"]                  = 2681454
     item_ids["Enemy Card Shadow"]                = 2682001
     item_ids["Enemy Card Soldier"]               = 2682002
     item_ids["Enemy Card Large Body"]            = 2682003
@@ -481,6 +509,14 @@ function define_item_ids()
     item_ids["Enemy Card Lexaeus"]               = 2682048
     item_ids["Enemy Card Ansem"]                 = 2682049
     item_ids["Enemy Card Axel"]                  = 2682050
+    item_ids["Enemy Card Xemnas"]                = 2682051
+    item_ids["Enemy Card Xigbar"]                = 2682052
+    item_ids["Enemy Card Xaldin"]                = 2682053
+    item_ids["Enemy Card Zexion"]                = 2682054
+    item_ids["Enemy Card Saix"]                  = 2682055
+    item_ids["Enemy Card Demyx"]                 = 2682056
+    item_ids["Enemy Card Luxord"]                = 2682057
+    item_ids["Enemy Card Roxas"]                 = 2682058
     item_ids["Wonderland"]                       = 2683002
     item_ids["Olympus Coliseum"]                 = 2683003
     item_ids["Monstro"]                          = 2683004
