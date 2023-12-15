@@ -255,7 +255,7 @@ function define_enemy_card_order()
         ,"Ursula"
         ,"Hook"
         ,"Dragon Maleficent"
-        ,"Riku Replica"
+        ,"Riku"
         ,"Axel"
         ,"Larxene"
         ,"Vexen"
