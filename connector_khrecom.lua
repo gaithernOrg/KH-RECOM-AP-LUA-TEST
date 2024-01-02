@@ -278,6 +278,7 @@ end
 
 function define_item_ids()
     item_ids = {}
+    item_ids["Victory"]                          = 2680000
     item_ids["Bronze Card Pack"]                 = 2681001
     item_ids["Silver Card Pack"]                 = 2681002
     item_ids["Gold Card Pack"]                   = 2681003
@@ -741,7 +742,7 @@ function write_initial_deck()
     WriteArray(deck_pointer, initial_deck_array, true)
 end
 
-function send_checks(friends_array)
+function send_checks(victory)
     if get_time_played() > 0 then
         location_ids = get_checked_journal_location_ids(get_journal_array())
         for k,v in pairs(location_ids) do
@@ -765,7 +766,7 @@ function send_checks(friends_array)
         for k,v in pairs(friends_array) do
             friends = friends + v
         end
-        if friends == 7 then
+        if victory then
             if not file_exists(client_communication_path .. "victory") then
                 file = io.open(client_communication_path .. "victory", "w")
                 io.output(file)
@@ -789,7 +790,9 @@ function receive_items()
     world_assignment_array = get_empty_world_assignment_array()
     gold_map_cards_array = get_empty_gold_map_cards_array()
     friends_array = get_empty_friends_array()
+    friend_count = 0
     current_floor = get_current_floor()
+    victory = false
     local i = 1
     card_array = set_initial_battle_cards(card_array)
     card_array = set_initial_map_cards(card_array)
@@ -839,28 +842,38 @@ function receive_items()
                     world_assignment_array[11] = 0xB
                 elseif received_item_name == "Destiny Islands" then
                     world_assignment_array[12] = 0xC
-                elseif received_item_name == "Castle Oblivion" then
-                    world_assignment_array[13] = 0xD
                 elseif received_item_name == "Donald" then
                     friends_array[1] = 1
+                    friend_count = friend_count + 1
                 elseif received_item_name == "Goofy" then
                     friends_array[2] = 1
+                    friend_count = friend_count + 1
                 elseif received_item_name == "Aladdin" then
                     friends_array[3] = 1
+                    friend_count = friend_count + 1
                 elseif received_item_name == "Ariel" then
                     friends_array[4] = 1
+                    friend_count = friend_count + 1
                 elseif received_item_name == "Jack" then
                     friends_array[5] = 1
+                    friend_count = friend_count + 1
                 elseif received_item_name == "Peter Pan" then
                     friends_array[6] = 1
+                    friend_count = friend_count + 1
                 elseif received_item_name == "Beast" then
                     friends_array[7] = 1
+                    friend_count = friend_count + 1
                 elseif string.sub(received_item_name, 1, 14)  == "Key to Rewards" and current_floor == tonumber(string.sub(received_item_name, -2)) then
                     gold_map_cards_array[4] = 1
+                elseif received_item_name == "Victory" then
+                    victory = true
                 end
             end
         end
         i = i + 1
+    end
+    if friend_count >= 7 and floor_bosses_complete() then
+        world_assignment_array[13] = 0xD
     end
     if current_floor > 1 and world_assignment_array[current_floor] ~= 1 or current_floor == 1 then
         gold_map_cards_array[1] = 1
@@ -878,7 +891,7 @@ function receive_items()
     else
         remove_premium_cards()
     end
-    return friends_array
+    return victory
 end
 
 function add_card(card_array, card_name, card_value)
@@ -932,6 +945,23 @@ function calculate_cutscene_array()
     
 end
 
+function floor_bosses_complete()
+    journal_byte_pointer_offset           = 0x394DA8
+    journal_byte_value_offset_axel        = 0x132
+    journal_byte_value_offset_larxene     = 0x134
+    journal_byte_value_offset_riku        = 0x138
+    journal_byte_value_offset_larxene_2   = 0x185
+    
+    
+    journal_byte_pointer = GetPointer(journal_byte_pointer_offset, 0x0)
+    axel_byte            = ReadByte(journal_byte_pointer+journal_byte_value_offset_axel      ,true)
+    larxene_byte         = ReadByte(journal_byte_pointer+journal_byte_value_offset_larxene   ,true)
+    riku_byte            = ReadByte(journal_byte_pointer+journal_byte_value_offset_riku      ,true)
+    larxene_2_byte       = ReadByte(journal_byte_pointer+journal_byte_value_offset_larxene_2 ,true)
+    
+    return larxene_2_byte == 1 and riku_byte == 1 and larxene_byte == 1 and axel_byte == 1
+end
+
 function has_key_of_rewards()
     floor_num = get_current_floor()
     if floor_num < 10 then
@@ -975,8 +1005,8 @@ end
 
 function _OnFrame()
     if frame_count % 120 == 0 then
-        friends_array = receive_items()
-        send_checks(friends_array)
+        victory = receive_items()
+        send_checks(victory)
     end
     frame_count = frame_count + 1
 end
