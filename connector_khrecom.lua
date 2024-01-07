@@ -557,6 +557,7 @@ room_byte_location_ids = define_room_byte_location_ids()
 card_order = define_card_order()
 enemy_card_order = define_enemy_card_order()
 item_ids = define_item_ids()
+canExecute = false
 
 frame_count = 1
 
@@ -1000,13 +1001,21 @@ function remove_premium_cards()
 end
 
 function _OnInit()
-    ConsolePrint("KHRECOM AP Running...")
+    if GAME_ID == 0x9E3134F5 and ENGINE_TYPE == "BACKEND" then
+        ConsolePrint("RE:CoM detected, running script")
+        ConsolePrint("KHRECOM AP Running...")
+        canExecute = true
+    else
+        ConsolePrint("RE:CoM not detected, not running script")
+    end
 end
 
 function _OnFrame()
-    if frame_count % 120 == 0 then
-        victory = receive_items()
-        send_checks(victory)
+    if canExecute then
+        if frame_count % 120 == 0 then
+            victory = receive_items()
+            send_checks(victory)
+        end
+        frame_count = frame_count + 1
     end
-    frame_count = frame_count + 1
 end
