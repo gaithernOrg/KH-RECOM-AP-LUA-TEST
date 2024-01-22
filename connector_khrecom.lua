@@ -250,7 +250,7 @@ function define_enemy_card_order()
         ,"Darkside"
         ,"Card Soldier"
         ,"Hades"
-        ,"Jafar-Genie"
+        ,"Jafar"
         ,"Oogie-Boogie"
         ,"Ursula"
         ,"Hook"
