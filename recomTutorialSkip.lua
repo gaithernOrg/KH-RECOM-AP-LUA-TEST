@@ -14,18 +14,9 @@ end
 
 function _OnFrame()
     if canExecute then
-        --SKIP BATTLE TUTORIAL--
         CardsTutorial = ReadLong(ReadLong(ReadLong(ReadLong(ReadLong(ReadLong(ReadLong(0x8778B0 - offset)+0x5C0, true)+0x58, true)+0x60, true)+0x8, true)+0xA0, true)+0x80, true)+0x0, true
         if ReadByte(CardsTutorial, true) == 10 then
             WriteArray(CardsTutorial, {0x5A, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x0C}, true)
         end
-        --SKIP BATTLE TUTORIAL--
-        
-        --SKIP SLEIGHT TUTORIAL--
-        rooms_opened_pointer_address = 0x879398 - offset
-        rooms_opened_pointer_offset = 0x18
-        rooms_opened_pointer = GetPointer(rooms_opened_pointer_address, rooms_opened_pointer_offset)
-        WriteByte(rooms_opened_pointer, 01, true)
-        --SKIP SLEIGHT TUTORIAL--
     end
 end

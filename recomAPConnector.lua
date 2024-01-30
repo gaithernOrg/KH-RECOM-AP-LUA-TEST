@@ -549,6 +549,7 @@ function define_item_ids()
     item_ids["Beast"]                            = 2685005
     item_ids["Peter Pan"]                        = 2685006
     item_ids["Jack"]                             = 2685007
+    item_ids["Pluto"]                            = 2685008
     return item_ids
 end
 
@@ -636,7 +637,7 @@ function get_empty_world_assignment_array()
 end
 
 function get_empty_friends_array()
-    friends_array = {0,0,0,0,0,0,0}
+    friends_array = {0,0,0,0,0,0,0,0}
     return friends_array
 end
 
@@ -864,6 +865,9 @@ function receive_items()
                 elseif received_item_name == "Beast" then
                     friends_array[7] = 1
                     friend_count = friend_count + 1
+                elseif received_item_name == "Pluto" then
+                    friends_array[8] = 1
+                    friend_count = friend_count + 1
                 elseif string.sub(received_item_name, 1, 14)  == "Key to Rewards" and current_floor == tonumber(string.sub(received_item_name, -2)) then
                     gold_map_cards_array[4] = 1
                 elseif received_item_name == "Victory" then
@@ -873,7 +877,7 @@ function receive_items()
         end
         i = i + 1
     end
-    if friend_count >= 7 and floor_bosses_complete() then
+    if friend_count >= 8 and floor_bosses_complete() then
         world_assignment_array[13] = 0xD
     end
     if current_floor > 1 and world_assignment_array[current_floor] ~= 1 or current_floor == 1 then
