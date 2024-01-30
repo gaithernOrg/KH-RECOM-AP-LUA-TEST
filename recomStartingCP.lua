@@ -1,6 +1,6 @@
 LUAGUI_NAME = "recomStartingCP"
 LUAGUI_AUTH = "Gicu"
-LUAGUI_DESC = "Handles Alternative Starting CP
+LUAGUI_DESC = "Handles Alternative Starting CP"
 
 if os.getenv('LOCALAPPDATA') ~= nil then
     client_communication_path = os.getenv('LOCALAPPDATA') .. "\\KHRECOM\\"
