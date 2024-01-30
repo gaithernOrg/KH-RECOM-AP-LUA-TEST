@@ -549,6 +549,7 @@ function define_item_ids()
     item_ids["Beast"]                            = 2685005
     item_ids["Peter Pan"]                        = 2685006
     item_ids["Jack"]                             = 2685007
+    item_ids["Pluto"]                            = 2685008
     return item_ids
 end
 
@@ -558,6 +559,7 @@ card_order = define_card_order()
 enemy_card_order = define_enemy_card_order()
 item_ids = define_item_ids()
 canExecute = false
+offset = 0x4E4660
 
 frame_count = 1
 
@@ -636,7 +638,7 @@ function get_empty_world_assignment_array()
 end
 
 function get_empty_friends_array()
-    friends_array = {0,0,0,0,0,0,0}
+    friends_array = {0,0,0,0,0,0,0,0}
     return friends_array
 end
 
@@ -767,6 +769,14 @@ function send_checks(victory)
         for k,v in pairs(friends_array) do
             friends = friends + v
         end
+        if final_marluxia_slain() then
+            if not file_exists(client_communication_path .. "send2699999") then
+                file = io.open(client_communication_path .. "send2699999", "w")
+                io.output(file)
+                io.write("")
+                io.close(file)
+            end
+        end
         if victory then
             if not file_exists(client_communication_path .. "victory") then
                 file = io.open(client_communication_path .. "victory", "w")
@@ -843,26 +853,29 @@ function receive_items()
                     world_assignment_array[11] = 0xB
                 elseif received_item_name == "Destiny Islands" then
                     world_assignment_array[12] = 0xC
-                elseif received_item_name == "Donald" then
+                elseif received_item_name == "Donald" and friends_array[1] ~= 1 then
                     friends_array[1] = 1
                     friend_count = friend_count + 1
-                elseif received_item_name == "Goofy" then
+                elseif received_item_name == "Goofy" and friends_array[2] ~= 1 then
                     friends_array[2] = 1
                     friend_count = friend_count + 1
-                elseif received_item_name == "Aladdin" then
+                elseif received_item_name == "Aladdin" and friends_array[3] ~= 1 then
                     friends_array[3] = 1
                     friend_count = friend_count + 1
-                elseif received_item_name == "Ariel" then
+                elseif received_item_name == "Ariel" and friends_array[4] ~= 1 then
                     friends_array[4] = 1
                     friend_count = friend_count + 1
-                elseif received_item_name == "Jack" then
+                elseif received_item_name == "Jack" and friends_array[5] ~= 1 then
                     friends_array[5] = 1
                     friend_count = friend_count + 1
-                elseif received_item_name == "Peter Pan" then
+                elseif received_item_name == "Peter Pan" and friends_array[6] ~= 1 then
                     friends_array[6] = 1
                     friend_count = friend_count + 1
-                elseif received_item_name == "Beast" then
+                elseif received_item_name == "Beast" and friends_array[7] ~= 1 then
                     friends_array[7] = 1
+                    friend_count = friend_count + 1
+                elseif received_item_name == "Pluto" and friends_array[8] ~= 1 then
+                    friends_array[8] = 1
                     friend_count = friend_count + 1
                 elseif string.sub(received_item_name, 1, 14)  == "Key to Rewards" and current_floor == tonumber(string.sub(received_item_name, -2)) then
                     gold_map_cards_array[4] = 1
@@ -873,7 +886,7 @@ function receive_items()
         end
         i = i + 1
     end
-    if friend_count >= 7 and floor_bosses_complete() then
+    if friend_count >= 8 and floor_bosses_complete() then
         world_assignment_array[13] = 0xD
     end
     if current_floor > 1 and world_assignment_array[current_floor] ~= 1 or current_floor == 1 then
@@ -1000,10 +1013,18 @@ function remove_premium_cards()
     end
 end
 
+function final_marluxia_slain()
+    world_address = 0x878062 - offset
+    room_address = 0x878060 - offset
+    if ReadByte(world_address) == 0x0D and ReadArray(room_address,2)[1] == 0xD4 and ReadArray(room_address,2)[2] == 0x07 then
+        return true
+    end
+    return false
+end
+
 function _OnInit()
     if GAME_ID == 0x9E3134F5 and ENGINE_TYPE == "BACKEND" then
         ConsolePrint("RE:CoM detected, running script")
-        ConsolePrint("KHRECOM AP Running...")
         canExecute = true
     else
         ConsolePrint("RE:CoM not detected, not running script")
