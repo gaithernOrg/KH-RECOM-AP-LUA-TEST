@@ -3,7 +3,15 @@ originalAuthor: Gicu
 description: Necessary files for the KHRECOM Archipelago
 assets:
 #Lua Script
-- name: scripts/connector_khrecom.lua
+- name: scripts/recomAPConnector.lua
   method: copy
   source:
-  - name: connector_khrecom.lua
+  - name: recomAPConnector.lua
+- name: scripts/recomSoftReset.lua
+  method: copy
+  source:
+  - name: recomSoftReset.lua
+- name: scripts/recomTutorialSkip.lua
+  method: copy
+  source:
+  - name: recomTutorialSkip.lua
