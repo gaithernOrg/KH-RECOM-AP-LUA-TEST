@@ -844,28 +844,28 @@ function receive_items()
                     world_assignment_array[11] = 0xB
                 elseif received_item_name == "Destiny Islands" then
                     world_assignment_array[12] = 0xC
-                elseif received_item_name == "Donald" then
+                elseif received_item_name == "Donald" and friend_array[1] ~= 1 then
                     friends_array[1] = 1
                     friend_count = friend_count + 1
-                elseif received_item_name == "Goofy" then
+                elseif received_item_name == "Goofy" and friend_array[2] ~= 1 then
                     friends_array[2] = 1
                     friend_count = friend_count + 1
-                elseif received_item_name == "Aladdin" then
+                elseif received_item_name == "Aladdin" and friend_array[3] ~= 1 then
                     friends_array[3] = 1
                     friend_count = friend_count + 1
-                elseif received_item_name == "Ariel" then
+                elseif received_item_name == "Ariel" and friend_array[4] ~= 1 then
                     friends_array[4] = 1
                     friend_count = friend_count + 1
-                elseif received_item_name == "Jack" then
+                elseif received_item_name == "Jack" and friend_array[5] ~= 1 then
                     friends_array[5] = 1
                     friend_count = friend_count + 1
-                elseif received_item_name == "Peter Pan" then
+                elseif received_item_name == "Peter Pan" and friend_array[6] ~= 1 then
                     friends_array[6] = 1
                     friend_count = friend_count + 1
-                elseif received_item_name == "Beast" then
+                elseif received_item_name == "Beast" and friend_array[7] ~= 1 then
                     friends_array[7] = 1
                     friend_count = friend_count + 1
-                elseif received_item_name == "Pluto" then
+                elseif received_item_name == "Pluto" and friend_array[8] ~= 1 then
                     friends_array[8] = 1
                     friend_count = friend_count + 1
                 elseif string.sub(received_item_name, 1, 14)  == "Key to Rewards" and current_floor == tonumber(string.sub(received_item_name, -2)) then
