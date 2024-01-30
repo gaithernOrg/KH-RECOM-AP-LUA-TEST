@@ -559,6 +559,7 @@ card_order = define_card_order()
 enemy_card_order = define_enemy_card_order()
 item_ids = define_item_ids()
 canExecute = false
+offset = 0x4E4660
 
 frame_count = 1
 
@@ -767,6 +768,14 @@ function send_checks(victory)
         friends = 0
         for k,v in pairs(friends_array) do
             friends = friends + v
+        end
+        if final_marluxia_slain() then
+            if not file_exists(client_communication_path .. "send2699999") then
+                file = io.open(client_communication_path .. "send2699999", "w")
+                io.output(file)
+                io.write("")
+                io.close(file)
+            end
         end
         if victory then
             if not file_exists(client_communication_path .. "victory") then
@@ -1002,6 +1011,15 @@ function remove_premium_cards()
         WriteByte(deck_3_pointer+((i*4)+1), 0, true)
         i = i + 1
     end
+end
+
+function final_marluxia_slain()
+    world_address = 0x878062 - offset
+    room_address = 0x878060 - offset
+    if ReadByte(world_address) == 0x0D and ReadArray(room_address,2)[1] == 0xD4 and ReadArray(room_address,2)[2] = 0x07 then
+        return true
+    end
+    return false
 end
 
 function _OnInit()
