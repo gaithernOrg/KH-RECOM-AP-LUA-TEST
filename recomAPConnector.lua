@@ -1016,7 +1016,7 @@ end
 function final_marluxia_slain()
     world_address = 0x878062 - offset
     room_address = 0x878060 - offset
-    if ReadByte(world_address) == 0x0D and ReadArray(room_address,2)[1] == 0xD4 and ReadArray(room_address,2)[2] = 0x07 then
+    if ReadByte(world_address) == 0x0D and ReadArray(room_address,2)[1] == 0xD4 and ReadArray(room_address,2)[2] == 0x07 then
         return true
     end
     return false
