@@ -7,8 +7,10 @@ canExecute = false
 
 function _OnInit()
     if GAME_ID == 0x9E3134F5 and ENGINE_TYPE == "BACKEND" then
-        ConsolePrint("Tutorial Skip - installed")
+        ConsolePrint("RE:CoM detected, running script")
         canExecute = true
+    else
+        ConsolePrint("RE:CoM not detected, not running script")
     end
 end
 
