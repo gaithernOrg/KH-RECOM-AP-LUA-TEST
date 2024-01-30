@@ -15,3 +15,7 @@ assets:
   method: copy
   source:
   - name: recomTutorialSkip.lua
+- name: scripts/recomStartingCP.lua
+  method: copy
+  source:
+  - name: recomStartingCP.lua
