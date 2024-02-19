@@ -36,7 +36,7 @@ function write_exp_multiplier()
     exp_gem_calculation_table_address = 0x7BFC78 - offset
     exp_gem_vanilla_values = {1400, 99, 60, 30, 10, 5, 1}
     for i=1,7 do
-        writeInt(exp_gem_calculation_table_address + ((i-1)*8) + 4, math.max(math.floor(exp_gem_vanilla_values[i]/xp_mult),1))
+        WriteInt(exp_gem_calculation_table_address + ((i-1)*8) + 4, math.max(math.floor(exp_gem_vanilla_values[i]/xp_mult),1))
     end
 end
 
