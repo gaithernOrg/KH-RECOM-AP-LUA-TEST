@@ -19,6 +19,7 @@ end
 
 xp_mult = 1
 offset = 0x4E4660
+frame_count = 0
 
 function read_exp_multiplier()
     if file_exists(client_communication_path .. "xpmult.cfg") then
@@ -51,7 +52,8 @@ end
 function _OnFrame()
     if canExecute then
         if frame_count % 120 == 0 then
-            
+            read_exp_multiplier()
+            write_exp_multiplier()
         end
         frame_count = frame_count + 1
     end
