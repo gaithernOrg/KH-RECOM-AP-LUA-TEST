@@ -834,11 +834,11 @@ function send_checks(victory)
                 io.close(file)
             end
         end
-        sleights_array = get_sleights_array()
+        get_sleights_array()
         for sleight_number,sleight_value in pairs(sleights_array) do
             if sleight_value == 1 then
-                if not file_exists(client_communication_path .. "send" .. tostring(1691500 + sleight_number)) then
-                    file = io.open(client_communication_path .. "send" .. tostring(1691500 + sleight_number), "w")
+                if not file_exists(client_communication_path .. "send" .. tostring(2691500 + sleight_number)) then
+                    file = io.open(client_communication_path .. "send" .. tostring(2691500 + sleight_number), "w")
                     io.output(file)
                     io.write("")
                     io.close(file)
