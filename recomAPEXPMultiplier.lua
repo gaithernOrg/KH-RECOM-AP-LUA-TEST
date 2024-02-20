@@ -1,6 +1,6 @@
-LUAGUI_NAME = "recomStartingCP"
+LUAGUI_NAME = "recomAP"
 LUAGUI_AUTH = "Gicu"
-LUAGUI_DESC = "Handles Alternative Starting CP"
+LUAGUI_DESC = "RE: Chain of Memories AP Integration"
 
 if os.getenv('LOCALAPPDATA') ~= nil then
     client_communication_path = os.getenv('LOCALAPPDATA') .. "\\KHRECOM\\"
@@ -17,29 +17,26 @@ function file_exists(name)
    if f~=nil then io.close(f) return true else return false end
 end
 
-local offset = 0x4E4660
-canExecute = false
-starting_cp = 275
+xp_mult = 1
+offset = 0x4E4660
 frame_count = 0
 
-function read_starting_cp()
-    if file_exists(client_communication_path .. "startcp.cfg") then
-        file = io.open(client_communication_path .. "startcp.cfg", "r")
+function read_exp_multiplier()
+    if file_exists(client_communication_path .. "xpmult.cfg") then
+        file = io.open(client_communication_path .. "xpmult.cfg", "r")
         io.input(file)
-        starting_cp = tonumber(io.read())
+        xp_mult = tonumber(io.read())
         io.close(file)
     else
-        starting_cp = 275
+        xp_mult = 1
     end
 end
 
-function main()
-    max_cp_pointer_address = 0x8793F8 - offset
-    max_cp_pointer_offset = 0xC
-    max_cp_pointer = GetPointer(max_cp_pointer_address, max_cp_pointer_offset)
-    max_cp = ReadInt(max_cp_pointer, true)
-    if max_cp < starting_cp then
-        WriteInt(max_cp_pointer, starting_cp, true)
+function write_exp_multiplier()
+    exp_gem_calculation_table_address = 0x7BFC78 - offset
+    exp_gem_vanilla_values = {1400, 99, 60, 30, 10, 5, 1}
+    for i=1,7 do
+        WriteInt(exp_gem_calculation_table_address + ((i-1)*8) + 4, math.max(math.floor(exp_gem_vanilla_values[i]/xp_mult),1))
     end
 end
 
@@ -47,14 +44,16 @@ function _OnInit()
     if GAME_ID == 0x9E3134F5 and ENGINE_TYPE == "BACKEND" then
         ConsolePrint("RE:CoM detected, running script")
         canExecute = true
+    else
+        ConsolePrint("RE:CoM not detected, not running script")
     end
 end
 
 function _OnFrame()
     if canExecute then
         if frame_count % 120 == 0 then
-            read_starting_cp()
-            main()
+            read_exp_multiplier()
+            write_exp_multiplier()
         end
         frame_count = frame_count + 1
     end
