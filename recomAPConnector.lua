@@ -480,7 +480,7 @@ function define_item_ids()
     item_ids["Soul Eater 1-3"]                   = 2681391
     item_ids["Soul Eater 4-6"]                   = 2681392
     item_ids["Soul Eater 7-9"]                   = 2681393
-    item_ids["Star Seeker 0"]                    = 2681394
+    item_ids["Soul Eater 0"]                     = 2681394
     item_ids["Star Seeker 1-3"]                  = 2681401
     item_ids["Star Seeker 4-6"]                  = 2681402
     item_ids["Star Seeker 7-9"]                  = 2681403
