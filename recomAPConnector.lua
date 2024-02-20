@@ -129,11 +129,13 @@ function define_room_byte_location_ids()
                              ,2691205, 2691206, nil    
                              ,2691302, nil    , 123    
                             }
-    for i=1,#world_order do
-        room_byte_location_id_offset = ((world_order[i]-1)*3)+1
-        room_byte_location_ids[room_byte_location_id_offset]   = og_room_byte_location_ids[(i*3)+1]
-        room_byte_location_ids[room_byte_location_id_offset+1] = og_room_byte_location_ids[(i*3)+2]
-        room_byte_location_ids[room_byte_location_id_offset+2] = og_room_byte_location_ids[(i*3)+3]
+    if world_order[1] ~= nil then
+        for i=1,#world_order do
+            room_byte_location_id_offset = ((world_order[i]-1)*3)+1
+            room_byte_location_ids[room_byte_location_id_offset]   = og_room_byte_location_ids[(i*3)+1]
+            room_byte_location_ids[room_byte_location_id_offset+1] = og_room_byte_location_ids[(i*3)+2]
+            room_byte_location_ids[room_byte_location_id_offset+2] = og_room_byte_location_ids[(i*3)+3]
+        end
     end
     return room_byte_location_ids
 end
@@ -596,7 +598,7 @@ function define_item_ids()
     return item_ids
 end
 
-world_order = {2,3,4,5,6,7,8,9,10}
+world_order = {nil,nil,nil,nil,nil,nil,nil,nil,nil}
 journal_byte_location_ids = define_journal_byte_location_ids()
 room_byte_location_ids = define_room_byte_location_ids()
 card_order = define_card_order()
@@ -914,28 +916,6 @@ function receive_items()
                     card_array = add_card(card_array, received_item_name:sub(1, -5), 9)
                 elseif string.sub(received_item_name, -1) == "0" then
                     card_array = add_card(card_array, received_item_name:sub(1, -3), 0)
-                elseif received_item_name == "Wonderland" then
-                    world_assignment_array[world_order[1]] = 0x4
-                elseif received_item_name == "Olympus Coliseum" then
-                    world_assignment_array[world_order[2]] = 0x3
-                elseif received_item_name == "Monstro" then
-                    world_assignment_array[world_order[3]] = 0x5
-                elseif received_item_name == "Agrabah" then
-                    world_assignment_array[world_order[4]] = 0x2
-                elseif received_item_name == "Halloween Town" then
-                    world_assignment_array[world_order[5]] = 0x6
-                elseif received_item_name == "Atlantica" then
-                    world_assignment_array[world_order[6]] = 0x7
-                elseif received_item_name == "Neverland" then
-                    world_assignment_array[world_order[7]] = 0x8
-                elseif received_item_name == "Hollow Bastion" then
-                    world_assignment_array[world_order[8]] = 0x9
-                elseif received_item_name == "100 Acre Wood" then
-                    world_assignment_array[world_order[9]] = 0xA
-                elseif received_item_name == "Twilight Town" then
-                    world_assignment_array[11] = 0xB
-                elseif received_item_name == "Destiny Islands" then
-                    world_assignment_array[12] = 0xC
                 elseif received_item_name == "Donald" and friends_array[1] ~= 1 then
                     friends_array[1] = 1
                     friend_count = friend_count + 1
@@ -960,13 +940,37 @@ function receive_items()
                 elseif received_item_name == "Pluto" and friends_array[8] ~= 1 then
                     friends_array[8] = 1
                     friend_count = friend_count + 1
-                elseif string.sub(received_item_name, 1, 14)  == "Key to Rewards" then
-                    reward_floor = tonumber(string.sub(received_item_name, -2))
-                    if ((reward_floor == 1 or reward_floor > 10) and current_floor == reward_floor) or (reward_floor > 1 and reward_floor < 10 and current_floor == world_order[reward_floor]) then
-                        gold_map_cards_array[4] = 1
-                    end
                 elseif received_item_name == "Victory" then
                     victory = true
+                elseif world_order[1] ~= nil then
+                    if received_item_name == "Wonderland" then
+                        world_assignment_array[world_order[1]] = 0x4
+                    elseif received_item_name == "Olympus Coliseum" then
+                        world_assignment_array[world_order[2]] = 0x3
+                    elseif received_item_name == "Monstro" then
+                        world_assignment_array[world_order[3]] = 0x5
+                    elseif received_item_name == "Agrabah" then
+                        world_assignment_array[world_order[4]] = 0x2
+                    elseif received_item_name == "Halloween Town" then
+                        world_assignment_array[world_order[5]] = 0x6
+                    elseif received_item_name == "Atlantica" then
+                        world_assignment_array[world_order[6]] = 0x7
+                    elseif received_item_name == "Neverland" then
+                        world_assignment_array[world_order[7]] = 0x8
+                    elseif received_item_name == "Hollow Bastion" then
+                        world_assignment_array[world_order[8]] = 0x9
+                    elseif received_item_name == "100 Acre Wood" then
+                        world_assignment_array[world_order[9]] = 0xA
+                    elseif received_item_name == "Twilight Town" then
+                        world_assignment_array[11] = 0xB
+                    elseif received_item_name == "Destiny Islands" then
+                        world_assignment_array[12] = 0xC
+                    elseif string.sub(received_item_name, 1, 14)  == "Key to Rewards" then
+                        reward_floor = tonumber(string.sub(received_item_name, -2))
+                        if ((reward_floor == 1 or reward_floor > 10) and current_floor == reward_floor) or (reward_floor > 1 and reward_floor < 10 and current_floor == world_order[reward_floor]) then
+                            gold_map_cards_array[4] = 1
+                        end
+                    end
                 end
             end
         end
@@ -1001,7 +1005,7 @@ function read_world_order()
         world_order = split(io.read(),",")
         io.close(file)
     else
-        world_order = {2,3,4,5,6,7,8,9,10}
+        world_order = {nil,nil,nil,nil,nil,nil,nil,nil,nil}
     end
 end
 
