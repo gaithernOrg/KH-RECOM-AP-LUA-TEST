@@ -1022,7 +1022,7 @@ function calculate_cutscene_array()
     journal_byte_value_offset_axel        = 0x132 --Fire
     journal_byte_value_offset_larxene     = 0x134 --Thunder
     journal_byte_value_offset_riku        = 0x138 --Aero
-    journal_byte_value_offset_riku_2      = 0x142 --Mega-Potion
+    journal_byte_value_offset_riku_3      = 0x142 --Mega-Potion
     journal_byte_value_offset_larxene_2   = 0x185 --Larxene
     
     journal_byte_pointer = GetPointer(journal_byte_pointer_offset, 0x0)
