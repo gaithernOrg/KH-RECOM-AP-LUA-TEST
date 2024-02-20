@@ -596,12 +596,12 @@ function define_item_ids()
     return item_ids
 end
 
+world_order = {2,3,4,5,6,7,8,9,10}
 journal_byte_location_ids = define_journal_byte_location_ids()
 room_byte_location_ids = define_room_byte_location_ids()
 card_order = define_card_order()
 enemy_card_order = define_enemy_card_order()
 item_ids = define_item_ids()
-world_order = {2,3,4,5,6,7,8,9,10}
 canExecute = false
 offset = 0x4E4660
 sleights_array = {}
