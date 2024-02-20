@@ -967,7 +967,7 @@ function receive_items()
                         world_assignment_array[12] = 0xC
                     elseif string.sub(received_item_name, 1, 14)  == "Key to Rewards" then
                         reward_floor = tonumber(string.sub(received_item_name, -2))
-                        if ((reward_floor == 1 or reward_floor > 10) and current_floor == reward_floor) or (reward_floor > 1 and reward_floor < 10 and current_floor == world_order[reward_floor-1]) then
+                        if ((reward_floor == 1 or reward_floor > 10) and current_floor == reward_floor) or (reward_floor > 1 and reward_floor <= 10 and current_floor == world_order[reward_floor-1]) then
                             gold_map_cards_array[4] = 1
                         end
                     end
