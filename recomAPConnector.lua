@@ -700,8 +700,9 @@ end
 function get_sleights_array()
     sleight_location_array = {}
     sleight_byte_array_pointer_address = 0x879408 - offset
+    sleight_byte_array_pointer_address_offset = 0x1
     sleight_byte_array_pointer = GetPointer(sleight_byte_array_pointer_address)
-    sleights_bytes_array = ReadArray(sleight_byte_array_pointer, 20, true)
+    sleights_bytes_array = ReadArray(sleight_byte_array_pointer + sleight_byte_array_pointer_address_offset, 20, true)
     sleights_array = {}
     for byte_number,sleight_byte in pairs(sleights_bytes_array) do
         sleight_bits = toBits(sleight_byte)
