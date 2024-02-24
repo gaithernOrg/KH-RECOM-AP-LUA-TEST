@@ -296,7 +296,7 @@ function define_enemy_card_order()
         ,"Card Soldier"
         ,"Hades"
         ,"Jafar"
-        ,"Oogie-Boogie"
+        ,"Oogie Boogie"
         ,"Ursula"
         ,"Hook"
         ,"Dragon Maleficent"
