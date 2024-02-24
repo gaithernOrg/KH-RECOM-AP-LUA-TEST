@@ -758,7 +758,7 @@ function set_world_assignment(world_assignment_array)
     world_assignment_pointer = GetPointer(world_assignment_pointer_offset, world_assignment_value_offset)
     current_world_assignments = ReadArray(world_assignment_pointer, #world_assignment_array, true)
     current_floor = get_current_floor()
-    world_assignment_array[current_floor] == current_world_assignments[current_floor]
+    world_assignment_array[current_floor] = current_world_assignments[current_floor]
     WriteArray(world_assignment_pointer, world_assignment_array, true)
 end
 
