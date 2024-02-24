@@ -296,7 +296,7 @@ function define_enemy_card_order()
         ,"Card Soldier"
         ,"Hades"
         ,"Jafar"
-        ,"Oogie-Boogie"
+        ,"Oogie Boogie"
         ,"Ursula"
         ,"Hook"
         ,"Dragon Maleficent"
@@ -756,6 +756,9 @@ function set_world_assignment(world_assignment_array)
     world_assignment_pointer_offset = 0x394D38
     world_assignment_value_offset = 0x48
     world_assignment_pointer = GetPointer(world_assignment_pointer_offset, world_assignment_value_offset)
+    current_world_assignments = ReadArray(world_assignment_pointer, #world_assignment_array, true)
+    current_floor = get_current_floor()
+    world_assignment_array[current_floor] = current_world_assignments[current_floor]
     WriteArray(world_assignment_pointer, world_assignment_array, true)
 end
 
