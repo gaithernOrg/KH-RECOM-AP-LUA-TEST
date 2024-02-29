@@ -1052,19 +1052,19 @@ function calculate_cutscene_array()
     mega_potion_unlocked        = false
     larxene_enemy_card_unlocked = false
     
-    if ReadByte(journal_byte_pointer+journal_byte_value_offset_axel, true) == 1 then
+    if ReadByte(journal_byte_pointer+journal_byte_value_offset_axel, true) > 1 then
         fire_unlocked = true
     end
-    if ReadByte(journal_byte_pointer+journal_byte_value_offset_larxene, true) == 1 then
+    if ReadByte(journal_byte_pointer+journal_byte_value_offset_larxene, true) > 1 then
         thunder_unlocked = true
     end
-    if ReadByte(journal_byte_pointer+journal_byte_value_offset_riku, true) == 1 then
+    if ReadByte(journal_byte_pointer+journal_byte_value_offset_riku, true) > 1 then
         aero_unlocked = true
     end
-    if ReadByte(journal_byte_pointer+journal_byte_value_offset_riku_3, true) == 1 then
+    if ReadByte(journal_byte_pointer+journal_byte_value_offset_riku_3, true) > 1 then
         mega_potion_unlocked = true
     end
-    if ReadByte(journal_byte_pointer+journal_byte_value_offset_larxene_2, true) == 1 then
+    if ReadByte(journal_byte_pointer+journal_byte_value_offset_larxene_2, true) > 1 then
         larxene_enemy_card_unlocked = true
     end
     
