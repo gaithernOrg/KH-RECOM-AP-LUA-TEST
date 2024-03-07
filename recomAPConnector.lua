@@ -202,7 +202,7 @@ function get_rewards_bounties_array()
     rewards_bounties_array_pointer_address = 0x8793D0 - offset
     rewards_bounties_array_pointer_offset = 0xE1
     rewards_bounties_array_pointer = GetPointer(rewards_bounties_array_pointer_address, rewards_bounties_array_pointer_offset)
-    rewards_bounties_array = ReadArray(rewards_bounties_array_pointer, 44, true)
+    rewards_bounties_array = ReadArray(rewards_bounties_array_pointer, 46, true)
     return rewards_bounties_array
 end
 
@@ -302,23 +302,29 @@ function get_extra_checks()
     if rewards_bounties_array[38] > 0 then --Fire Raid
         ids[#ids+1] = 2692024
     end
-    if rewards_bounties_array[39] > 0 then --Shock Impact
+    if rewards_bounties_array[39] > 0 then --Gifted Miracle
+        ids[#ids+1] = 2692046
+    end
+    if rewards_bounties_array[40] > 0 then --Shock Impact
         ids[#ids+1] = 2692037
     end
-    if rewards_bounties_array[39] > 1 then --Homing Blizzara
+    if rewards_bounties_array[40] > 1 then --Homing Blizzara
         ids[#ids+1] = 2692033
     end
-    if rewards_bounties_array[40] > 1 then --Teleport
+    if rewards_bounties_array[41] > 0 then --Teleport
         ids[#ids+1] = 2692047
     end
-    if rewards_bounties_array[41] > 1 then --Reflect Raid
+    if rewards_bounties_array[42] > 0 then --Reflect Raid
         ids[#ids+1] = 2692027
     end
-    if rewards_bounties_array[43] > 1 then --Warpinator
+    if rewards_bounties_array[44] > 0 then --Warpinator
         ids[#ids+1] = 2692040
     end
-    if rewards_bounties_array[44] > 1 then --Judgement
+    if rewards_bounties_array[45] > 0 then --Judgement
         ids[#ids+1] = 2692028
+    end
+    if rewards_bounties_array[46] > 0 then --Raging Storm
+        ids[#ids+1] = 2692030
     end
     
     friend_array = get_friend_cards_array()
@@ -471,8 +477,8 @@ function set_map_cards()
     map_cards_pointer = GetPointer(map_cards_pointer_address, map_cards_pointer_offset)
     map_cards_array = {}
     i = 1
-    while i <= 23*10 do
-        if i < 220 then
+    while i <= 24*10 do
+        if i <= 220 then
             map_cards_array[i] = 9
         else
             map_cards_array[i] = 0
@@ -708,7 +714,7 @@ function send_checks(victory)
         world_assignment_array = get_world_assignments_array()
         for k,v in pairs(room_array) do
             if v > 0 then
-                floor_num = math.floor(k/3)+1
+                floor_num = math.floor((k-1)/3)+1
                 world_id = world_assignment_array[floor_num]
                 room_num = ((k-1)%3)+1
                 location_id = 2691000 + (world_id * 10) + room_num
