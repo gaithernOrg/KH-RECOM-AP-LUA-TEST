@@ -104,7 +104,7 @@ end
 function get_empty_battle_cards_array()
     card_array = {}
     i = 1
-    while i <= 47 * 10 do
+    while i <= 870 do
         card_array[i] = 0
         i = i + 1
     end
@@ -148,7 +148,7 @@ function get_boss_flag_array()
     boss_flag_array_pointer_address = 0x879408 - offset
     boss_flag_array_pointer_offset = 0x68
     boss_flag_array_pointer = GetPointer(boss_flag_array_pointer_address, boss_flag_array_pointer_offset)
-    boss_flag_array = ReadArray(room_byte_pointer, 12, true)
+    boss_flag_array = ReadArray(boss_flag_array_pointer, 12, true)
     return boss_flag_array
 end
 
@@ -215,13 +215,13 @@ function get_rewards_bounties_array()
     rewards_bounties_array_pointer_address = 0x8793D0 - offset
     rewards_bounties_array_pointer_offset = 0xE1
     rewards_bounties_array_pointer = GetPointer(rewards_bounties_array_pointer_address, rewards_bounties_array_pointer_offset)
-    rewards_bounties_array = ReadArray(rewards_bounties_array_pointer_offset, 51, true)
+    rewards_bounties_array = ReadArray(rewards_bounties_array_pointer, 51, true)
     return rewards_bounties_array
 end
 
 function get_minigames_array()
     minigames_array_pointer_address = 0x879408 - offset
-    minigames_array_pointer_offset = 0x00
+    minigames_array_pointer_offset = 0x1EE
     mingames_array_pointer = GetPointer(minigames_array_pointer_address, minigames_array_pointer_offset)
     mingames_array = ReadArray(mingames_array_pointer, 6, true)
     return minigames_array
@@ -307,130 +307,130 @@ function get_extra_checks()
         ids[#ids+1] = 2692026
     end
     if rewards_bounties_array[11] > 0 then --Stardust Blitz
-        ids[#ids+1] = 2691567
+        ids[#ids+1] = 2692067
     end
     if rewards_bounties_array[30] > 0 then --Blizzard Raid
-        ids[#ids+1] = 2691525
+        ids[#ids+1] = 2692025
     end
     if rewards_bounties_array[32] > 0 then --Fire Raid
-        ids[#ids+1] = 2691524
+        ids[#ids+1] = 2692024
     end
     if rewards_bounties_array[33] > 0 then --Shock Impact
-        ids[#ids+1] = 2691537
+        ids[#ids+1] = 2692037
     end
     if rewards_bounties_array[33] > 1 then --Homing Blizzara
-        ids[#ids+1] = 2691533
+        ids[#ids+1] = 2692033
     end
     if rewards_bounties_array[34] > 1 then --Teleport
-        ids[#ids+1] = 2691547
+        ids[#ids+1] = 2692047
     end
     if rewards_bounties_array[35] > 1 then --Reflect Raid
-        ids[#ids+1] = 2691527
+        ids[#ids+1] = 2692027
     end
     if rewards_bounties_array[37] > 1 then --Warpinator
-        ids[#ids+1] = 2691540
+        ids[#ids+1] = 2692040
     end
     if rewards_bounties_array[38] > 1 then --Judgement
-        ids[#ids+1] = 2691528
+        ids[#ids+1] = 2692028
     end
     
     friend_array = get_friend_cards_array()
     if friend_array[1] > 0 then --Donald
-        ids[#ids+1] = 2691565
-        ids[#ids+1] = 2691566
+        ids[#ids+1] = 2692065
+        ids[#ids+1] = 2692066
     end
     if friend_array[2] > 0 then --Goofy
-        ids[#ids+1] = 2691568
-        ids[#ids+1] = 2691569
-        ids[#ids+1] = 2691570
-        ids[#ids+1] = 2691571
+        ids[#ids+1] = 2692068
+        ids[#ids+1] = 2692069
+        ids[#ids+1] = 2692070
+        ids[#ids+1] = 2692071
     end
     if friend_array[3] > 0 then --Aladdin
-        ids[#ids+1] = 2691572
-        ids[#ids+1] = 2691573
+        ids[#ids+1] = 2692072
+        ids[#ids+1] = 2692073
     end
     if friend_array[4] > 0 then --Ariel
-        ids[#ids+1] = 2691576
-        ids[#ids+1] = 2691577
+        ids[#ids+1] = 2692076
+        ids[#ids+1] = 2692077
     end
     if friend_array[5] > 0 then --Jack
-        ids[#ids+1] = 2691544
-        ids[#ids+1] = 2691574
-        ids[#ids+1] = 2691575
+        ids[#ids+1] = 2692044
+        ids[#ids+1] = 2692074
+        ids[#ids+1] = 2692075
     end
     if friend_array[6] > 0 then --Peter Pan
-        ids[#ids+1] = 2691578
-        ids[#ids+1] = 2691579
+        ids[#ids+1] = 2692078
+        ids[#ids+1] = 2692079
     end
     if friend_array[7] > 0 then --Beast
-        ids[#ids+1] = 2691580
-        ids[#ids+1] = 2691581
+        ids[#ids+1] = 2692080
+        ids[#ids+1] = 2692081
     end
     if friend_array[8] > 0 then --Pluto
-        ids[#ids+1] = 2691582
-        ids[#ids+1] = 2691583
+        ids[#ids+1] = 2692082
+        ids[#ids+1] = 2692083
     end
     
     minigames_array = get_minigames_array()
     if mingames_array[1] > 0 then --Firaga Burst
-        ids[#ids+1] = 2691582
+        ids[#ids+1] = 2692082
     end
     if mingames_array[3] > 0 then --Idyll Romp
-        ids[#ids+1] = 2691555
+        ids[#ids+1] = 2692055
     end
     if mingames_array[4] > 0 then --Cross-Slash +
-        ids[#ids+1] = 2691564
+        ids[#ids+1] = 2692064
     end
     
     boss_flag_array = get_boss_flag_array()
     if boss_flag_array[4] > 0 then --Freeze
-        ids[#ids+1] = 2691532
+        ids[#ids+1] = 2692032
     end
     if boss_flag_array[5]  > 0 then --Magnet Spiral
-        ids[#ids+1] = 2691535
+        ids[#ids+1] = 2692035
     end
     
     soras_level = get_soras_level()
     if soras_level >= 2 then --Sliding Dash
-        ids[#ids+1] = 2691501
+        ids[#ids+1] = 2692001
     end
     if soras_level >= 7 then --Stun Impact
-        ids[#ids+1] = 2691503
+        ids[#ids+1] = 2692003
     end
     if soras_level >= 12 then --Strike Raid
-        ids[#ids+1] = 2691505
+        ids[#ids+1] = 2692005
     end
     if soras_level >= 17 then --Blitz
-        ids[#ids+1] = 2691502
+        ids[#ids+1] = 2692002
     end
     if soras_level >= 22 then --Zantetsuken
-        ids[#ids+1] = 2691504
+        ids[#ids+1] = 2692004
     end
     if soras_level >= 27 then --Sonic Blade
-        ids[#ids+1] = 2691506
+        ids[#ids+1] = 2692006
     end
     if soras_level >= 32 then --Lethal Frame
-        ids[#ids+1] = 2691536
+        ids[#ids+1] = 2692036
     end
     if soras_level >= 37 then --Tornado
-        ids[#ids+1] = 2691538
+        ids[#ids+1] = 2692038
     end
     if soras_level >= 42 then --Ars Arcanum
-        ids[#ids+1] = 2691507
+        ids[#ids+1] = 2692007
     end
     if soras_level >= 47 then --Holy
-        ids[#ids+1] = 2691548
+        ids[#ids+1] = 2692048
     end
     if soras_level >= 52 then --Raganarok
-        ids[#ids+1] = 2691508
+        ids[#ids+1] = 2692008
     end
     if soras_level >= 57 then --Mega Flare
-        ids[#ids+1] = 2691531
+        ids[#ids+1] = 2692031
     end
     
     world_assignment_array = get_world_assignments_array()
-    if world_assignment_array[13] > 1 then
-        ids[#ids+1] = 2691509
+    if world_assignment_array[13] > 1 then --Trinity Limit
+        ids[#ids+1] = 2692009
     end
     
     return ids
@@ -462,7 +462,7 @@ function set_enemy_cards(enemy_cards_array)
     enemy_cards_pointer_offset = 0x8793F8 - offset
     enemy_cards_value_offset = -0x914
     enemy_cards_pointer = GetPointer(enemy_cards_pointer_offset, enemy_cards_value_offset)
-    WriteArray(enemy_cards_pointer, enemy_card_array, true)
+    WriteArray(enemy_cards_pointer, enemy_cards_array, true)
 end
 
 function set_world_assignment(world_assignment_array)
@@ -480,7 +480,7 @@ function set_map_cards()
     map_cards_pointer_offset = -0xA0E
     map_cards_pointer = GetPointer(map_cards_pointer_address, map_cards_pointer_offset)
     map_cards_array = {}
-    for i=1
+    i = 1
     while i <= 22*10 do
         map_cards_array[i] = 9
         i = i + 1
@@ -489,7 +489,7 @@ function set_map_cards()
 end
 
 function set_initial_battle_cards(battle_cards_array)
-    for i=1,10 do
+    for i=0,9 do
         add_battle_card(battle_cards_array, 1, i)
     end
 end
@@ -617,25 +617,29 @@ function receive_items()
     j = 1
     
     card_array = set_initial_battle_cards(card_array)
-    card_array = set_initial_map_cards(card_array)
-    while file_exists(client_communication_path .. "AP_" .. tostring(i) .. ".item") do
-        file = io.open(client_communication_path .. "AP_" .. tostring(i) .. ".item", "r")
+    set_map_cards()
+    while file_exists(client_communication_path .. "AP_" .. tostring(j) .. ".item") do
+        file = io.open(client_communication_path .. "AP_" .. tostring(j) .. ".item", "r")
         io.input(file)
         received_item_id = tonumber(io.read())
         io.close(file)
-        if received_item_id > 2681000 and received_item_id < 2681100 then
-            for k=1,10 do
+        if received_item_id > 2681000 and received_item_id < 2681200 then
+            for k=0,9 do
                 add_battle_card(battle_cards_array, received_item_id % 2681000, k)
             end
-        elseif received_item_id > 2681100 and received_item_id < 2682000 then
-            enemy_card_index = received_item_id % 2681100
+        elseif received_item_id > 2681200 and received_item_id < 2682000 then
+            enemy_card_index = received_item_id % 2681200
             enemy_cards_array[enemy_card_index] = enemy_cards_array[enemy_card_index] + 1
         elseif received_item_id > 2682000 and received_item_id < 2683000 then
             sleights_index = received_item_id % 2682000
             sleights_array[sleights_index] = 1
         elseif received_item_id > 2683000 and received_item_id < 2683300 then
             world_id = received_item_id % 2683000
-            world_assignment_array[world_order[world_id-1]] = world_id
+            if world_id > 1 and world_id < 11 then
+                world_assignment_array[world_order[world_id-1]] = world_id
+            else
+                world_assignment_array[world_id] = world_id
+            end
         elseif received_item_id > 2683300 and received_item_id < 2684000 then
             world_id = received_item_id % 2684000
             if current_floor == world_order[world_id-1] then
@@ -650,6 +654,7 @@ function receive_items()
         elseif received_item_id == 2680000 then
             victory = true
         end
+        j = j + 1
     end
     
     if friend_count >= 8 then
@@ -660,9 +665,10 @@ function receive_items()
     set_enemy_cards(enemy_cards_array)
     set_sleights(sleights_array)
     set_gold_map_cards(gold_map_cards_array)
+    set_world_assignment(world_assignment_array)
     
     if get_time_played() < 10 then
-        write_initial_deck()
+        set_initial_deck()
     else
         remove_premium_cards()
     end
@@ -670,7 +676,6 @@ function receive_items()
 end
 
 function send_checks(victory)
-    room_byte_location_ids = define_room_byte_location_ids()
     if get_time_played() > 0 then
         journal_array = get_journal_array()
         for k,v in pairs(journal_array) do
@@ -706,9 +711,9 @@ function send_checks(victory)
         heartless_array = get_heartless_array()
         j = 1
         while j < #heartless_array do
-            heartless_id = j+1/2
+            heartless_id = math.floor((j+1)/2)
             num_defeated = heartless_array[j] + (heartless_array[j+1] * 256)
-            if v >= 1 then
+            if num_defeated >= 1 then
                 location_id = 2691100 + heartless_id
                 if not file_exists(client_communication_path .. "send" .. tostring(location_id)) then
                     file = io.open(client_communication_path .. "send" .. tostring(location_id), "w")
@@ -717,7 +722,7 @@ function send_checks(victory)
                     io.close(file)
                 end
             end
-            if v >= 5 then
+            if num_defeated >= 5 then
                 location_id = 2691200 + heartless_id
                 if not file_exists(client_communication_path .. "send" .. tostring(location_id)) then
                     file = io.open(client_communication_path .. "send" .. tostring(location_id), "w")
@@ -726,7 +731,7 @@ function send_checks(victory)
                     io.close(file)
                 end
             end
-            if v >= 9 then
+            if num_defeated >= 9 then
                 location_id = 2691300 + heartless_id
                 if not file_exists(client_communication_path .. "send" .. tostring(location_id)) then
                     file = io.open(client_communication_path .. "send" .. tostring(location_id), "w")
@@ -735,7 +740,19 @@ function send_checks(victory)
                     io.close(file)
                 end
             end
+            j = j + 2
         end
+        
+        extra_checks = get_extra_checks()
+        for k,v in pairs(extra_checks) do
+            if not file_exists(client_communication_path .. "send" .. tostring(v)) then
+                file = io.open(client_communication_path .. "send" .. tostring(v), "w")
+                io.output(file)
+                io.write("")
+                io.close(file)
+            end
+        end
+        
         if final_marluxia_slain() then
             if not file_exists(client_communication_path .. "send2699999") then
                 file = io.open(client_communication_path .. "send2699999", "w")
@@ -744,6 +761,7 @@ function send_checks(victory)
                 io.close(file)
             end
         end
+        
         if victory then
             if not file_exists(client_communication_path .. "victory") then
                 file = io.open(client_communication_path .. "victory", "w")
@@ -752,7 +770,9 @@ function send_checks(victory)
                 io.close(file)
             end
         end
+        
     end
+    
 end
 
 function _OnInit()
@@ -767,11 +787,19 @@ end
 function _OnFrame()
     if canExecute then
         if frame_count % 120 == 0 then
+            --ConsolePrint("Setting Level Up Sleights...")
             set_level_up_sleights()
+            --ConsolePrint("Setting World Order...")
             read_world_order()
-            set_cutscene_array(get_calculated_cutscene_array())
+            if get_time_played() > 10 then
+                --ConsolePrint("Setting Cutscene Array...")
+                set_cutscene_array(get_calculated_cutscene_array())
+            end
+            --ConsolePrint("Setting Receiving Items...")
             victory = receive_items()
+            --ConsolePrint("Sending Checks...")
             send_checks(victory)
+            --ConsolePrint("Done!")
         end
         frame_count = frame_count + 1
     end
