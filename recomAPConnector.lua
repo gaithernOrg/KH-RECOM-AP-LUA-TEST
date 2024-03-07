@@ -61,596 +61,39 @@ function toBits(num)
     return t
 end
 
-function define_journal_byte_location_ids()
-    journal_byte_location_ids = {nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil     --Story
-                                ,nil    , nil    , nil    , nil    , nil    , nil                                                                                                        --Empty
-                                ,nil    , nil    , nil    , nil    , nil    , nil    , nil                                                                                               --Characters I
-                                ,nil    , nil    , nil    , nil    , nil    , nil                                                                                                        --Characters II
-                                ,nil    , nil    , nil    , nil    , nil                                                                                                                 --Others
-                                ,nil    , nil    , nil    , nil                                                                                                                          --Traverse Town
-                                ,nil    , nil    , nil    , nil    , nil    , nil                                                                                                        --Wonderland
-                                ,nil    , nil    , nil    , nil                                                                                                                          --Olympus Coliseum
-                                ,nil    , nil    , nil    , nil    , nil    , nil                                                                                                        --Agrabah
-                                ,nil    , nil    , nil    , nil    , nil    , nil    , nil                                                                                               --Halloween Town
-                                ,nil    , nil                                                                                                                                            --Monstro
-                                ,nil    , nil    , nil    , nil                                                                                                                          --Atlantica
-                                ,nil    , nil    , nil    , nil                                                                                                                          --Neverland
-                                ,nil    , nil    , nil    , nil                                                                                                                          --Hollow Bastion
-                                ,nil    , nil    , nil    , nil    , nil    , nil    , nil                                                                                               --100 Acre Wood
-                                ,nil    , nil    , nil                                                                                                                                   --Destiny Island
-                                ,2691424, 2691425, 2691416, 2691420, 2691407, 2691431, 2691415, 2691419, 2691408, 2691402, 2691404, 2691413, 2691405, 2691423, 2691422, 2691421, 2691403 --Heartless 1
-                                ,2691428, 2691414, 2691418, 2691401, 2691411, 2691412, 2691430, 2691429, 2691417, 2691427, 2691406, 2691409 ,2691426, 2691410, nil    , nil    , nil     --Heartless 2
-                                ,nil                                                                                                                                                     --Heartless 3
-                                ,nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil     --Offset E3 - F3
-                                ,nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil     --Offset F4 - 104
-                                ,nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil     --Offset 105 - 115
-                                ,nil    , nil    , nil    , nil    , nil                                                                                                                 --Offset 116 - 11A
-                                ,2690001, 2690502, 2690701, 2690601, 2690801, 2690401, 2691004, 2690308, 2690301, 2690107, 2690202, 2690901, 2691201, 2691202, nil    , nil    , nil     --Keyblades 1
-                                ,2691305, 2690309, 2690807, 2690108, 2691210, 2690607                                                                                                    --Keyblades 2
-                                ,2690101, 2690003, 2690602, 2690004, 2690501, 2690201, 2690702                                                                                           --Magic Cards
-                                ,2690103, 2690508, 2691001, 2690406, 2690806, 2690906, 2690307                                                                                           --Summon Cards
-                                ,2690002, 2690304, 2691101, 2690505, 2691003, 2691002, 2691208                                                                                           --Item Cards
-                                ,nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil                                                                                      --Friend Cards
-                                ,nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil     --Enemy Cards 1
-                                ,nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , nil    , 2690106, 2690306, 2690207, 2690507 --Enemy Cards 2
-                                ,2690706, 2690606, 2690404, 2690805, 2690905, 2691207, 2691204, 2690204, 2691105, 2690208, 2690907, 2690407, 2691103, 2691304, 2691209, 2690109, 2691303 --Enemy Cards 3
-                                ,2690707, 2690509, 2691301, 2691203, 2691104                                                                                                             --Enemy Cards 4
-                                }
-    return journal_byte_location_ids
-end
-
-function define_room_byte_location_ids()
-    og_room_byte_location_ids = {2690102, 2690104, 2690105
-                                ,2690203, 2690205, 2690206
-                                ,2690302, 2690303, 2690305
-                                ,2690402, 2690403, 2690405
-                                ,2690503, 2690504, 2690506
-                                ,2690603, 2690604, 2690605
-                                ,2690703, 2690704, 2690705
-                                ,2690802, 2690803, 2690804
-                                ,2690902, 2690903, 2690904
-                                ,nil    , nil    , nil    
-                                ,2691102, nil    , nil    
-                                ,2691205, 2691206, nil    
-                                ,2691302, nil    , 123    
-                                }
-                             
-    room_byte_location_ids = {2690102, 2690104, 2690105
-                             ,nil    , nil    , nil    
-                             ,nil    , nil    , nil    
-                             ,nil    , nil    , nil    
-                             ,nil    , nil    , nil    
-                             ,nil    , nil    , nil    
-                             ,nil    , nil    , nil    
-                             ,nil    , nil    , nil    
-                             ,nil    , nil    , nil    
-                             ,nil    , nil    , nil    
-                             ,2691102, nil    , nil    
-                             ,2691205, 2691206, nil    
-                             ,2691302, nil    , 123    
-                            }
-    if world_order[1] ~= nil then
-        for i=1,#world_order do
-            room_byte_location_id_offset = ((world_order[i]-1)*3)+1
-            room_byte_location_ids[room_byte_location_id_offset]   = og_room_byte_location_ids[(i*3)+1]
-            room_byte_location_ids[room_byte_location_id_offset+1] = og_room_byte_location_ids[(i*3)+2]
-            room_byte_location_ids[room_byte_location_id_offset+2] = og_room_byte_location_ids[(i*3)+3]
-        end
-    end
-    return room_byte_location_ids
-end
-
-function define_card_order()
-    card_order = {"Kingdom Key"
-                ,"Three Wishes"
-                ,"Crabclaw"
-                ,"Pumpkinhead"
-                ,"Fairy Harp"
-                ,"Wishing Star"
-                ,"Spellbinder"
-                ,"Metal Chocobo"
-                ,"Olympia"
-                ,"Lionheart"
-                ,"Lady Luck"
-                ,"Divine Rose"
-                ,"Oathkeeper"
-                ,"Oblivion"
-                ,"Ultima Weapon"
-                ,"Diamond Dust"
-                ,"One-Winged Angel"
-                ,"Soul Eater"
-                ,"Star Seeker"
-                ,"Total Eclipse"
-                ,"Midnight Roar"
-                ,"Maverick Flare"
-                ,"Two Become One"
-                ,"Bond of Flame"
-                ,"Premium Kingdom Key"
-                ,"Premium Three Wishes"
-                ,"Premium Crabclaw"
-                ,"Premium Pumpkinhead"
-                ,"Premium Fairy Harp"
-                ,"Premium Wishing Star"
-                ,"Premium Spellbinder"
-                ,"Premium Metal Chocobo"
-                ,"Premium Olympia"
-                ,"Premium Lionheart"
-                ,"Premium Lady Luck"
-                ,"Premium Divine Rose"
-                ,"Premium Oathkeeper"
-                ,"Premium Oblivion"
-                ,"Premium Ultima Weapon"
-                ,"Premium Diamond Dust"
-                ,"Premium One-Winged Angel"
-                ,"Premium Soul Eater"
-                ,"Premium Star Seeker"
-                ,"Premium Total Eclipse"
-                ,"Premium Midnight Roar"
-                ,"Premium Maverick Flare"
-                ,"Premium Two Become One"
-                ,"Premium Bond of Flame"
-                ,"Fire"
-                ,"Blizzard"
-                ,"Thunder"
-                ,"Cure"
-                ,"Gravity"
-                ,"Stop"
-                ,"Aero"
-                ,nil
-                ,nil
-                ,"Simba"
-                ,"Genie"
-                ,"Bambi"
-                ,"Dumbo"
-                ,"Tinker Bell"
-                ,"Mushu"
-                ,"Cloud"
-                ,"Premium Fire"
-                ,"Premium Blizzard"
-                ,"Premium Thunder"
-                ,"Premium Cure"
-                ,"Premium Gravity"
-                ,"Premium Stop"
-                ,"Premium Aero"
-                ,nil
-                ,nil
-                ,"Premium Simba"
-                ,"Premium Genie"
-                ,"Premium Bambi"
-                ,"Premium Dumbo"
-                ,"Premium Tinker Bell"
-                ,"Premium Mushu"
-                ,"Premium Cloud"
-                ,"Potion"
-                ,"Hi-Potion"
-                ,"Mega-Potion"
-                ,"Ether"
-                ,"Mega-Ether"
-                ,"Elixir"
-                ,"Megalixir"
-                ,"Tranquil Darkness"
-                ,"Teeming Darkness"
-                ,"Feeble Darkness"
-                ,"Almighty Darkness"
-                ,"Sleeping Darkness"
-                ,"Looming Darkness"
-                ,"Premium Room"
-                ,"White Room"
-                ,"Black Room"
-                ,"Bottomless Darkness"
-                ,"Roulette Room"
-                ,"Martial Waking"
-                ,"Sorcerous Waking"
-                ,"Alchemic Waking"
-                ,"Meeting Ground"
-                ,"Stagnant Space"
-                ,"Strong Initiative"
-                ,"Lasting Daze"
-                ,"Calm Bounty"
-                ,"Guarded Trove"
-                ,"False Bounty"
-                ,"Moment's Reprieve"
-                ,"Mingling Worlds"
-                ,"Moogle Room"
-                ,"Random Joker"}
-    return card_order
-end
-
-function define_enemy_card_order()
-    enemy_card_order = {
-        "Shadow"
-        ,"Soldier"
-        ,"Large Body"
-        ,"Red Nocturne"
-        ,"Blue Rhapsody"
-        ,"Yellow Opera"
-        ,"Green Requiem"
-        ,"Powerwild"
-        ,"Bouncywild"
-        ,"Air Soldier"
-        ,"Bandit"
-        ,"Fat Bandit"
-        ,"Barrel Spider"
-        ,"Search Ghost"
-        ,"Sea Neon"
-        ,"Screwdiver"
-        ,"Aquatank"
-        ,"Wight Knight"
-        ,"Gargoyle"
-        ,"Pirate"
-        ,"Air Pirate"
-        ,"Darkball"
-        ,"Defender"
-        ,"Wyvern"
-        ,"Wizard"
-        ,"Neoshadow"
-        ,"White Mushroom"
-        ,"Black Fungus"
-        ,"Creeper Plant"
-        ,"Tornado Step"
-        ,"Crescendo"
-        ,"Guard Armor"
-        ,"Parasite Cage"
-        ,"Trickmaster"
-        ,"Darkside"
-        ,"Card Soldier"
-        ,"Hades"
-        ,"Jafar"
-        ,"Oogie Boogie"
-        ,"Ursula"
-        ,"Hook"
-        ,"Dragon Maleficent"
-        ,"Riku"
-        ,"Axel"
-        ,"Larxene"
-        ,"Vexen"
-        ,"Marluxia"
-        ,"Lexaeus"
-        ,"Ansem"
-        ,"Zexion"
-        ,"Xemnas"
-        ,"Xigbar"
-        ,"Xaldin"
-        ,"Saix"
-        ,"Demyx"
-        ,"Luxord"
-        ,"Roxas"
-        ,"Gold Card"
-        ,"Platinum Card"
-        }
-    return enemy_card_order
-end
-
-function define_item_ids()
-    item_ids = {}
-    item_ids["Victory"]                          = 2680000
-    item_ids["Bronze Card Pack"]                 = 2681001
-    item_ids["Silver Card Pack"]                 = 2681002
-    item_ids["Gold Card Pack"]                   = 2681003
-    item_ids["Kingdom Key 1-3"]                  = 2681011
-    item_ids["Kingdom Key 4-6"]                  = 2681012
-    item_ids["Kingdom Key 7-9"]                  = 2681013
-    item_ids["Kingdom Key 0"]                    = 2681014
-    item_ids["Three Wishes 1-3"]                 = 2681021
-    item_ids["Three Wishes 4-6"]                 = 2681022
-    item_ids["Three Wishes 7-9"]                 = 2681023
-    item_ids["Three Wishes 0"]                   = 2681024
-    item_ids["Crabclaw 1-3"]                     = 2681031
-    item_ids["Crabclaw 4-6"]                     = 2681032
-    item_ids["Crabclaw 7-9"]                     = 2681033
-    item_ids["Crabclaw 0"]                       = 2681034
-    item_ids["Pumpkinhead 1-3"]                  = 2681041
-    item_ids["Pumpkinhead 4-6"]                  = 2681042
-    item_ids["Pumpkinhead 7-9"]                  = 2681043
-    item_ids["Pumpkinhead 0"]                    = 2681044
-    item_ids["Fairy Harp 1-3"]                   = 2681051
-    item_ids["Fairy Harp 4-6"]                   = 2681052
-    item_ids["Fairy Harp 7-9"]                   = 2681053
-    item_ids["Fairy Harp 0"]                     = 2681054
-    item_ids["Wishing Star 1-3"]                 = 2681061
-    item_ids["Wishing Star 4-6"]                 = 2681062
-    item_ids["Wishing Star 7-9"]                 = 2681063
-    item_ids["Wishing Star 0"]                   = 2681064
-    item_ids["Spellbinder 1-3"]                  = 2681071
-    item_ids["Spellbinder 4-6"]                  = 2681072
-    item_ids["Spellbinder 7-9"]                  = 2681073
-    item_ids["Spellbinder 0"]                    = 2681074
-    item_ids["Metal Chocobo 1-3"]                = 2681081
-    item_ids["Metal Chocobo 4-6"]                = 2681082
-    item_ids["Metal Chocobo 7-9"]                = 2681083
-    item_ids["Metal Chocobo 0"]                  = 2681084
-    item_ids["Olympia 1-3"]                      = 2681091
-    item_ids["Olympia 4-6"]                      = 2681092
-    item_ids["Olympia 7-9"]                      = 2681093
-    item_ids["Olympia 0"]                        = 2681094
-    item_ids["Lionheart 1-3"]                    = 2681101
-    item_ids["Lionheart 4-6"]                    = 2681102
-    item_ids["Lionheart 7-9"]                    = 2681103
-    item_ids["Lionheart 0"]                      = 2681104
-    item_ids["Lady Luck 1-3"]                    = 2681111
-    item_ids["Lady Luck 4-6"]                    = 2681112
-    item_ids["Lady Luck 7-9"]                    = 2681113
-    item_ids["Lady Luck 0"]                      = 2681114
-    item_ids["Divine Rose 1-3"]                  = 2681121
-    item_ids["Divine Rose 4-6"]                  = 2681122
-    item_ids["Divine Rose 7-9"]                  = 2681123
-    item_ids["Divine Rose 0"]                    = 2681124
-    item_ids["Oathkeeper 1-3"]                   = 2681131
-    item_ids["Oathkeeper 4-6"]                   = 2681132
-    item_ids["Oathkeeper 7-9"]                   = 2681133
-    item_ids["Oathkeeper 0"]                     = 2681134
-    item_ids["Oblivion 1-3"]                     = 2681141
-    item_ids["Oblivion 4-6"]                     = 2681142
-    item_ids["Oblivion 7-9"]                     = 2681143
-    item_ids["Oblivion 0"]                       = 2681144
-    item_ids["Diamond Dust 1-3"]                 = 2681151
-    item_ids["Diamond Dust 4-6"]                 = 2681152
-    item_ids["Diamond Dust 7-9"]                 = 2681153
-    item_ids["Diamond Dust 0"]                   = 2681154
-    item_ids["One-Winged Angel 1-3"]             = 2681161
-    item_ids["One-Winged Angel 4-6"]             = 2681162
-    item_ids["One-Winged Angel 7-9"]             = 2681163
-    item_ids["One-Winged Angel 0"]               = 2681164
-    item_ids["Ultima Weapon 1-3"]                = 2681171
-    item_ids["Ultima Weapon 4-6"]                = 2681172
-    item_ids["Ultima Weapon 7-9"]                = 2681173
-    item_ids["Ultima Weapon 0"]                  = 2681174
-    item_ids["Fire 1-3"]                         = 2681181
-    item_ids["Fire 4-6"]                         = 2681182
-    item_ids["Fire 7-9"]                         = 2681183
-    item_ids["Fire 0"]                           = 2681184
-    item_ids["Blizzard 1-3"]                     = 2681191
-    item_ids["Blizzard 4-6"]                     = 2681192
-    item_ids["Blizzard 7-9"]                     = 2681193
-    item_ids["Blizzard 0"]                       = 2681194
-    item_ids["Thunder 1-3"]                      = 2681201
-    item_ids["Thunder 4-6"]                      = 2681202
-    item_ids["Thunder 7-9"]                      = 2681203
-    item_ids["Thunder 0"]                        = 2681204
-    item_ids["Cure 1-3"]                         = 2681211
-    item_ids["Cure 4-6"]                         = 2681212
-    item_ids["Cure 7-9"]                         = 2681213
-    item_ids["Cure 0"]                           = 2681214
-    item_ids["Gravity 1-3"]                      = 2681221
-    item_ids["Gravity 4-6"]                      = 2681222
-    item_ids["Gravity 7-9"]                      = 2681223
-    item_ids["Gravity 0"]                        = 2681224
-    item_ids["Stop 1-3"]                         = 2681231
-    item_ids["Stop 4-6"]                         = 2681232
-    item_ids["Stop 7-9"]                         = 2681233
-    item_ids["Stop 0"]                           = 2681234
-    item_ids["Aero 1-3"]                         = 2681241
-    item_ids["Aero 4-6"]                         = 2681242
-    item_ids["Aero 7-9"]                         = 2681243
-    item_ids["Aero 0"]                           = 2681244
-    item_ids["Simba 1-3"]                        = 2681251
-    item_ids["Simba 4-6"]                        = 2681252
-    item_ids["Simba 7-9"]                        = 2681253
-    item_ids["Simba 0"]                          = 2681254
-    item_ids["Genie 1-3"]                        = 2681261
-    item_ids["Genie 4-6"]                        = 2681262
-    item_ids["Genie 7-9"]                        = 2681263
-    item_ids["Genie 0"]                          = 2681264
-    item_ids["Bambi 1-3"]                        = 2681271
-    item_ids["Bambi 4-6"]                        = 2681272
-    item_ids["Bambi 7-9"]                        = 2681273
-    item_ids["Bambi 0"]                          = 2681274
-    item_ids["Dumbo 1-3"]                        = 2681281
-    item_ids["Dumbo 4-6"]                        = 2681282
-    item_ids["Dumbo 7-9"]                        = 2681283
-    item_ids["Dumbo 0"]                          = 2681284
-    item_ids["Tinker Bell 1-3"]                  = 2681291
-    item_ids["Tinker Bell 4-6"]                  = 2681292
-    item_ids["Tinker Bell 7-9"]                  = 2681293
-    item_ids["Tinker Bell 0"]                    = 2681294
-    item_ids["Mushu 1-3"]                        = 2681301
-    item_ids["Mushu 4-6"]                        = 2681302
-    item_ids["Mushu 7-9"]                        = 2681303
-    item_ids["Mushu 0"]                          = 2681304
-    item_ids["Cloud 1-3"]                        = 2681311
-    item_ids["Cloud 4-6"]                        = 2681312
-    item_ids["Cloud 7-9"]                        = 2681313
-    item_ids["Cloud 0"]                          = 2681314
-    item_ids["Potion 1-3"]                       = 2681321
-    item_ids["Potion 4-6"]                       = 2681322
-    item_ids["Potion 7-9"]                       = 2681323
-    item_ids["Potion 0"]                         = 2681324
-    item_ids["Hi-Potion 1-3"]                    = 2681331
-    item_ids["Hi-Potion 4-6"]                    = 2681332
-    item_ids["Hi-Potion 7-9"]                    = 2681333
-    item_ids["Hi-Potion 0"]                      = 2681334
-    item_ids["Mega-Potion 1-3"]                  = 2681341
-    item_ids["Mega-Potion 4-6"]                  = 2681342
-    item_ids["Mega-Potion 7-9"]                  = 2681343
-    item_ids["Mega-Potion 0"]                    = 2681344
-    item_ids["Ether 1-3"]                        = 2681351
-    item_ids["Ether 4-6"]                        = 2681352
-    item_ids["Ether 7-9"]                        = 2681353
-    item_ids["Ether 0"]                          = 2681354
-    item_ids["Mega-Ether 1-3"]                   = 2681361
-    item_ids["Mega-Ether 4-6"]                   = 2681362
-    item_ids["Mega-Ether 7-9"]                   = 2681363
-    item_ids["Mega-Ether 0"]                     = 2681364
-    item_ids["Elixir 1-3"]                       = 2681371
-    item_ids["Elixir 4-6"]                       = 2681372
-    item_ids["Elixir 7-9"]                       = 2681373
-    item_ids["Elixir 0"]                         = 2681374
-    item_ids["Megalixir 1-3"]                    = 2681381
-    item_ids["Megalixir 4-6"]                    = 2681382
-    item_ids["Megalixir 7-9"]                    = 2681383
-    item_ids["Megalixir 0"]                      = 2681384
-    item_ids["Soul Eater 1-3"]                   = 2681391
-    item_ids["Soul Eater 4-6"]                   = 2681392
-    item_ids["Soul Eater 7-9"]                   = 2681393
-    item_ids["Soul Eater 0"]                     = 2681394
-    item_ids["Star Seeker 1-3"]                  = 2681401
-    item_ids["Star Seeker 4-6"]                  = 2681402
-    item_ids["Star Seeker 7-9"]                  = 2681403
-    item_ids["Star Seeker 0"]                    = 2681404
-    item_ids["Total Eclipse 1-3"]                = 2681411
-    item_ids["Total Eclipse 4-6"]                = 2681412
-    item_ids["Total Eclipse 7-9"]                = 2681413
-    item_ids["Total Eclipse 0"]                  = 2681414
-    item_ids["Midnight Roar 1-3"]                = 2681421
-    item_ids["Midnight Roar 4-6"]                = 2681422
-    item_ids["Midnight Roar 7-9"]                = 2681423
-    item_ids["Midnight Roar 0"]                  = 2681424
-    item_ids["Maverick Flare 1-3"]               = 2681431
-    item_ids["Maverick Flare 4-6"]               = 2681432
-    item_ids["Maverick Flare 7-9"]               = 2681433
-    item_ids["Maverick Flare 0"]                 = 2681434
-    item_ids["Two Become One 1-3"]               = 2681441
-    item_ids["Two Become One 4-6"]               = 2681442
-    item_ids["Two Become One 7-9"]               = 2681443
-    item_ids["Two Become One 0"]                 = 2681444
-    item_ids["Bond of Flame 1-3"]                = 2681451
-    item_ids["Bond of Flame 4-6"]                = 2681452
-    item_ids["Bond of Flame 7-9"]                = 2681453
-    item_ids["Bond of Flame 0"]                  = 2681454
-    item_ids["Enemy Card Shadow"]                = 2682001
-    item_ids["Enemy Card Soldier"]               = 2682002
-    item_ids["Enemy Card Large Body"]            = 2682003
-    item_ids["Enemy Card Red Nocturne"]          = 2682004
-    item_ids["Enemy Card Blue Rhapsody"]         = 2682005
-    item_ids["Enemy Card Yellow Opera"]          = 2682006
-    item_ids["Enemy Card Green Requiem"]         = 2682007
-    item_ids["Enemy Card Powerwild"]             = 2682008
-    item_ids["Enemy Card Bouncywild"]            = 2682009
-    item_ids["Enemy Card Air Soldier"]           = 2682010
-    item_ids["Enemy Card Bandit"]                = 2682011
-    item_ids["Enemy Card Fat Bandit"]            = 2682012
-    item_ids["Enemy Card Barrel Spider"]         = 2682013
-    item_ids["Enemy Card Search Ghost"]          = 2682014
-    item_ids["Enemy Card Sea Neon"]              = 2682015
-    item_ids["Enemy Card Screwdiver"]            = 2682016
-    item_ids["Enemy Card Aquatank"]              = 2682017
-    item_ids["Enemy Card Wight Knight"]          = 2682018
-    item_ids["Enemy Card Gargoyle"]              = 2682019
-    item_ids["Enemy Card Pirate"]                = 2682020
-    item_ids["Enemy Card Air Pirate"]            = 2682021
-    item_ids["Enemy Card Darkball"]              = 2682022
-    item_ids["Enemy Card Defender"]              = 2682023
-    item_ids["Enemy Card Wyvern"]                = 2682024
-    item_ids["Enemy Card Neoshadow"]             = 2682025
-    item_ids["Enemy Card White Mushroom"]        = 2682026
-    item_ids["Enemy Card Black Fungus"]          = 2682027
-    item_ids["Enemy Card Creeper Plant"]         = 2682028
-    item_ids["Enemy Card Tornado Step"]          = 2682029
-    item_ids["Enemy Card Crescendo"]             = 2682030
-    item_ids["Enemy Card Guard Armor"]           = 2682031
-    item_ids["Enemy Card Parasite Cage"]         = 2682032
-    item_ids["Enemy Card Trickmaster"]           = 2682033
-    item_ids["Enemy Card Darkside"]              = 2682034
-    item_ids["Enemy Card Card Soldier"]          = 2682035
-    item_ids["Enemy Card Hades"]                 = 2682037
-    item_ids["Enemy Card Jafar"]                 = 2682039
-    item_ids["Enemy Card Oogie Boogie"]          = 2682040
-    item_ids["Enemy Card Ursula"]                = 2682041
-    item_ids["Enemy Card Hook"]                  = 2682042
-    item_ids["Enemy Card Dragon Maleficent"]     = 2682043
-    item_ids["Enemy Card Riku"]                  = 2682044
-    item_ids["Enemy Card Larxene"]               = 2682045
-    item_ids["Enemy Card Vexen"]                 = 2682046
-    item_ids["Enemy Card Marluxia"]              = 2682047
-    item_ids["Enemy Card Lexaeus"]               = 2682048
-    item_ids["Enemy Card Ansem"]                 = 2682049
-    item_ids["Enemy Card Axel"]                  = 2682050
-    item_ids["Enemy Card Xemnas"]                = 2682051
-    item_ids["Enemy Card Xigbar"]                = 2682052
-    item_ids["Enemy Card Xaldin"]                = 2682053
-    item_ids["Enemy Card Zexion"]                = 2682054
-    item_ids["Enemy Card Saix"]                  = 2682055
-    item_ids["Enemy Card Demyx"]                 = 2682056
-    item_ids["Enemy Card Luxord"]                = 2682057
-    item_ids["Enemy Card Roxas"]                 = 2682058
-    item_ids["Wonderland"]                       = 2683002
-    item_ids["Olympus Coliseum"]                 = 2683003
-    item_ids["Monstro"]                          = 2683004
-    item_ids["Agrabah"]                          = 2683005
-    item_ids["Halloween Town"]                   = 2683006
-    item_ids["Atlantica"]                        = 2683007
-    item_ids["Neverland"]                        = 2683008
-    item_ids["Hollow Bastion"]                   = 2683009
-    item_ids["100 Acre Wood"]                    = 2683010
-    item_ids["Twilight Town"]                    = 2683011
-    item_ids["Destiny Islands"]                  = 2683012
-    item_ids["Castle Oblivion"]                  = 2683013
-    item_ids["Key to Rewards F01"]               = 2683301
-    item_ids["Key to Rewards F02"]               = 2683302
-    item_ids["Key to Rewards F03"]               = 2683303
-    item_ids["Key to Rewards F04"]               = 2683304
-    item_ids["Key to Rewards F05"]               = 2683305
-    item_ids["Key to Rewards F06"]               = 2683306
-    item_ids["Key to Rewards F07"]               = 2683307
-    item_ids["Key to Rewards F08"]               = 2683308
-    item_ids["Key to Rewards F09"]               = 2683309
-    item_ids["Key to Rewards F11"]               = 2683311
-    item_ids["Key to Rewards F12"]               = 2683312
-    item_ids["Key to Rewards F13"]               = 2683313
-    item_ids["Donald"]                           = 2685001
-    item_ids["Goofy"]                            = 2685002
-    item_ids["Aladdin"]                          = 2685003
-    item_ids["Ariel"]                            = 2685004
-    item_ids["Beast"]                            = 2685005
-    item_ids["Peter Pan"]                        = 2685006
-    item_ids["Jack"]                             = 2685007
-    item_ids["Pluto"]                            = 2685008
-    return item_ids
-end
-
 world_order = {nil,nil,nil,nil,nil,nil,nil,nil,nil}
-journal_byte_location_ids = define_journal_byte_location_ids()
-room_byte_location_ids = define_room_byte_location_ids()
-card_order = define_card_order()
-enemy_card_order = define_enemy_card_order()
-item_ids = define_item_ids()
 canExecute = false
 offset = 0x4E4660
-sleights_array = {}
-
 frame_count = 1
 
-
 function get_journal_array()
-    journal_byte_pointer_offset = 0x394DA8
-    journal_byte_value_offset = 0x64
+    journal_byte_pointer_offset = 0x879408 - offset
+    journal_byte_value_offset = 0x11B
     journal_byte_pointer = GetPointer(journal_byte_pointer_offset, journal_byte_value_offset)
-    return ReadArray(journal_byte_pointer, #journal_byte_location_ids, true)
+    return ReadArray(journal_byte_pointer, 108, true)
 end
 
-function get_checked_journal_location_ids(journal_array)
-    checked_journal_location_ids = {}
-    for k,v in pairs(journal_array) do
-        if v > 0 then
-            checked_journal_location_ids[#checked_journal_location_ids+1]=journal_byte_location_ids[k]
-        end
-    end
-    return checked_journal_location_ids
+function get_heartless_array()
+    journal_heartless_pointer_address = 0x879408 - offset
+    journal_heartless_pointer_offset = 0x1F4
+    journal_heartless_pointer = GetPointer(journal_heartless_pointer_address, journal_heartless_pointer_offset)
+    return ReadArray(journal_heartless_pointer, 62, true)
 end
 
 function get_room_array()
-    room_byte_pointer_offset = 0x394D38
+    room_byte_pointer_offset = 0x879398 - offset
     room_byte_value_offset = 0x18
     room_byte_pointer = GetPointer(room_byte_pointer_offset, room_byte_value_offset)
-    return ReadArray(room_byte_pointer, #room_byte_location_ids, true)
-end
-
-function get_checked_room_location_ids(room_array)
-    checked_room_location_ids = {}
-    for k,v in pairs(room_array) do
-        if v > 0 then
-            checked_room_location_ids[#checked_room_location_ids+1]=room_byte_location_ids[k]
-        end
-    end
-    return checked_room_location_ids
+    room_array = ReadArray(room_byte_pointer, 39, true)
+    return room_array
 end
 
 function get_current_floor()
-    return ReadByte(0x3939E4)
+    return ReadByte(0x878044 - offset)
 end
 
 function get_time_played()
-    time_played_pointer_offset = 0x393280
+    time_played_pointer_offset = 0x8778E0 - offset
     time_played_offset_1 = 0x8
     time_played_offset_2 = 0x300
     time_played_pointer_1 = GetPointer(time_played_pointer_offset, time_played_offset_1)
@@ -659,20 +102,20 @@ function get_time_played()
     return time_played
 end
 
-function get_empty_card_array()
+function get_empty_battle_cards_array()
     card_array = {}
     i = 1
-    while i <= #card_order * 10 do
+    while i <= 870 do
         card_array[i] = 0
         i = i + 1
     end
     return card_array
 end
 
-function get_empty_enemy_card_array()
+function get_empty_enemy_cards_array()
     enemy_cards_array = {}
     i = 1
-    while i <= #enemy_card_order do
+    while i <= 57 do
         enemy_cards_array[i] = 0
         i = i + 1
     end
@@ -694,66 +137,332 @@ function get_empty_gold_map_cards_array()
     return gold_map_cards_array
 end
 
-function get_empty_cutscene_array()
-    return {0x01, 0x00, 0x02, 0x00, 0x03, 0x00, 0x04, 0x00, 0x05, 0x00, 0x06, 0x00, 0x07, 0x00, 0x08, 0x00, 0x09, 0x00, 0x0A, 0x00, 0x0B, 0x00, 0x0C, 0x00, 0x0D, 0x00, 0x0E, 0x00, 0x0F, 
-            0x00, 0x10, 0x00, 0x11, 0x00, 0x12, 0x00, 0x13, 0x00, 0x14, 0x00, 0x15, 0x00, 0x16, 0x00, 0x17, 0x00, 0x18, 0x00}
-end
-
-function get_sleights_array()
-    sleight_location_array = {}
-    sleight_byte_array_pointer_address = 0x879408 - offset
-    sleight_byte_array_pointer_address_offset = 0x1
-    sleight_byte_array_pointer = GetPointer(sleight_byte_array_pointer_address)
-    sleights_bytes_array = ReadArray(sleight_byte_array_pointer + sleight_byte_array_pointer_address_offset, 21, true)
+function get_empty_sleights_array()
     sleights_array = {}
-    for byte_number,sleight_byte in pairs(sleights_bytes_array) do
-        sleight_bits = toBits(sleight_byte)
-        while #sleight_bits < 8 do
-            sleight_bits[#sleight_bits+1] = 0
-        end
-        i = 1
-        while i < 8 do
-            if sleight_bits[i] == 1 or sleight_bits[i+1] == 1 then
-                sleights_array[#sleights_array+1] = 1
-            else
-                sleights_array[#sleights_array+1] = 0
-            end
-            i = i + 2
-        end
+    for i=1,84 do
+        sleights_array[i] = 0
     end
     return sleights_array
 end
 
+function get_calculated_cutscene_array()
+    journal_array_pointer_address = 0x879408 - offset
+    axel_1_offset    = 0x132 --01F
+    larxene_1_offset = 0x134 --06F
+    riku_1_offset    = 0x138 --07F
+    vexen_1_offset   = 0x84  --10F
+    larxene_2_offset = 0x185 --12F
+
+    journal_array_pointer = GetPointer(journal_array_pointer_address)
+    
+    axel_1_defeated             = ReadByte(journal_array_pointer + axel_1_offset   , true) > 0
+    larxene_1_defeated          = ReadByte(journal_array_pointer + larxene_1_offset, true) > 0
+    riku_1_defeated             = ReadByte(journal_array_pointer + riku_1_offset   , true) > 0
+    vexen_1_defeated            = ReadByte(journal_array_pointer + vexen_1_offset  , true) > 0
+    larxene_2_defeated          = ReadByte(journal_array_pointer + larxene_2_offset, true) > 0
+    
+    if axel_1_defeated and larxene_1_defeated and riku_1_defeated and vexen_1_defeated and larxene_2_defeated then --Clear
+        cutscene_array = {0x01, 0x00, 0x02, 0x00, 0x03, 0x00, 0x04, 0x00, 0x05, 0x00, 0x06, 0x00, 0x07, 0x00, 0x08, 0x00, 0x09, 0x00, 0x0A, 0x00, 0x0B, 0x00, 0x0C, 0x00, 0x0D, 0x00, 0x0E, 0x00, 0x0F, 
+                0x00, 0x10, 0x00, 0x11, 0x00, 0x12, 0x00, 0x13, 0x00, 0x14, 0x00, 0x15, 0x00, 0x16, 0x00, 0x17, 0x00, 0x18, 0x00}
+    elseif axel_1_defeated and larxene_1_defeated and riku_1_defeated and vexen_1_defeated then--Riku IV and Larxene II
+        cutscene_array = {0x01, 0x00, 0x02, 0x00, 0x03, 0x00, 0x04, 0x00, 0x05, 0x00, 0x06, 0x00, 0x07, 0x00, 0x08, 0x00, 0x09, 0x00, 0x0A, 0x00, 0x0B, 0x00, 0x0C, 0x00, 0x0D, 0x00, 0x0E, 0x00, 0x0F, 
+                0x00, 0x10, 0x00, 0x11, 0x00, 0x12, 0x00, 0x13, 0x00, 0x14, 0x00, 0x15, 0x00, 0x16, 0x00, 0x17, 0x00, 0xE8, 0x07}
+    elseif axel_1_defeated and larxene_1_defeated and riku_1_defeated then --Vexen I
+        cutscene_array = {0x01, 0x00, 0x02, 0x00, 0x03, 0x00, 0x04, 0x00, 0x05, 0x00, 0x06, 0x00, 0x07, 0x00, 0x08, 0x00, 0x09, 0x00, 0x0A, 0x00, 0x0B, 0x00, 0x0C, 0x00, 0x0D, 0x00, 0x0E, 0x00, 0x0F, 
+                0x00, 0x10, 0x00, 0x11, 0x00, 0x12, 0x00, 0x13, 0x00, 0xE4, 0x07, 0x15, 0x00, 0x16, 0x00, 0x17, 0x00, 0x18, 0x00}
+    elseif axel_1_defeated and larxene_1_defeated then --Riku I
+        cutscene_array = {0x01, 0x00, 0x02, 0x00, 0x03, 0x00, 0x04, 0x00, 0x05, 0x00, 0x06, 0x00, 0x07, 0x00, 0x08, 0x00, 0x09, 0x00, 0x0A, 0x00, 0x0B, 0x00, 0x0C, 0x00, 0x0D, 0x00, 0xDE, 0x07, 0x0F, 
+                0x00, 0x10, 0x00, 0x11, 0x00, 0x12, 0x00, 0x13, 0x00, 0x14, 0x00, 0x15, 0x00, 0x16, 0x00, 0x17, 0x00, 0x18, 0x00}
+    elseif axel_1_defeated then --Larxene I
+        cutscene_array = {0x01, 0x00, 0x02, 0x00, 0x03, 0x00, 0x04, 0x00, 0x05, 0x00, 0x06, 0x00, 0x07, 0x00, 0x08, 0x00, 0x09, 0x00, 0x0A, 0x00, 0x0B, 0x00, 0xDC, 0x07, 0x0D, 0x00, 0x0E, 0x00, 0x0F, 
+                0x00, 0x10, 0x00, 0x11, 0x00, 0x12, 0x00, 0x13, 0x00, 0x14, 0x00, 0x15, 0x00, 0x16, 0x00, 0x17, 0x00, 0x18, 0x00}
+    else --Axel I
+        cutscene_array = {0x01, 0x00, 0xD2, 0x07, 0x03, 0x00, 0x04, 0x00, 0x05, 0x00, 0x06, 0x00, 0x07, 0x00, 0x08, 0x00, 0x09, 0x00, 0x0A, 0x00, 0x0B, 0x00, 0x0C, 0x00, 0x0D, 0x00, 0x0E, 0x00, 0x0F, 
+                0x00, 0x10, 0x00, 0x11, 0x00, 0x12, 0x00, 0x13, 0x00, 0x14, 0x00, 0x15, 0x00, 0x16, 0x00, 0x17, 0x00, 0x18, 0x00}
+    end
+    return cutscene_array
+end
+
+function get_world_assignments_array()
+    world_assignment_array_pointer_address = 0x879398 - offset
+    world_assignment_array_pointer_offset = 0x48
+    world_assignment_array_pointer = GetPointer(world_assignment_array_pointer_address, world_assignment_array_pointer_offset)
+    return ReadArray(world_assignment_array_pointer, 39, true)
+end
+
+function get_friend_cards_array()
+    friend_byte_pointer_offset = 0x879408 - offset
+    friend_byte_value_offset = 0x147
+    friend_byte_pointer = GetPointer(friend_byte_pointer_offset, friend_byte_value_offset)
+    friends_array = ReadArray(friend_byte_pointer, 8, true)
+    return friends_array
+end
+
+function get_rewards_bounties_array()
+    rewards_bounties_array_pointer_address = 0x8793D0 - offset
+    rewards_bounties_array_pointer_offset = 0xE1
+    rewards_bounties_array_pointer = GetPointer(rewards_bounties_array_pointer_address, rewards_bounties_array_pointer_offset)
+    rewards_bounties_array = ReadArray(rewards_bounties_array_pointer, 46, true)
+    return rewards_bounties_array
+end
+
+function get_minigames_array()
+    minigames_array_pointer_address = 0x879408 - offset
+    minigames_array_pointer_offset = 0x1EE
+    mingames_array_pointer = GetPointer(minigames_array_pointer_address, minigames_array_pointer_offset)
+    mingames_array = ReadArray(mingames_array_pointer, 6, true)
+    return minigames_array
+end
+
+function get_extra_checks()
+    ids = {}
+    journal_array = get_journal_array()
+    if journal_array[24] > 0 then --Fire
+        ids[#ids+1] = 2692010
+        ids[#ids+1] = 2692017
+    end
+    if journal_array[25] > 0 then --Blizzard
+        ids[#ids+1] = 2692011
+        ids[#ids+1] = 2692018
+    end
+    if journal_array[26] > 0 then --Thunder
+        ids[#ids+1] = 2692012
+        ids[#ids+1] = 2692019
+    end
+    if journal_array[27] > 0 then --Cure
+        ids[#ids+1] = 2692013
+        ids[#ids+1] = 2692020
+    end
+    if journal_array[28] > 0 then --Gravity
+        ids[#ids+1] = 2692014
+        ids[#ids+1] = 2692021
+    end
+    if journal_array[29] > 0 then --Stop
+        ids[#ids+1] = 2692015
+        ids[#ids+1] = 2692022
+    end
+    if journal_array[30] > 0 then --Aero
+        ids[#ids+1] = 2692016
+        ids[#ids+1] = 2692023
+    end
+    if journal_array[31] > 0 then --Simba
+        ids[#ids+1] = 2692049
+        ids[#ids+1] = 2692050
+    end
+    if journal_array[32] > 0 then --Genie
+        ids[#ids+1] = 2692058
+        ids[#ids+1] = 2692059
+    end
+    if journal_array[33] > 0 then --Bambi
+        ids[#ids+1] = 2692053
+        ids[#ids+1] = 2692054
+    end
+    if journal_array[34] > 0 then --Dumbo
+        ids[#ids+1] = 2692051
+        ids[#ids+1] = 2692052
+    end
+    if journal_array[35] > 0 then --Tinker Bell
+        ids[#ids+1] = 2692060
+        ids[#ids+1] = 2692061
+    end
+    if journal_array[36] > 0 then --Mushu
+        ids[#ids+1] = 2692056
+        ids[#ids+1] = 2692057
+    end
+    if journal_array[37] > 0 then --Cloud
+        ids[#ids+1] = 2692062
+        ids[#ids+1] = 2692063
+    end
+    
+    rewards_bounties_array = get_rewards_bounties_array()
+    if rewards_bounties_array[2] > 0 then --Warp
+        ids[#ids+1] = 2692041
+    end
+    if rewards_bounties_array[4] > 0 then --Synchro
+        ids[#ids+1] = 2692045
+    end
+    if rewards_bounties_array[5] > 0 then --Aqua Splash
+        ids[#ids+1] = 2692034
+    end
+    if rewards_bounties_array[6] > 0 then --Bind
+        ids[#ids+1] = 2692042
+    end
+    if rewards_bounties_array[7] > 0 then --Quake
+        ids[#ids+1] = 2692039
+    end
+    if rewards_bounties_array[8] > 0 then --Thunder Raid
+        ids[#ids+1] = 2692026
+    end
+    if rewards_bounties_array[11] > 0 then --Stardust Blitz
+        ids[#ids+1] = 2692067
+    end
+    if rewards_bounties_array[36] > 0 then --Blizzard Raid
+        ids[#ids+1] = 2692025
+    end
+    if rewards_bounties_array[38] > 0 then --Fire Raid
+        ids[#ids+1] = 2692024
+    end
+    if rewards_bounties_array[39] > 0 then --Gifted Miracle
+        ids[#ids+1] = 2692046
+    end
+    if rewards_bounties_array[40] > 0 then --Shock Impact
+        ids[#ids+1] = 2692037
+    end
+    if rewards_bounties_array[40] > 1 then --Homing Blizzara
+        ids[#ids+1] = 2692033
+    end
+    if rewards_bounties_array[41] > 0 then --Teleport
+        ids[#ids+1] = 2692047
+    end
+    if rewards_bounties_array[42] > 0 then --Reflect Raid
+        ids[#ids+1] = 2692027
+    end
+    if rewards_bounties_array[44] > 0 then --Warpinator
+        ids[#ids+1] = 2692040
+    end
+    if rewards_bounties_array[45] > 0 then --Judgement
+        ids[#ids+1] = 2692028
+    end
+    if rewards_bounties_array[46] > 0 then --Raging Storm
+        ids[#ids+1] = 2692030
+    end
+    
+    friend_array = get_friend_cards_array()
+    if friend_array[1] > 0 then --Donald
+        ids[#ids+1] = 2692065
+        ids[#ids+1] = 2692066
+    end
+    if friend_array[2] > 0 then --Goofy
+        ids[#ids+1] = 2692068
+        ids[#ids+1] = 2692069
+        ids[#ids+1] = 2692070
+        ids[#ids+1] = 2692071
+    end
+    if friend_array[3] > 0 then --Aladdin
+        ids[#ids+1] = 2692072
+        ids[#ids+1] = 2692073
+    end
+    if friend_array[4] > 0 then --Ariel
+        ids[#ids+1] = 2692076
+        ids[#ids+1] = 2692077
+    end
+    if friend_array[5] > 0 then --Jack
+        ids[#ids+1] = 2692044
+        ids[#ids+1] = 2692074
+        ids[#ids+1] = 2692075
+    end
+    if friend_array[6] > 0 then --Peter Pan
+        ids[#ids+1] = 2692078
+        ids[#ids+1] = 2692079
+    end
+    if friend_array[7] > 0 then --Beast
+        ids[#ids+1] = 2692080
+        ids[#ids+1] = 2692081
+    end
+    if friend_array[8] > 0 then --Pluto
+        ids[#ids+1] = 2692082
+        ids[#ids+1] = 2692083
+    end
+    
+    minigames_array = get_minigames_array()
+    if mingames_array[1] > 0 then --Firaga Burst
+        ids[#ids+1] = 2692029
+    end
+    if mingames_array[4] > 0 then --Idyll Romp
+        ids[#ids+1] = 2692055
+    end
+    if mingames_array[5] > 0 then --Cross-Slash +
+        ids[#ids+1] = 2692064
+    end
+    
+    journal_array_pointer_address = 0x879408 - offset
+    vexen_1_offset   = 0x84  --10F
+    journal_array_pointer = GetPointer(journal_array_pointer_address)
+    if ReadByte(journal_array_pointer + vexen_1_offset  , true) > 0 then --Freeze
+        ids[#ids+1] = 2692032
+    end
+    
+    soras_level = get_soras_level()
+    if soras_level >= 2 then --Sliding Dash
+        ids[#ids+1] = 2692001
+    end
+    if soras_level >= 7 then --Stun Impact
+        ids[#ids+1] = 2692003
+    end
+    if soras_level >= 12 then --Strike Raid
+        ids[#ids+1] = 2692005
+    end
+    if soras_level >= 17 then --Blitz
+        ids[#ids+1] = 2692002
+    end
+    if soras_level >= 22 then --Zantetsuken
+        ids[#ids+1] = 2692004
+    end
+    if soras_level >= 27 then --Sonic Blade
+        ids[#ids+1] = 2692006
+    end
+    if soras_level >= 32 then --Lethal Frame
+        ids[#ids+1] = 2692036
+    end
+    if soras_level >= 37 then --Tornado
+        ids[#ids+1] = 2692038
+    end
+    if soras_level >= 42 then --Ars Arcanum
+        ids[#ids+1] = 2692007
+    end
+    if soras_level >= 47 then --Holy
+        ids[#ids+1] = 2692048
+    end
+    if soras_level >= 52 then --Raganarok
+        ids[#ids+1] = 2692008
+    end
+    if soras_level >= 57 then --Mega Flare
+        ids[#ids+1] = 2692031
+    end
+    
+    world_assignment_array = get_world_assignments_array()
+    if world_assignment_array[13] > 1 then --Trinity Limit
+        ids[#ids+1] = 2692009
+    end
+    
+    if piglet_found() then
+        ids[#ids+1] = 2692043
+    end
+    
+    return ids
+end
+
+function get_soras_level()
+    soras_level_pointer_address = 0x8793F8 - offset
+    soras_level_pointer_offset = 0x1C
+    soras_level_pointer = GetPointer(soras_level_pointer_address, soras_level_pointer_offset)
+    soras_level = ReadInt(soras_level_pointer, true)
+    return soras_level
+end
+
 function set_gold_map_cards(gold_map_cards_array)
-    gold_map_cards_pointer_offset = 0x392990
+    gold_map_cards_pointer_offset = 0x876FF0 - offset
     gold_map_cards_value_offset = 0x2
     gold_map_cards_pointer = GetPointer(gold_map_cards_pointer_offset, gold_map_cards_value_offset)
     WriteArray(gold_map_cards_pointer, gold_map_cards_array, true)
 end
 
-function set_cards(card_array)
-    cards_pointer_offset = 0x394D98
+function set_battle_cards(battle_cards_array)
+    cards_pointer_offset = 0x8793F8 - offset
     card_value_offset = -0xD74
     cards_pointer = GetPointer(cards_pointer_offset, card_value_offset)
-    WriteArray(cards_pointer, card_array, true)
+    WriteArray(cards_pointer, battle_cards_array, true)
 end
 
-function set_enemy_cards(enemy_card_array)
-    enemy_cards_pointer_offset = 0x394D98
+function set_enemy_cards(enemy_cards_array)
+    enemy_cards_pointer_offset = 0x8793F8 - offset
     enemy_cards_value_offset = -0x914
     enemy_cards_pointer = GetPointer(enemy_cards_pointer_offset, enemy_cards_value_offset)
-    WriteArray(enemy_cards_pointer, enemy_card_array, true)
-end
-
-function set_friends(friends_array)
-    friend_byte_pointer_offset = 0x394DA8
-    friend_byte_value_offset = 0x147
-    friend_byte_pointer = GetPointer(friend_byte_pointer_offset, friend_byte_value_offset)
-    WriteArray(friend_byte_pointer, friends_array, true)
+    WriteArray(enemy_cards_pointer, enemy_cards_array, true)
 end
 
 function set_world_assignment(world_assignment_array)
-    world_assignment_pointer_offset = 0x394D38
+    world_assignment_pointer_offset = 0x879398 - offset
     world_assignment_value_offset = 0x48
     world_assignment_pointer = GetPointer(world_assignment_pointer_offset, world_assignment_value_offset)
     current_world_assignments = ReadArray(world_assignment_pointer, #world_assignment_array, true)
@@ -762,51 +471,39 @@ function set_world_assignment(world_assignment_array)
     WriteArray(world_assignment_pointer, world_assignment_array, true)
 end
 
-function set_initial_map_cards(card_array)
-    map_card_names = {"Tranquil Darkness"
-                ,"Teeming Darkness"
-                ,"Feeble Darkness"
-                ,"Almighty Darkness"
-                ,"Sleeping Darkness"
-                ,"Looming Darkness"
-                ,"Premium Room"
-                ,"White Room"
-                ,"Black Room"
-                ,"Bottomless Darkness"
-                ,"Roulette Room"
-                ,"Martial Waking"
-                ,"Sorcerous Waking"
-                ,"Alchemic Waking"
-                ,"Meeting Ground"
-                ,"Stagnant Space"
-                ,"Strong Initiative"
-                ,"Lasting Daze"
-                ,"Calm Bounty"
-                ,"Guarded Trove"
-                ,"False Bounty"
-                ,"Moment's Reprieve"
-                ,"Mingling Worlds"
-                ,"Random Joker"}
-    for k,v in pairs(map_card_names) do
-        i = 0
-        while i < 10 do
-            card_array = add_card(card_array, v, i)
-            i = i + 1
+function set_map_cards()
+    map_cards_pointer_address = 0x8793F8 - offset
+    map_cards_pointer_offset = -0xA0E
+    map_cards_pointer = GetPointer(map_cards_pointer_address, map_cards_pointer_offset)
+    map_cards_array = {}
+    i = 1
+    while i <= 24*10 do
+        if i <= 220 then
+            map_cards_array[i] = 9
+        else
+            map_cards_array[i] = 0
         end
+        i = i + 1
     end
-    return card_array
+    WriteArray(map_cards_pointer, map_cards_array, true)
 end
 
-function set_initial_battle_cards(card_array)
-    card_array = add_card(card_array, "Kingdom Key", 6)
-    card_array = add_card(card_array, "Kingdom Key", 5)
-    card_array = add_card(card_array, "Kingdom Key", 4)
-    return card_array
+function set_initial_battle_cards(battle_cards_array)
+    for i=0,9 do
+        add_battle_card(battle_cards_array, 1, i)
+    end
 end
 
-function write_initial_deck()
-    initial_deck_array = {1, 0, 6, 17, 1, 0, 5, 17, 1, 0, 4, 17}
-    i = 3
+function set_cutscene_array(cutscene_array)
+    cutscene_array_pointer_address = 0x8793D0 - offset
+    cutscene_array_pointer_offset = 0x272
+    cutscene_array_pointer = GetPointer(cutscene_array_pointer_address, cutscene_array_pointer_offset)
+    WriteArray(cutscene_array_pointer, cutscene_array, true)
+end
+
+function set_initial_deck()
+    initial_deck_array = {1, 0, 9, 17, 1, 0, 8, 17, 1, 0, 7, 17, 1, 0, 6, 17, 1, 0, 5, 17, 1, 0, 4, 17, 1, 0, 3, 17, 1, 0, 2, 17, 1, 0, 1, 17}
+    i = 9
     while i < 99 do
         initial_deck_array[(i*4)+1] = 0
         initial_deck_array[(i*4)+2] = 0
@@ -814,191 +511,61 @@ function write_initial_deck()
         initial_deck_array[(i*4)+4] = 0
         i = i + 1
     end
-    deck_pointer_offset = 0x394D98
-    deck_value_offset = -0x8D8
-    deck_pointer = GetPointer(deck_pointer_offset, deck_value_offset)
+    deck_pointer_address = 0x8793F8 - offset
+    deck_pointer_offset = -0x8D8
+    deck_pointer = GetPointer(deck_pointer_address, deck_pointer_offset)
     WriteArray(deck_pointer, initial_deck_array, true)
 end
 
-function send_checks(victory)
-    room_byte_location_ids = define_room_byte_location_ids()
-    if get_time_played() > 0 then
-        location_ids = get_checked_journal_location_ids(get_journal_array())
-        for k,v in pairs(location_ids) do
-            if not file_exists(client_communication_path .. "send" .. tostring(v)) then
-                file = io.open(client_communication_path .. "send" .. tostring(v), "w")
-                io.output(file)
-                io.write("")
-                io.close(file)
-            end
+function set_sleights(sleights_array)
+    sleights_bytes_array = {}
+    i = 1
+    while i <= 84 do
+        sleights_byte = 0
+        if sleights_array[i+0] == 1 then
+            sleights_byte = sleights_byte + 2
         end
-        location_ids = get_checked_room_location_ids(get_room_array())
-        for k,v in pairs(location_ids) do
-            if not file_exists(client_communication_path .. "send" .. tostring(v)) then
-                file = io.open(client_communication_path .. "send" .. tostring(v), "w")
-                io.output(file)
-                io.write("")
-                io.close(file)
-            end
+        if sleights_array[i+1] == 1 then
+            sleights_byte = sleights_byte + 8
         end
-        get_sleights_array()
-        for sleight_number,sleight_value in pairs(sleights_array) do
-            if sleight_value == 1 then
-                if not file_exists(client_communication_path .. "send" .. tostring(2691500 + sleight_number)) then
-                    file = io.open(client_communication_path .. "send" .. tostring(2691500 + sleight_number), "w")
-                    io.output(file)
-                    io.write("")
-                    io.close(file)
-                end
-            end
+        if sleights_array[i+2] == 1 then
+            sleights_byte = sleights_byte + 32
         end
-        friends = 0
-        for k,v in pairs(friends_array) do
-            friends = friends + v
+        if sleights_array[i+3] == 1 then
+            sleights_byte = sleights_byte + 128
         end
-        if final_marluxia_slain() then
-            if not file_exists(client_communication_path .. "send2699999") then
-                file = io.open(client_communication_path .. "send2699999", "w")
-                io.output(file)
-                io.write("")
-                io.close(file)
-            end
-        end
-        if victory then
-            if not file_exists(client_communication_path .. "victory") then
-                file = io.open(client_communication_path .. "victory", "w")
-                io.output(file)
-                io.write("")
-                io.close(file)
-            end
-        end
+        sleights_bytes_array[#sleights_bytes_array+1] = sleights_byte
+        i = i + 4
     end
+    
+    sleights_byte_array_pointer_address = 0x879408 - offset
+    sleights_byte_pointer_offset = 0x1
+    sleights_byte_pointer = GetPointer(sleights_byte_array_pointer_address, sleights_byte_pointer_offset)
+    WriteArray(sleights_byte_pointer, sleights_bytes_array, true)
 end
 
-function set_cutscene_array(cutscene_array)
-    cutscene_array_pointer_offset = 0x394D70
-    cutscene_array_value_offset = 0x272
-    cutscene_array_pointer = GetPointer(cutscene_array_pointer_offset, cutscene_array_value_offset)
-    WriteArray(cutscene_array_pointer, cutscene_array, true)
+function set_level_up_sleights()
+    level_up_sleight_table_address = 0x10EBE2 - offset
+    WriteByte(level_up_sleight_table_address, 0x65)
+    WriteByte(level_up_sleight_table_address+0x02, 0x65)
+    WriteByte(level_up_sleight_table_address+0x07, 0x65)
+    WriteByte(level_up_sleight_table_address+0x09, 0x65)
+    WriteByte(level_up_sleight_table_address+0x0E, 0x65)
+    WriteByte(level_up_sleight_table_address+0x10, 0x65)
+    WriteByte(level_up_sleight_table_address+0x15, 0x65)
+    WriteByte(level_up_sleight_table_address+0x17, 0x65)
+    WriteByte(level_up_sleight_table_address+0x1C, 0x65)
+    WriteByte(level_up_sleight_table_address+0x1E, 0x65)
+    WriteByte(level_up_sleight_table_address+0x23, 0x65)
+    WriteByte(level_up_sleight_table_address+0x25, 0x65)
 end
 
-function receive_items()
-    card_array = get_empty_card_array()
-    enemy_card_array = get_empty_enemy_card_array()
-    world_assignment_array = get_empty_world_assignment_array()
-    gold_map_cards_array = get_empty_gold_map_cards_array()
-    friends_array = get_empty_friends_array()
-    friend_count = 0
-    current_floor = get_current_floor()
-    victory = false
-    read_world_order()
-    local i = 1
-    card_array = set_initial_battle_cards(card_array)
-    card_array = set_initial_map_cards(card_array)
-    while file_exists(client_communication_path .. "AP_" .. tostring(i) .. ".item") do
-        file = io.open(client_communication_path .. "AP_" .. tostring(i) .. ".item", "r")
-        io.input(file)
-        received_item_id = tonumber(io.read())
-        io.close(file)
-        for k,v in pairs(item_ids) do
-            if received_item_id == v then
-                received_item_name = k
-                if string.sub(received_item_name, 1, 10) == "Enemy Card" then
-                    enemy_card_array = add_enemy_card(enemy_card_array, received_item_name:sub(12))
-                elseif string.sub(received_item_name, -3) == "1-3" then
-                    card_array = add_card(card_array, received_item_name:sub(1, -5), 1)
-                    card_array = add_card(card_array, received_item_name:sub(1, -5), 2)
-                    card_array = add_card(card_array, received_item_name:sub(1, -5), 3)
-                elseif string.sub(received_item_name, -3) == "4-6" then
-                    card_array = add_card(card_array, received_item_name:sub(1, -5), 4)
-                    card_array = add_card(card_array, received_item_name:sub(1, -5), 5)
-                    card_array = add_card(card_array, received_item_name:sub(1, -5), 6)
-                elseif string.sub(received_item_name, -3) == "7-9" then
-                    card_array = add_card(card_array, received_item_name:sub(1, -5), 7)
-                    card_array = add_card(card_array, received_item_name:sub(1, -5), 8)
-                    card_array = add_card(card_array, received_item_name:sub(1, -5), 9)
-                elseif string.sub(received_item_name, -1) == "0" then
-                    card_array = add_card(card_array, received_item_name:sub(1, -3), 0)
-                elseif received_item_name == "Donald" and friends_array[1] ~= 1 then
-                    friends_array[1] = 1
-                    friend_count = friend_count + 1
-                elseif received_item_name == "Goofy" and friends_array[2] ~= 1 then
-                    friends_array[2] = 1
-                    friend_count = friend_count + 1
-                elseif received_item_name == "Aladdin" and friends_array[3] ~= 1 then
-                    friends_array[3] = 1
-                    friend_count = friend_count + 1
-                elseif received_item_name == "Ariel" and friends_array[4] ~= 1 then
-                    friends_array[4] = 1
-                    friend_count = friend_count + 1
-                elseif received_item_name == "Jack" and friends_array[5] ~= 1 then
-                    friends_array[5] = 1
-                    friend_count = friend_count + 1
-                elseif received_item_name == "Peter Pan" and friends_array[6] ~= 1 then
-                    friends_array[6] = 1
-                    friend_count = friend_count + 1
-                elseif received_item_name == "Beast" and friends_array[7] ~= 1 then
-                    friends_array[7] = 1
-                    friend_count = friend_count + 1
-                elseif received_item_name == "Pluto" and friends_array[8] ~= 1 then
-                    friends_array[8] = 1
-                    friend_count = friend_count + 1
-                elseif received_item_name == "Victory" then
-                    victory = true
-                elseif world_order[1] ~= nil then
-                    if received_item_name == "Wonderland" then
-                        world_assignment_array[world_order[1]] = 0x4
-                    elseif received_item_name == "Olympus Coliseum" then
-                        world_assignment_array[world_order[2]] = 0x3
-                    elseif received_item_name == "Monstro" then
-                        world_assignment_array[world_order[3]] = 0x5
-                    elseif received_item_name == "Agrabah" then
-                        world_assignment_array[world_order[4]] = 0x2
-                    elseif received_item_name == "Halloween Town" then
-                        world_assignment_array[world_order[5]] = 0x6
-                    elseif received_item_name == "Atlantica" then
-                        world_assignment_array[world_order[6]] = 0x7
-                    elseif received_item_name == "Neverland" then
-                        world_assignment_array[world_order[7]] = 0x8
-                    elseif received_item_name == "Hollow Bastion" then
-                        world_assignment_array[world_order[8]] = 0x9
-                    elseif received_item_name == "100 Acre Wood" then
-                        world_assignment_array[world_order[9]] = 0xA
-                    elseif received_item_name == "Twilight Town" then
-                        world_assignment_array[11] = 0xB
-                    elseif received_item_name == "Destiny Islands" then
-                        world_assignment_array[12] = 0xC
-                    elseif string.sub(received_item_name, 1, 14)  == "Key to Rewards" then
-                        reward_floor = tonumber(string.sub(received_item_name, -2))
-                        if ((reward_floor == 1 or reward_floor > 10) and current_floor == reward_floor) or (reward_floor > 1 and reward_floor <= 10 and current_floor == world_order[reward_floor-1]) then
-                            gold_map_cards_array[4] = 1
-                        end
-                    end
-                end
-            end
-        end
-        i = i + 1
+function add_battle_card(battle_cards_array, battle_card_index, battle_card_value)
+    index = ((battle_card_index-1) * 10) + 1
+    index = index + battle_card_value
+    if index < 870 then
+        battle_cards_array[index] = battle_cards_array[index] + 1
     end
-    if friend_count >= 8 and floor_bosses_complete() then
-        world_assignment_array[13] = 0xD
-    end
-    if current_floor > 1 and world_assignment_array[current_floor] ~= 1 or current_floor == 1 then
-        gold_map_cards_array[1] = 1
-        gold_map_cards_array[2] = 1
-        gold_map_cards_array[3] = 1
-    end
-    set_cards(card_array)
-    set_enemy_cards(enemy_card_array)
-    set_world_assignment(world_assignment_array)
-    set_friends(friends_array)
-    set_gold_map_cards(gold_map_cards_array)
-    set_cutscene_array(calculate_cutscene_array())
-    if get_time_played() < 10 then
-        write_initial_deck()
-    else
-        remove_premium_cards()
-    end
-    return victory
 end
 
 function read_world_order()
@@ -1010,124 +577,6 @@ function read_world_order()
     else
         world_order = {nil,nil,nil,nil,nil,nil,nil,nil,nil}
     end
-end
-
-function add_card(card_array, card_name, card_value)
-    for k,v in pairs(card_order) do
-        if v == card_name then
-            card_array[((k-1)*10)+(card_value+1)] = 1
-        end
-    end
-    return card_array
-end
-
-function add_enemy_card(enemy_card_array, card_name)
-    for k,v in pairs(enemy_card_order) do
-        if v == card_name then
-            enemy_card_array[k] = 1
-        end
-    end
-    return enemy_card_array
-end
-
-function calculate_cutscene_array()
-    journal_byte_pointer_offset           = 0x394DA8
-    journal_byte_value_offset_axel        = 0x132 --Fire
-    journal_byte_value_offset_larxene     = 0x134 --Thunder
-    journal_byte_value_offset_riku        = 0x138 --Aero
-    journal_byte_value_offset_riku_3      = 0x142 --Mega-Potion
-    journal_byte_value_offset_larxene_2   = 0x185 --Larxene
-    
-    journal_byte_pointer = GetPointer(journal_byte_pointer_offset, 0x0)
-    
-    current_room_byte_array_address = 0x878060 - offset
-    
-    cutscene_array = {}
-    
-    fire_unlocked               = false
-    thunder_unlocked            = false
-    aero_unlocked               = false
-    magnet_spiral_unlocked      = false
-    freeze_unlocked             = false
-    mega_potion_unlocked        = false
-    larxene_enemy_card_unlocked = false
-    
-    if ReadByte(journal_byte_pointer+journal_byte_value_offset_axel, true) == 1 then
-        fire_unlocked = true
-    end
-    if ReadByte(journal_byte_pointer+journal_byte_value_offset_larxene, true) == 1 then
-        thunder_unlocked = true
-    end
-    if ReadByte(journal_byte_pointer+journal_byte_value_offset_riku, true) == 1 then
-        aero_unlocked = true
-    end
-    if ReadByte(journal_byte_pointer+journal_byte_value_offset_riku_3, true) == 1 then
-        mega_potion_unlocked = true
-    end
-    if ReadByte(journal_byte_pointer+journal_byte_value_offset_larxene_2, true) == 1 then
-        larxene_enemy_card_unlocked = true
-    end
-    
-    if #sleights_array > 0 then
-        if sleights_array[35] == 1 then
-            magnet_spiral_unlocked = true
-        end
-        if sleights_array[32] == 1 then
-            freeze_unlocked = true
-        end
-    end
-    
-    current_room_byte_array = ReadArray(current_room_byte_array_address,2)
-    
-    --if fire_unlocked and thunder_unlocked and aero_unlocked and magnet_spiral_unlocked and freeze_unlocked and mega_potion_unlocked and larxene_enemy_card_unlocked then
-    --    cutscene_array = {0x01, 0x00, 0x02, 0x00, 0x03, 0x00, 0x04, 0x00, 0x05, 0x00, 0x06, 0x00, 0x07, 0x00, 0x08, 0x00, 0x09, 0x00, 0x0A, 0x00, 0x0B, 0x00, 0x0C, 0x00, 0x0D, 0x00, 0x0E, 0x00, 0x0F, 
-    --            0x00, 0x10, 0x00, 0x11, 0x00, 0x12, 0x00, 0x13, 0x00, 0x14, 0x00, 0x15, 0x00, 0x16, 0x00, 0x17, 0x00, 0x18, 0x00}
-    --elseif fire_unlocked and thunder_unlocked and aero_unlocked and magnet_spiral_unlocked and freeze_unlocked and mega_potion_unlocked then --Riku IV and Larxene II
-    --    cutscene_array = {0x01, 0x00, 0x02, 0x00, 0x03, 0x00, 0x04, 0x00, 0x05, 0x00, 0x06, 0x00, 0x07, 0x00, 0x08, 0x00, 0x09, 0x00, 0x0A, 0x00, 0x0B, 0x00, 0x0C, 0x00, 0x0D, 0x00, 0x0E, 0x00, 0x0F, 
-    --            0x00, 0x10, 0x00, 0x11, 0x00, 0x12, 0x00, 0x13, 0x00, 0x14, 0x00, 0x15, 0x00, 0x16, 0x00, 0x17, 0x00, 0xE8, 0x07}
-    --elseif fire_unlocked and thunder_unlocked and aero_unlocked and magnet_spiral_unlocked and freeze_unlocked then --Riku III
-    --    cutscene_array = {0x01, 0x00, 0x02, 0x00, 0x03, 0x00, 0x04, 0x00, 0x05, 0x00, 0x06, 0x00, 0x07, 0x00, 0x08, 0x00, 0x09, 0x00, 0x0A, 0x00, 0x0B, 0x00, 0x0C, 0x00, 0x0D, 0x00, 0x0E, 0x00, 0x0F, 
-    --            0x00, 0x10, 0x00, 0x11, 0x00, 0x12, 0x00, 0x13, 0x00, 0x14, 0x07, 0x15, 0x00, 0xE6, 0x07, 0x17, 0x00, 0x18, 0x00}
-    if fire_unlocked and thunder_unlocked and aero_unlocked and magnet_spiral_unlocked and freeze_unlocked and larxene_enemy_card_unlocked then --Clear
-        cutscene_array = {0x01, 0x00, 0x02, 0x00, 0x03, 0x00, 0x04, 0x00, 0x05, 0x00, 0x06, 0x00, 0x07, 0x00, 0x08, 0x00, 0x09, 0x00, 0x0A, 0x00, 0x0B, 0x00, 0x0C, 0x00, 0x0D, 0x00, 0x0E, 0x00, 0x0F, 
-                0x00, 0x10, 0x00, 0x11, 0x00, 0x12, 0x00, 0x13, 0x00, 0x14, 0x00, 0x15, 0x00, 0x16, 0x00, 0x17, 0x00, 0x18, 0x00}
-    elseif fire_unlocked and thunder_unlocked and aero_unlocked and magnet_spiral_unlocked and freeze_unlocked then--Riku IV and Larxene II
-        cutscene_array = {0x01, 0x00, 0x02, 0x00, 0x03, 0x00, 0x04, 0x00, 0x05, 0x00, 0x06, 0x00, 0x07, 0x00, 0x08, 0x00, 0x09, 0x00, 0x0A, 0x00, 0x0B, 0x00, 0x0C, 0x00, 0x0D, 0x00, 0x0E, 0x00, 0x0F, 
-                0x00, 0x10, 0x00, 0x11, 0x00, 0x12, 0x00, 0x13, 0x00, 0x14, 0x00, 0x15, 0x00, 0x16, 0x00, 0x17, 0x00, 0xE8, 0x07}
-    elseif fire_unlocked and thunder_unlocked and aero_unlocked and magnet_spiral_unlocked then --Vexen I
-        cutscene_array = {0x01, 0x00, 0x02, 0x00, 0x03, 0x00, 0x04, 0x00, 0x05, 0x00, 0x06, 0x00, 0x07, 0x00, 0x08, 0x00, 0x09, 0x00, 0x0A, 0x00, 0x0B, 0x00, 0x0C, 0x00, 0x0D, 0x00, 0x0E, 0x00, 0x0F, 
-                0x00, 0x10, 0x00, 0x11, 0x00, 0x12, 0x00, 0x13, 0x00, 0xE4, 0x07, 0x15, 0x00, 0x16, 0x00, 0x17, 0x00, 0x18, 0x00}
-    elseif fire_unlocked and thunder_unlocked and aero_unlocked then --Riku II
-        cutscene_array = {0x01, 0x00, 0x02, 0x00, 0x03, 0x00, 0x04, 0x00, 0x05, 0x00, 0x06, 0x00, 0x07, 0x00, 0x08, 0x00, 0x09, 0x00, 0x0A, 0x00, 0x0B, 0x00, 0x0C, 0x00, 0x0D, 0x00, 0x0E, 0x00, 0x0F, 
-                0x00, 0xE0, 0x07, 0x11, 0x00, 0x12, 0x00, 0x13, 0x00, 0x14, 0x00, 0x15, 0x00, 0x16, 0x00, 0x17, 0x00, 0x18, 0x00}
-    elseif fire_unlocked and thunder_unlocked then --Riku I
-        cutscene_array = {0x01, 0x00, 0x02, 0x00, 0x03, 0x00, 0x04, 0x00, 0x05, 0x00, 0x06, 0x00, 0x07, 0x00, 0x08, 0x00, 0x09, 0x00, 0x0A, 0x00, 0x0B, 0x00, 0x0C, 0x00, 0x0D, 0x00, 0xDE, 0x07, 0x0F, 
-                0x00, 0x10, 0x00, 0x11, 0x00, 0x12, 0x00, 0x13, 0x00, 0x14, 0x00, 0x15, 0x00, 0x16, 0x00, 0x17, 0x00, 0x18, 0x00}
-    elseif fire_unlocked then --Larxene I
-        cutscene_array = {0x01, 0x00, 0x02, 0x00, 0x03, 0x00, 0x04, 0x00, 0x05, 0x00, 0x06, 0x00, 0x07, 0x00, 0x08, 0x00, 0x09, 0x00, 0x0A, 0x00, 0x0B, 0x00, 0xDC, 0x07, 0x0D, 0x00, 0x0E, 0x00, 0x0F, 
-                0x00, 0x10, 0x00, 0x11, 0x00, 0x12, 0x00, 0x13, 0x00, 0x14, 0x00, 0x15, 0x00, 0x16, 0x00, 0x17, 0x00, 0x18, 0x00}
-    else --Axel I
-        cutscene_array = {0x01, 0x00, 0xD2, 0x07, 0x03, 0x00, 0x04, 0x00, 0x05, 0x00, 0x06, 0x00, 0x07, 0x00, 0x08, 0x00, 0x09, 0x00, 0x0A, 0x00, 0x0B, 0x00, 0x0C, 0x00, 0x0D, 0x00, 0x0E, 0x00, 0x0F, 
-                0x00, 0x10, 0x00, 0x11, 0x00, 0x12, 0x00, 0x13, 0x00, 0x14, 0x00, 0x15, 0x00, 0x16, 0x00, 0x17, 0x00, 0x18, 0x00}
-    end
-    return cutscene_array
-end
-
-function floor_bosses_complete()
-    journal_byte_pointer_offset           = 0x394DA8
-    journal_byte_value_offset_axel        = 0x132
-    journal_byte_value_offset_larxene     = 0x134
-    journal_byte_value_offset_riku        = 0x138
-    journal_byte_value_offset_larxene_2   = 0x185
-    
-    
-    journal_byte_pointer = GetPointer(journal_byte_pointer_offset, 0x0)
-    axel_byte            = ReadByte(journal_byte_pointer+journal_byte_value_offset_axel      ,true)
-    larxene_byte         = ReadByte(journal_byte_pointer+journal_byte_value_offset_larxene   ,true)
-    riku_byte            = ReadByte(journal_byte_pointer+journal_byte_value_offset_riku      ,true)
-    larxene_2_byte       = ReadByte(journal_byte_pointer+journal_byte_value_offset_larxene_2 ,true)
-    
-    return larxene_2_byte == 1 and riku_byte == 1 and larxene_byte == 1 and axel_byte == 1
 end
 
 function remove_premium_cards()
@@ -1156,6 +605,194 @@ function final_marluxia_slain()
     return false
 end
 
+function piglet_found()
+    piglet_found_byte_pointer_address = 0x879408 - offset
+    piglet_found_byte_pointer_offset = 0xB7
+    piglet_found_byte_pointer = GetPointer(piglet_found_byte_pointer_address, piglet_found_byte_pointer_offset)
+    if ReadByte(piglet_found_byte_pointer, true) > 0 then 
+        return true
+    else
+        return false
+    end
+end
+
+function receive_items()
+    battle_cards_array = get_empty_battle_cards_array()
+    enemy_cards_array = get_empty_enemy_cards_array()
+    world_assignment_array = get_empty_world_assignment_array()
+    gold_map_cards_array = get_empty_gold_map_cards_array()
+    friends_array = get_empty_friends_array()
+    sleights_array = get_empty_sleights_array()
+    friend_count = 0
+    current_floor = get_current_floor()
+    victory = false
+    
+    j = 1
+    
+    card_array = set_initial_battle_cards(card_array)
+    set_map_cards()
+    while file_exists(client_communication_path .. "AP_" .. tostring(j) .. ".item") do
+        file = io.open(client_communication_path .. "AP_" .. tostring(j) .. ".item", "r")
+        io.input(file)
+        received_item_id = tonumber(io.read())
+        io.close(file)
+        if received_item_id > 2681000 and received_item_id < 2681200 then
+            for k=0,9 do
+                add_battle_card(battle_cards_array, received_item_id % 2681000, k)
+            end
+        elseif received_item_id > 2681200 and received_item_id < 2682000 then
+            enemy_card_index = received_item_id % 2681200
+            enemy_cards_array[enemy_card_index] = enemy_cards_array[enemy_card_index] + 1
+        elseif received_item_id > 2682000 and received_item_id < 2683000 then
+            sleights_index = received_item_id % 2682000
+            sleights_array[sleights_index] = 1
+        elseif received_item_id > 2683000 and received_item_id < 2683300 then
+            world_id = received_item_id % 2683000
+            if world_id > 1 and world_id < 11 then
+                world_assignment_array[world_order[world_id-1]] = world_id
+            else
+                world_assignment_array[world_id] = world_id
+            end
+        elseif received_item_id > 2683300 and received_item_id < 2684000 then
+            world_id = received_item_id % 2683300
+            if current_floor == world_id and (current_floor < 2 or current_floor > 10) then
+                gold_map_cards_array[4] = 1
+            elseif current_floor == world_order[world_id-1] then
+                gold_map_cards_array[4] = 1
+            end
+        elseif received_item_id > 2685000 and received_item_id < 2686000 then
+            friend_id = received_item_id % 2685000
+            if friends_array[friend_id] ~= 1 then
+                friend_count = friend_count + 1
+                friends_array[friend_id] = 1
+            end
+        elseif received_item_id == 2680000 then
+            victory = true
+        end
+        j = j + 1
+    end
+    
+    if friend_count >= 8 then
+        world_assignment_array[13] = 0xD
+    end
+    
+    if current_floor == 1 or world_assignment_array[current_floor] ~= 1 then
+        gold_map_cards_array[1] = 1
+        gold_map_cards_array[2] = 1
+        gold_map_cards_array[3] = 1
+    end
+    
+    set_battle_cards(battle_cards_array)
+    set_enemy_cards(enemy_cards_array)
+    set_sleights(sleights_array)
+    set_gold_map_cards(gold_map_cards_array)
+    set_world_assignment(world_assignment_array)
+    
+    if get_time_played() < 10 then
+        set_initial_deck()
+    else
+        remove_premium_cards()
+    end
+    return victory
+end
+
+function send_checks(victory)
+    if get_time_played() > 0 then
+        journal_array = get_journal_array()
+        for k,v in pairs(journal_array) do
+            if v > 0 then
+                location_id = 2690000 + k
+                if not file_exists(client_communication_path .. "send" .. tostring(location_id)) then
+                    file = io.open(client_communication_path .. "send" .. tostring(location_id), "w")
+                    io.output(file)
+                    io.write("")
+                    io.close(file)
+                end
+            end
+        end
+        room_array = get_room_array()
+        world_assignment_array = get_world_assignments_array()
+        for k,v in pairs(room_array) do
+            if v > 0 then
+                floor_num = math.floor((k-1)/3)+1
+                world_id = world_assignment_array[floor_num]
+                room_num = ((k-1)%3)+1
+                location_id = 2691000 + (world_id * 10) + room_num
+                if not file_exists(client_communication_path .. "send" .. tostring(location_id)) then
+                    file = io.open(client_communication_path .. "send" .. tostring(location_id), "w")
+                    io.output(file)
+                    io.write("")
+                    io.close(file)
+                end
+            end
+        end
+        heartless_array = get_heartless_array()
+        j = 1
+        while j < #heartless_array do
+            heartless_id = math.floor((j+1)/2)
+            num_defeated = heartless_array[j] + (heartless_array[j+1] * 256)
+            if num_defeated >= 1 then
+                location_id = 2691200 + heartless_id
+                if not file_exists(client_communication_path .. "send" .. tostring(location_id)) then
+                    file = io.open(client_communication_path .. "send" .. tostring(location_id), "w")
+                    io.output(file)
+                    io.write("")
+                    io.close(file)
+                end
+            end
+            if num_defeated >= 2 then
+                location_id = 2691300 + heartless_id
+                if not file_exists(client_communication_path .. "send" .. tostring(location_id)) then
+                    file = io.open(client_communication_path .. "send" .. tostring(location_id), "w")
+                    io.output(file)
+                    io.write("")
+                    io.close(file)
+                end
+            end
+            if num_defeated >= 3 then
+                location_id = 2691400 + heartless_id
+                if not file_exists(client_communication_path .. "send" .. tostring(location_id)) then
+                    file = io.open(client_communication_path .. "send" .. tostring(location_id), "w")
+                    io.output(file)
+                    io.write("")
+                    io.close(file)
+                end
+            end
+            j = j + 2
+        end
+        
+        extra_checks = get_extra_checks()
+        for k,v in pairs(extra_checks) do
+            if not file_exists(client_communication_path .. "send" .. tostring(v)) then
+                file = io.open(client_communication_path .. "send" .. tostring(v), "w")
+                io.output(file)
+                io.write("")
+                io.close(file)
+            end
+        end
+        
+        if final_marluxia_slain() then
+            if not file_exists(client_communication_path .. "send2699999") then
+                file = io.open(client_communication_path .. "send2699999", "w")
+                io.output(file)
+                io.write("")
+                io.close(file)
+            end
+        end
+        
+        if victory then
+            if not file_exists(client_communication_path .. "victory") then
+                file = io.open(client_communication_path .. "victory", "w")
+                io.output(file)
+                io.write("")
+                io.close(file)
+            end
+        end
+        
+    end
+    
+end
+
 function _OnInit()
     if GAME_ID == 0x9E3134F5 and ENGINE_TYPE == "BACKEND" then
         ConsolePrint("RE:CoM detected, running script")
@@ -1168,6 +805,11 @@ end
 function _OnFrame()
     if canExecute then
         if frame_count % 120 == 0 then
+            set_level_up_sleights()
+            read_world_order()
+            if get_time_played() > 10 then
+                set_cutscene_array(get_calculated_cutscene_array())
+            end
             victory = receive_items()
             send_checks(victory)
         end
