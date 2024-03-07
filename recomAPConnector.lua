@@ -85,7 +85,6 @@ function get_room_array()
     room_byte_value_offset = 0x18
     room_byte_pointer = GetPointer(room_byte_pointer_offset, room_byte_value_offset)
     room_array = ReadArray(room_byte_pointer, 39, true)
-    ConsolePrint(room_array[1])
     return room_array
 end
 
@@ -565,7 +564,9 @@ end
 function add_battle_card(battle_cards_array, battle_card_index, battle_card_value)
     index = ((battle_card_index-1) * 10) + 1
     index = index + battle_card_value
-    battle_cards_array[index] = battle_cards_array[index] + 1
+    if index < 870 then
+        battle_cards_array[index] = battle_cards_array[index] + 1
+    end
 end
 
 function read_world_order()
@@ -727,7 +728,7 @@ function send_checks(victory)
                     io.close(file)
                 end
             end
-            if num_defeated >= 5 then
+            if num_defeated >= 2 then
                 location_id = 2691300 + heartless_id
                 if not file_exists(client_communication_path .. "send" .. tostring(location_id)) then
                     file = io.open(client_communication_path .. "send" .. tostring(location_id), "w")
@@ -736,7 +737,7 @@ function send_checks(victory)
                     io.close(file)
                 end
             end
-            if num_defeated >= 9 then
+            if num_defeated >= 3 then
                 location_id = 2691400 + heartless_id
                 if not file_exists(client_communication_path .. "send" .. tostring(location_id)) then
                     file = io.open(client_communication_path .. "send" .. tostring(location_id), "w")
