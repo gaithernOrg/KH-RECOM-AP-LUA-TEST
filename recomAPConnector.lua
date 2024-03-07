@@ -145,45 +145,31 @@ function get_empty_sleights_array()
     return sleights_array
 end
 
-function get_boss_flag_array()
-    boss_flag_array_pointer_address = 0x879408 - offset
-    boss_flag_array_pointer_offset = 0x68
-    boss_flag_array_pointer = GetPointer(boss_flag_array_pointer_address, boss_flag_array_pointer_offset)
-    boss_flag_array = ReadArray(boss_flag_array_pointer, 12, true)
-    return boss_flag_array
-end
-
 function get_calculated_cutscene_array()
-    boss_flag_array = get_boss_flag_array()
+    journal_array_pointer_address = 0x879408 - offset
+    axel_1_offset    = 0x132 --01F
+    larxene_1_offset = 0x134 --06F
+    riku_1_offset    = 0x138 --07F
+    vexen_1_offset   = 0x84  --10F
+    larxene_2_offset = 0x185 --12F
+
+    journal_array_pointer = GetPointer(journal_array_pointer_address)
     
-    axel_1_defeated             = boss_flag_array[1]  > 0
-    larxene_1_defeated          = boss_flag_array[3]  > 0
-    vexen_1_defeated            = boss_flag_array[4]  > 0
-    riku_2_defeated             = boss_flag_array[5]  > 0
-    riku_1_defeated             = boss_flag_array[10] > 0
-    riku_3_defeated             = boss_flag_array[11] > 0
-    riku_4_defeated             = boss_flag_array[12] > 0
-    larxene_2_defeated          = false
+    axel_1_defeated             = ReadByte(journal_array_pointer + axel_1_offset   , true) > 0
+    larxene_1_defeated          = ReadByte(journal_array_pointer + larxene_1_offset, true) > 0
+    riku_1_defeated             = ReadByte(journal_array_pointer + riku_1_offset   , true) > 0
+    vexen_1_defeated            = ReadByte(journal_array_pointer + vexen_1_offset  , true) > 0
+    larxene_2_defeated          = ReadByte(journal_array_pointer + larxene_2_offset, true) > 0
     
-    larxene_2_defeated_pointer_address = 0x879408 - offset
-    larxene_2_defeated_pointer_offset = 0x185
-    larxene_2_defeated_pointer = GetPointer(larxene_2_defeated_pointer_address, larxene_2_defeated_pointer_offset)
-    if ReadByte(larxene_2_defeated_pointer, true) > 0 then
-        larxene_2_defeated = true
-    end
-    
-    if axel_1_defeated and larxene_1_defeated and riku_1_defeated and riku_2_defeated and vexen_1_defeated and larxene_2_defeated then --Clear
+    if axel_1_defeated and larxene_1_defeated and riku_1_defeated and vexen_1_defeated and larxene_2_defeated then --Clear
         cutscene_array = {0x01, 0x00, 0x02, 0x00, 0x03, 0x00, 0x04, 0x00, 0x05, 0x00, 0x06, 0x00, 0x07, 0x00, 0x08, 0x00, 0x09, 0x00, 0x0A, 0x00, 0x0B, 0x00, 0x0C, 0x00, 0x0D, 0x00, 0x0E, 0x00, 0x0F, 
                 0x00, 0x10, 0x00, 0x11, 0x00, 0x12, 0x00, 0x13, 0x00, 0x14, 0x00, 0x15, 0x00, 0x16, 0x00, 0x17, 0x00, 0x18, 0x00}
-    elseif axel_1_defeated and larxene_1_defeated and riku_1_defeated and riku_2_defeated and vexen_1_defeated then--Riku IV and Larxene II
+    elseif axel_1_defeated and larxene_1_defeated and riku_1_defeated and vexen_1_defeated then--Riku IV and Larxene II
         cutscene_array = {0x01, 0x00, 0x02, 0x00, 0x03, 0x00, 0x04, 0x00, 0x05, 0x00, 0x06, 0x00, 0x07, 0x00, 0x08, 0x00, 0x09, 0x00, 0x0A, 0x00, 0x0B, 0x00, 0x0C, 0x00, 0x0D, 0x00, 0x0E, 0x00, 0x0F, 
                 0x00, 0x10, 0x00, 0x11, 0x00, 0x12, 0x00, 0x13, 0x00, 0x14, 0x00, 0x15, 0x00, 0x16, 0x00, 0x17, 0x00, 0xE8, 0x07}
-    elseif axel_1_defeated and larxene_1_defeated and riku_1_defeated and riku_2_defeated then --Vexen I
+    elseif axel_1_defeated and larxene_1_defeated and riku_1_defeated then --Vexen I
         cutscene_array = {0x01, 0x00, 0x02, 0x00, 0x03, 0x00, 0x04, 0x00, 0x05, 0x00, 0x06, 0x00, 0x07, 0x00, 0x08, 0x00, 0x09, 0x00, 0x0A, 0x00, 0x0B, 0x00, 0x0C, 0x00, 0x0D, 0x00, 0x0E, 0x00, 0x0F, 
                 0x00, 0x10, 0x00, 0x11, 0x00, 0x12, 0x00, 0x13, 0x00, 0xE4, 0x07, 0x15, 0x00, 0x16, 0x00, 0x17, 0x00, 0x18, 0x00}
-    elseif axel_1_defeated and larxene_1_defeated and riku_1_defeated then --Riku II
-        cutscene_array = {0x01, 0x00, 0x02, 0x00, 0x03, 0x00, 0x04, 0x00, 0x05, 0x00, 0x06, 0x00, 0x07, 0x00, 0x08, 0x00, 0x09, 0x00, 0x0A, 0x00, 0x0B, 0x00, 0x0C, 0x00, 0x0D, 0x00, 0x0E, 0x00, 0x0F, 
-                0x00, 0xE0, 0x07, 0x11, 0x00, 0x12, 0x00, 0x13, 0x00, 0x14, 0x00, 0x15, 0x00, 0x16, 0x00, 0x17, 0x00, 0x18, 0x00}
     elseif axel_1_defeated and larxene_1_defeated then --Riku I
         cutscene_array = {0x01, 0x00, 0x02, 0x00, 0x03, 0x00, 0x04, 0x00, 0x05, 0x00, 0x06, 0x00, 0x07, 0x00, 0x08, 0x00, 0x09, 0x00, 0x0A, 0x00, 0x0B, 0x00, 0x0C, 0x00, 0x0D, 0x00, 0xDE, 0x07, 0x0F, 
                 0x00, 0x10, 0x00, 0x11, 0x00, 0x12, 0x00, 0x13, 0x00, 0x14, 0x00, 0x15, 0x00, 0x16, 0x00, 0x17, 0x00, 0x18, 0x00}
@@ -216,7 +202,7 @@ function get_rewards_bounties_array()
     rewards_bounties_array_pointer_address = 0x8793D0 - offset
     rewards_bounties_array_pointer_offset = 0xE1
     rewards_bounties_array_pointer = GetPointer(rewards_bounties_array_pointer_address, rewards_bounties_array_pointer_offset)
-    rewards_bounties_array = ReadArray(rewards_bounties_array_pointer, 51, true)
+    rewards_bounties_array = ReadArray(rewards_bounties_array_pointer, 44, true)
     return rewards_bounties_array
 end
 
@@ -275,15 +261,15 @@ function get_extra_checks()
         ids[#ids+1] = 2692051
         ids[#ids+1] = 2692052
     end
-    if journal_array[34] > 0 then --Tinker Bell
+    if journal_array[35] > 0 then --Tinker Bell
         ids[#ids+1] = 2692060
         ids[#ids+1] = 2692061
     end
-    if journal_array[35] > 0 then --Mushu
+    if journal_array[36] > 0 then --Mushu
         ids[#ids+1] = 2692056
         ids[#ids+1] = 2692057
     end
-    if journal_array[36] > 0 then --Cloud
+    if journal_array[37] > 0 then --Cloud
         ids[#ids+1] = 2692062
         ids[#ids+1] = 2692063
     end
@@ -310,28 +296,28 @@ function get_extra_checks()
     if rewards_bounties_array[11] > 0 then --Stardust Blitz
         ids[#ids+1] = 2692067
     end
-    if rewards_bounties_array[30] > 0 then --Blizzard Raid
+    if rewards_bounties_array[36] > 0 then --Blizzard Raid
         ids[#ids+1] = 2692025
     end
-    if rewards_bounties_array[32] > 0 then --Fire Raid
+    if rewards_bounties_array[38] > 0 then --Fire Raid
         ids[#ids+1] = 2692024
     end
-    if rewards_bounties_array[33] > 0 then --Shock Impact
+    if rewards_bounties_array[39] > 0 then --Shock Impact
         ids[#ids+1] = 2692037
     end
-    if rewards_bounties_array[33] > 1 then --Homing Blizzara
+    if rewards_bounties_array[39] > 1 then --Homing Blizzara
         ids[#ids+1] = 2692033
     end
-    if rewards_bounties_array[34] > 1 then --Teleport
+    if rewards_bounties_array[40] > 1 then --Teleport
         ids[#ids+1] = 2692047
     end
-    if rewards_bounties_array[35] > 1 then --Reflect Raid
+    if rewards_bounties_array[41] > 1 then --Reflect Raid
         ids[#ids+1] = 2692027
     end
-    if rewards_bounties_array[37] > 1 then --Warpinator
+    if rewards_bounties_array[43] > 1 then --Warpinator
         ids[#ids+1] = 2692040
     end
-    if rewards_bounties_array[38] > 1 then --Judgement
+    if rewards_bounties_array[44] > 1 then --Judgement
         ids[#ids+1] = 2692028
     end
     
@@ -374,21 +360,20 @@ function get_extra_checks()
     
     minigames_array = get_minigames_array()
     if mingames_array[1] > 0 then --Firaga Burst
-        ids[#ids+1] = 2692082
+        ids[#ids+1] = 2692029
     end
-    if mingames_array[3] > 0 then --Idyll Romp
+    if mingames_array[4] > 0 then --Idyll Romp
         ids[#ids+1] = 2692055
     end
-    if mingames_array[4] > 0 then --Cross-Slash +
+    if mingames_array[5] > 0 then --Cross-Slash +
         ids[#ids+1] = 2692064
     end
     
-    boss_flag_array = get_boss_flag_array()
-    if boss_flag_array[4] > 0 then --Freeze
+    journal_array_pointer_address = 0x879408 - offset
+    vexen_1_offset   = 0x84  --10F
+    journal_array_pointer = GetPointer(journal_array_pointer_address)
+    if ReadByte(journal_array_pointer + vexen_1_offset  , true) > 0 then --Freeze
         ids[#ids+1] = 2692032
-    end
-    if boss_flag_array[5]  > 0 then --Magnet Spiral
-        ids[#ids+1] = 2692035
     end
     
     soras_level = get_soras_level()
@@ -432,6 +417,10 @@ function get_extra_checks()
     world_assignment_array = get_world_assignments_array()
     if world_assignment_array[13] > 1 then --Trinity Limit
         ids[#ids+1] = 2692009
+    end
+    
+    if piglet_found() then
+        ids[#ids+1] = 2692043
     end
     
     return ids
@@ -482,8 +471,12 @@ function set_map_cards()
     map_cards_pointer = GetPointer(map_cards_pointer_address, map_cards_pointer_offset)
     map_cards_array = {}
     i = 1
-    while i <= 22*10 do
-        map_cards_array[i] = 9
+    while i <= 23*10 do
+        if i < 220 then
+            map_cards_array[i] = 9
+        else
+            map_cards_array[i] = 0
+        end
         i = i + 1
     end
     WriteArray(map_cards_pointer, map_cards_array, true)
@@ -606,6 +599,17 @@ function final_marluxia_slain()
     return false
 end
 
+function piglet_found()
+    piglet_found_byte_pointer_address = 0x879408 - offset
+    piglet_found_byte_pointer_offset = 0xB7
+    piglet_found_byte_pointer = GetPointer(piglet_found_byte_pointer_address, piglet_found_byte_pointer_offset)
+    if ReadByte(piglet_found_byte_pointer, true) > 0 then 
+        return true
+    else
+        return false
+    end
+end
+
 function receive_items()
     battle_cards_array = get_empty_battle_cards_array()
     enemy_cards_array = get_empty_enemy_cards_array()
@@ -644,8 +648,10 @@ function receive_items()
                 world_assignment_array[world_id] = world_id
             end
         elseif received_item_id > 2683300 and received_item_id < 2684000 then
-            world_id = received_item_id % 2684000
-            if current_floor == world_order[world_id-1] then
+            world_id = received_item_id % 2683300
+            if current_floor == world_id and (current_floor < 2 or current_floor > 10) then
+                gold_map_cards_array[4] = 1
+            elseif current_floor == world_order[world_id-1] then
                 gold_map_cards_array[4] = 1
             end
         elseif received_item_id > 2685000 and received_item_id < 2686000 then
