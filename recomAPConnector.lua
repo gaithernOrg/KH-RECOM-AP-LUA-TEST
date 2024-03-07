@@ -84,7 +84,9 @@ function get_room_array()
     room_byte_pointer_offset = 0x879398 - offset
     room_byte_value_offset = 0x18
     room_byte_pointer = GetPointer(room_byte_pointer_offset, room_byte_value_offset)
-    return ReadArray(room_byte_pointer, 39, true)
+    room_array = ReadArray(room_byte_pointer, 39, true)
+    ConsolePrint(room_array[1])
+    return room_array
 end
 
 function get_current_floor()
@@ -114,7 +116,7 @@ end
 function get_empty_enemy_cards_array()
     enemy_cards_array = {}
     i = 1
-    while i <= 56 do
+    while i <= 57 do
         enemy_cards_array[i] = 0
         i = i + 1
     end
@@ -661,6 +663,12 @@ function receive_items()
         world_assignment_array[13] = 0xD
     end
     
+    if current_floor == 1 or world_assignment_array[current_floor] ~= 1 then
+        gold_map_cards_array[1] = 1
+        gold_map_cards_array[2] = 1
+        gold_map_cards_array[3] = 1
+    end
+    
     set_battle_cards(battle_cards_array)
     set_enemy_cards(enemy_cards_array)
     set_sleights(sleights_array)
@@ -693,12 +701,9 @@ function send_checks(victory)
         world_assignment_array = get_world_assignments_array()
         for k,v in pairs(room_array) do
             if v > 0 then
-                floor_num = math.floor((k/3)+1)
+                floor_num = math.floor(k/3)+1
                 world_id = world_assignment_array[floor_num]
-                room_num = k%3
-                if room_num == 0 then
-                    room_num = 3
-                end
+                room_num = ((k-1)%3)+1
                 location_id = 2691000 + (world_id * 10) + room_num
                 if not file_exists(client_communication_path .. "send" .. tostring(location_id)) then
                     file = io.open(client_communication_path .. "send" .. tostring(location_id), "w")
@@ -714,15 +719,6 @@ function send_checks(victory)
             heartless_id = math.floor((j+1)/2)
             num_defeated = heartless_array[j] + (heartless_array[j+1] * 256)
             if num_defeated >= 1 then
-                location_id = 2691100 + heartless_id
-                if not file_exists(client_communication_path .. "send" .. tostring(location_id)) then
-                    file = io.open(client_communication_path .. "send" .. tostring(location_id), "w")
-                    io.output(file)
-                    io.write("")
-                    io.close(file)
-                end
-            end
-            if num_defeated >= 5 then
                 location_id = 2691200 + heartless_id
                 if not file_exists(client_communication_path .. "send" .. tostring(location_id)) then
                     file = io.open(client_communication_path .. "send" .. tostring(location_id), "w")
@@ -731,8 +727,17 @@ function send_checks(victory)
                     io.close(file)
                 end
             end
-            if num_defeated >= 9 then
+            if num_defeated >= 5 then
                 location_id = 2691300 + heartless_id
+                if not file_exists(client_communication_path .. "send" .. tostring(location_id)) then
+                    file = io.open(client_communication_path .. "send" .. tostring(location_id), "w")
+                    io.output(file)
+                    io.write("")
+                    io.close(file)
+                end
+            end
+            if num_defeated >= 9 then
+                location_id = 2691400 + heartless_id
                 if not file_exists(client_communication_path .. "send" .. tostring(location_id)) then
                     file = io.open(client_communication_path .. "send" .. tostring(location_id), "w")
                     io.output(file)
@@ -787,19 +792,13 @@ end
 function _OnFrame()
     if canExecute then
         if frame_count % 120 == 0 then
-            --ConsolePrint("Setting Level Up Sleights...")
             set_level_up_sleights()
-            --ConsolePrint("Setting World Order...")
             read_world_order()
             if get_time_played() > 10 then
-                --ConsolePrint("Setting Cutscene Array...")
                 set_cutscene_array(get_calculated_cutscene_array())
             end
-            --ConsolePrint("Setting Receiving Items...")
             victory = receive_items()
-            --ConsolePrint("Sending Checks...")
             send_checks(victory)
-            --ConsolePrint("Done!")
         end
         frame_count = frame_count + 1
     end
