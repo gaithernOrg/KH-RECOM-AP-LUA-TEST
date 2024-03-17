@@ -563,7 +563,7 @@ end
 function add_battle_card(battle_cards_array, battle_card_index, battle_card_value)
     index = ((battle_card_index-1) * 10) + 1
     index = index + battle_card_value
-    if index < 870 then
+    if index <= 870 then
         battle_cards_array[index] = battle_cards_array[index] + 1
     end
 end
