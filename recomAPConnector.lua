@@ -575,7 +575,7 @@ function read_world_order()
         world_order = split(io.read(),",")
         io.close(file)
     else
-        world_order = {nil,nil,nil,nil,nil,nil,nil,nil,nil}
+        world_order = {2,3,4,5,6,7,8,9,10}
     end
 end
 
