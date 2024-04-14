@@ -589,7 +589,7 @@ function read_world_order()
 end
 
 function read_no_zeroes()
-    no_zeroes = file_exists(client_communication_path .. "nozeroes.cfg") then
+    no_zeroes = file_exists(client_communication_path .. "nozeroes.cfg")
 end
 
 function read_attack_power()
