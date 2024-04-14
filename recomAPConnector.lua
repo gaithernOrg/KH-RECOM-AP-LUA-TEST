@@ -62,6 +62,8 @@ function toBits(num)
 end
 
 world_order = {2,3,4,5,6,7,8,9,10}
+no_zeroes = false
+attack_power = 10
 canExecute = false
 offset = 0x4E4660
 frame_count = 1
@@ -560,6 +562,13 @@ function set_level_up_sleights()
     WriteByte(level_up_sleight_table_address+0x25, 0x65)
 end
 
+function set_attack_power()
+    attack_power_pointer_address = 0x877B90 - offset
+    attack_power_pointer_offset = 0x43C
+    attack_power_pointer = GetPointer(attack_power_pointer_address, attack_power_pointer_offset)
+    WriteInt(attack_power_pointer, attack_power, true)
+edn
+
 function add_battle_card(battle_cards_array, battle_card_index, battle_card_value)
     index = ((battle_card_index-1) * 10) + 1
     index = index + battle_card_value
@@ -576,6 +585,21 @@ function read_world_order()
         io.close(file)
     else
         world_order = {2,3,4,5,6,7,8,9,10}
+    end
+end
+
+function read_no_zeroes()
+    no_zeroes = file_exists(client_communication_path .. "nozeroes.cfg") then
+end
+
+function read_attack_power()
+    if file_exists(client_communication_path .. "attackpower.cfg") then
+        file = io.open(client_communication_path .. "attackpower.cfg", "r")
+        io.input(file)
+        attack_power = split(io.read(),",")
+        io.close(file)
+    else
+        attack_power = 10
     end
 end
 
@@ -638,7 +662,9 @@ function receive_items()
         io.close(file)
         if received_item_id > 2681000 and received_item_id < 2681200 then
             for k=0,9 do
-                add_battle_card(battle_cards_array, received_item_id % 2681000, k)
+                if (k == 0 and not no_zeroes) or k > 0 then
+                    add_battle_card(battle_cards_array, received_item_id % 2681000, k)
+                end
             end
         elseif received_item_id > 2681200 and received_item_id < 2682000 then
             enemy_card_index = received_item_id % 2681200
@@ -807,6 +833,9 @@ function _OnFrame()
         if frame_count % 120 == 0 then
             set_level_up_sleights()
             read_world_order()
+            read_no_zeroes()
+            read_attack_power()
+            set_attack_power()
             if get_time_played() > 10 then
                 set_cutscene_array(get_calculated_cutscene_array())
             end
