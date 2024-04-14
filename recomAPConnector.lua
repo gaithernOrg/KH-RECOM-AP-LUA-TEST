@@ -565,10 +565,14 @@ function set_level_up_sleights()
 end
 
 function set_attack_power()
-    attack_power_pointer_address = 0x877B90 - offset
-    attack_power_pointer_offset = 0x43C
-    attack_power_pointer = GetPointer(attack_power_pointer_address, attack_power_pointer_offset)
-    WriteInt(attack_power_pointer, attack_power, true)
+    if attack_power ~= 10 then
+        attack_power_pointer_address = 0x877B90 - offset
+        attack_power_pointer_offset = 0x43C
+        attack_power_pointer = GetPointer(attack_power_pointer_address, attack_power_pointer_offset)
+        if ReadInt(attack_power_pointer, true) == 10 then
+            WriteInt(attack_power_pointer, attack_power, true)
+        end
+    end
 end
 
 function add_battle_card(battle_cards_array, battle_card_index, battle_card_value)
