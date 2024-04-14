@@ -492,7 +492,9 @@ end
 
 function set_initial_battle_cards(battle_cards_array)
     for i=0,9 do
-        add_battle_card(battle_cards_array, 1, i)
+        if (k==0 and not no_zeroes) or k > 0 then
+            add_battle_card(battle_cards_array, 1, i)
+        end
     end
 end
 
