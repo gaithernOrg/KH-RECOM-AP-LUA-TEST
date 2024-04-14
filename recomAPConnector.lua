@@ -598,7 +598,7 @@ function read_attack_power()
     if file_exists(client_communication_path .. "attackpower.cfg") then
         file = io.open(client_communication_path .. "attackpower.cfg", "r")
         io.input(file)
-        attack_power = split(io.read(),",")
+        attack_power = tonumber(io.read())
         io.close(file)
     else
         attack_power = 10
