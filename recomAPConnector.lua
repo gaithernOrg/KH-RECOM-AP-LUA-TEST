@@ -567,7 +567,7 @@ function set_attack_power()
     attack_power_pointer_offset = 0x43C
     attack_power_pointer = GetPointer(attack_power_pointer_address, attack_power_pointer_offset)
     WriteInt(attack_power_pointer, attack_power, true)
-edn
+end
 
 function add_battle_card(battle_cards_array, battle_card_index, battle_card_value)
     index = ((battle_card_index-1) * 10) + 1
