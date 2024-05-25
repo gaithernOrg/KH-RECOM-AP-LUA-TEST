@@ -575,6 +575,25 @@ function set_attack_power()
     end
 end
 
+function set_friend_cards_on_deck_3(friends_array)
+    deck_3_cards_pointer_address = 0x8793F8 - offset
+    deck_3_cards_pointer_offset = -0x5C0
+    deck_3_cards_pointer = GetPointer(deck_3_cards_pointer_address, deck_3_cards_pointer_offset)
+    deck_3_array = {}
+    friends_card_values = {49, 50, 51, 52, 55, 54, 53, 57}
+    for k,v in pairs(friends_array) do
+        deck_3_array[((k-1)*4)+1] = friends_card_values[k]
+        deck_3_array[((k-1)*4)+2] = 0
+        deck_3_array[((k-1)*4)+3] = 0
+        if v > 0 then
+            deck_3_array[((k-1)*4)+4] = 119
+        else
+            deck_3_array[((k-1)*4)+3] = 68
+        end
+    end
+    WriteArray(deck_3_cards_pointer, deck_3_array, True)
+end
+
 function add_battle_card(battle_cards_array, battle_card_index, battle_card_value)
     index = ((battle_card_index-1) * 10) + 1
     index = index + battle_card_value
@@ -719,6 +738,7 @@ function receive_items()
     set_sleights(sleights_array)
     set_gold_map_cards(gold_map_cards_array)
     set_world_assignment(world_assignment_array)
+    set_friend_cards_on_deck_3(friends_array)
     
     if get_time_played() < 10 then
         set_initial_deck()
