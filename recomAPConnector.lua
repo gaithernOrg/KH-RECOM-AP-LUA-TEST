@@ -61,12 +61,18 @@ function toBits(num)
     return t
 end
 
+function magiclines(s)
+        if s:sub(-1)~="\n" then s=s.."\n" end
+        return s:gmatch("(.-)\n")
+end
+
 world_order = {2,3,4,5,6,7,8,9,10}
-no_zeroes = false
 attack_power = 10
 canExecute = false
 offset = 0x4E4660
 frame_count = 1
+set_data = {{0,1,2,3,4,5,6,7,8,9},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}}
+set_data_reset_value = 2
 
 function get_journal_array()
     journal_byte_pointer_offset = 0x879408 - offset
@@ -598,7 +604,18 @@ function add_battle_card(battle_cards_array, battle_card_index, battle_card_valu
     index = ((battle_card_index-1) * 10) + 1
     index = index + battle_card_value
     if index <= 870 then
-        battle_cards_array[index] = battle_cards_array[index] + 1
+        if battle_card_value > 0 and battle_card_value < 10 then
+            battle_cards_array[index] = battle_cards_array[index] + 1
+        elseif battle_card_value > 10 and battle_card_value < 20 then
+            battle_cards_array[index + 0xF0] = battle_cards_array[index + 0xF0] + 1
+        end
+    end
+end
+
+function calculate_cards_to_add(battle_cards_array, battle_card_index, sets_received)
+    values = split(set_data[sets_received%set_data_reset_value],",")
+    for index,battle_card_value in values do
+        add_battle_card(battle_cards_array, battle_card_index, battle_card_value)
     end
 end
 
@@ -613,10 +630,6 @@ function read_world_order()
     end
 end
 
-function read_no_zeroes()
-    no_zeroes = file_exists(client_communication_path .. "nozeroes.cfg")
-end
-
 function read_attack_power()
     if file_exists(client_communication_path .. "attackpower.cfg") then
         file = io.open(client_communication_path .. "attackpower.cfg", "r")
@@ -625,6 +638,22 @@ function read_attack_power()
         io.close(file)
     else
         attack_power = 10
+    end
+end
+
+function read_set_data()
+    if file_exists(client_communication_path .. "setdata.cfg") then
+        file = io.open(client_communication_path .. "setdata.cfg", "r")
+        io.input(file)
+        set_data_string = io.read()
+        set_data = magiclines(set_data_string)
+        io.close(file)
+        
+        final_line_number = 21
+        while set_data[final_line_number-1] == nil do
+            final_line_number = final_line_number - 1
+        end
+        set_data_reset_value = final_line_number
     end
 end
 
@@ -675,6 +704,7 @@ function receive_items()
     friend_count = 0
     current_floor = get_current_floor()
     victory = false
+    card_sets_received = {}
     
     j = 1
     
@@ -686,11 +716,13 @@ function receive_items()
         received_item_id = tonumber(io.read())
         io.close(file)
         if received_item_id > 2681000 and received_item_id < 2681200 then
-            for k=0,9 do
-                if (k == 0 and not no_zeroes) or k > 0 then
-                    add_battle_card(battle_cards_array, received_item_id % 2681000, k)
-                end
+            card_index = received_item_id % 2681000
+            if card_sets_received[card_index] == nil then
+                card_sets_received[card_index] = 1
+            else
+                card_sets_received[card_index] = card_sets_received[card_index] + 1
             end
+            calculate_cards_to_add(battle_cards_array, card_index, card_sets_received[card_index])
         elseif received_item_id > 2681200 and received_item_id < 2682000 then
             enemy_card_index = received_item_id % 2681200
             enemy_cards_array[enemy_card_index] = enemy_cards_array[enemy_card_index] + 1
