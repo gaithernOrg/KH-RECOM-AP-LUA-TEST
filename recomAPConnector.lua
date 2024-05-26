@@ -75,6 +75,7 @@ offset = 0x4E4660
 frame_count = 1
 card_set_data = {{0,1,2,3,4,5,6,7,8,9},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}}
 card_set_data_reset_value = 2
+card_set_data_read = false
 
 function get_journal_array()
     journal_byte_pointer_offset = 0x879408 - offset
@@ -514,6 +515,21 @@ end
 function set_initial_deck()
     initial_deck_array = {}
     i = 0
+    if card_set_data[1][1] == nil then
+        initial_deck_array[1] = 1
+        initial_deck_array[2] = 0
+        initial_deck_array[3] = 1
+        initial_deck_array[4] = 17
+        initial_deck_array[5] = 1
+        initial_deck_array[6] = 0
+        initial_deck_array[7] = 2
+        initial_deck_array[8] = 17
+        initial_deck_array[9] = 1
+        initial_deck_array[10] = 0
+        initial_deck_array[11] = 3
+        initial_deck_array[12] = 17
+        i = 3
+    end
     for k,v in pairs(card_set_data[1]) do
         initial_deck_array[((k-1)*4)+1] = 1
         initial_deck_array[((k-1)*4)+1] = 0
@@ -650,7 +666,7 @@ function read_attack_power()
 end
 
 function read_set_data()
-    if file_exists(client_communication_path .. "setdata.cfg") then
+    if file_exists(client_communication_path .. "setdata.cfg") and not card_set_data_read then
         card_set_data_string = slurp(client_communication_path .. "setdata.cfg")
         result = {}
         i = 1
@@ -668,6 +684,7 @@ function read_set_data()
             final_line_number = final_line_number - 1
         end
         card_set_data_reset_value = final_line_number
+        card_set_data_read = true
     end
 end
 
