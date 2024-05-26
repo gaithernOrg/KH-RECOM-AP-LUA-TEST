@@ -626,10 +626,13 @@ end
 function add_battle_card(battle_cards_array, battle_card_index, battle_card_value)
     index = ((battle_card_index-1) * 10) + 1
     index = index + battle_card_value % 10
+    if battle_card_index > 80 and battle_card_value > 9 then
+        battle_card_value = battle_card_value % 10
+    end
     if index <= 870 then
         if battle_card_value >= 0 and battle_card_value < 10 then
             battle_cards_array[index] = battle_cards_array[index] + 1
-        elseif battle_card_value >= 10 and battle_card_value < 20 then
+        elseif battle_card_value >= 10 and battle_card_value < 20  and battle_card_index < 81 then
             battle_cards_array[index + 0xF0] = battle_cards_array[index + 0xF0] + 1
         end
     end
