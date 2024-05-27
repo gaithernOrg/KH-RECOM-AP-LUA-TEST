@@ -515,7 +515,7 @@ end
 function set_initial_deck()
     initial_deck_array = {}
     i = 0
-    if card_set_data[1][1] == nil then
+    if not card_set_data_read then
         initial_deck_array[1] = 1
         initial_deck_array[2] = 0
         initial_deck_array[3] = 1
@@ -529,13 +529,14 @@ function set_initial_deck()
         initial_deck_array[11] = 3
         initial_deck_array[12] = 17
         i = 3
-    end
-    for k,v in pairs(card_set_data[1]) do
-        initial_deck_array[((k-1)*4)+1] = 1
-        initial_deck_array[((k-1)*4)+1] = 0
-        initial_deck_array[((k-1)*4)+1] = v
-        initial_deck_array[((k-1)*4)+1] = 17
-        i = i + 1
+    else
+        for k,v in pairs(card_set_data[1]) do
+            initial_deck_array[((k-1)*4)+1] = 1
+            initial_deck_array[((k-1)*4)+2] = 0
+            initial_deck_array[((k-1)*4)+3] = (v%10)
+            initial_deck_array[((k-1)*4)+4] = 17
+            i = i + 1
+        end
     end
     while i < 99 do
         initial_deck_array[(i*4)+1] = 0
