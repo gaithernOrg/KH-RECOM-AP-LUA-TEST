@@ -653,6 +653,15 @@ function set_friend_cards_on_deck_3(friends_array)
     WriteArray(deck_3_cards_pointer, deck_3_array, true)
 end
 
+function set_friends()
+    friend_pointer_offset = 0x8778E0 - offset
+    friend_offset_1 = 0x8
+    friend_offset_2 = 0x300
+    friend_pointer_1 = GetPointer(friend_pointer_offset, friend_offset_1)
+    friend_pointer_2 = GetPointer(friend_pointer_1, friend_offset_2, true)
+    WriteByte(friend_pointer_2 - 0x278, 0xFF, true)
+end
+
 function add_battle_card(battle_cards_array, battle_card_index, battle_card_value)
     index = ((battle_card_index-1) * 10) + 1
     index = index + battle_card_value % 10
@@ -969,6 +978,7 @@ function _OnFrame()
             read_attack_power()
             read_set_data()
             set_attack_power()
+            set_friends()
             if get_time_played() > 10 then
                 set_cutscene_array(get_calculated_cutscene_array())
             end
