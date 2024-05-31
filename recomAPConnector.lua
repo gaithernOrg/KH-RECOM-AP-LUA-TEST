@@ -171,6 +171,7 @@ function get_calculated_cutscene_array()
             dp = dp + 1
         end
     end
+    
     WriteArray(journal_array_pointer + world_jounal_entry_array_offset, world_journal_entry_array, true)
     WriteByte(dp_pointer + dp_pointer_offset, dp, true)
     
@@ -191,12 +192,24 @@ function get_calculated_cutscene_array()
     elseif dp == 4 then --10F Exit Hall: Vexen I
         cutscene_array[39] = 0xE4
         cutscene_array[40] = 0x07
-    --elseif dp == 5 then --11F Exit Hall: Riku III BUGGED
-    --    cutscene_array[43] = 0xE6
-    --    cutscene_array[44] = 0x07
-    elseif dp == 5 then --13F Exit Hall: Riku IV and Larxene II
+    elseif dp == 5 then --11F Exit Hall: Riku III
+        cutscene_array[43] = 0xE6
+        cutscene_array[44] = 0x07
+    elseif dp == 6 then --Fix?
+        cutscene_array[45] = 0xE7
+        cutscene_array[46] = 0x07
+    elseif dp == 7 then --13F Exit Hall: Riku IV and Larxene II
         cutscene_array[47] = 0xE8
         cutscene_array[48] = 0x07
+    end
+    
+    current_room_address = 0x878060 - offset
+    world_pointer_address = 0x879408 - offset
+    world_pointer_offset = -0xFC8
+    world_pointer = GetPointer(world_pointer_address)
+    if ReadShort(current_room_address) == 0x17 and ReadShort(world_pointer + world_pointer_offset, true) == 0x0 and cutscene_array[45] == 0xE7 then
+        dp = dp + 1
+        WriteByte(dp_pointer + dp_pointer_offset, dp, true)
     end
     return cutscene_array
 end
@@ -453,10 +466,10 @@ end
 
 function get_dp_checks()
     dp_location_ids = {}
-    dp_pointer_address = 0x877B90 - offset
-    dp_pointer_offset = 0x44C
+    dp_pointer_address = 0x8793F8 - offset
+    dp_pointer_offset = 0x14
     dp_pointer = GetPointer(dp_pointer_address)
-    dp = ReadByte(dp_pointer_address + dp_pointer_offset, true)
+    dp = ReadByte(dp_pointer + dp_pointer_offset, true)
     
     if dp > 3 then
         dp_location_ids[#dp_location_ids + 1] = 2692035 --Riku II Magnet Spiral
