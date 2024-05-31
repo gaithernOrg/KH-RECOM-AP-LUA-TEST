@@ -159,20 +159,20 @@ end
 function get_calculated_cutscene_array()
     journal_array_pointer_address = 0x879408 - offset
     world_jounal_entry_array_offset = 0x68
-    dp_pointer_address = 0x877B90 - offset
-    dp_pointer_offset = 0x44C
+    dp_pointer_address = 0x8793F8 - offset
+    dp_pointer_offset = 0x14
     journal_array_pointer = GetPointer(journal_array_pointer_address)
-    world_jounal_entry_array = ReadArray(journal_array_pointer + journal_array_pointer, 13, true)
+    world_journal_entry_array = ReadArray(journal_array_pointer + world_jounal_entry_array_offset, 13, true)
     dp_pointer = GetPointer(dp_pointer_address)
-    dp = ReadByte(dp_pointer_address + dp_pointer_offset, true)
-    for world_num, journal_byte in pairs(world_jounal_entry_array) do
+    dp = ReadByte(dp_pointer + dp_pointer_offset, true)
+    for world_num, journal_byte in pairs(world_journal_entry_array) do
         if journal_byte > 0 then
-            world_assignment_array[world_num] = 0
+            world_journal_entry_array[world_num] = 0
             dp = dp + 1
         end
     end
-    WriteArray(journal_array_pointer + journal_array_pointer, journal_array)
-    WriteByte(dp_pointer_address + dp_pointer_offset, dp, true)
+    WriteArray(journal_array_pointer + world_jounal_entry_array_offset, world_journal_entry_array, true)
+    WriteByte(dp_pointer + dp_pointer_offset, dp, true)
     
     cutscene_array = {0x01, 0x00, 0x02, 0x00, 0x03, 0x00, 0x04, 0x00, 0x05, 0x00, 0x06, 0x00, 0x07, 0x00, 0x08, 0x00, 0x09, 0x00, 0x0A, 0x00, 0x0B, 0x00, 0x0C, 0x00, 0x0D, 0x00, 0x0E, 0x00, 0x0F, 
                 0x00, 0x10, 0x00, 0x11, 0x00, 0x12, 0x00, 0x13, 0x00, 0x14, 0x00, 0x15, 0x00, 0x16, 0x00, 0x17, 0x00, 0x18, 0x00}
@@ -464,6 +464,7 @@ function get_dp_checks()
     if dp > 4 then
         dp_location_ids[#dp_location_ids + 1] = 2692032 --Vexen I Freeze
     end
+    return dp_location_ids
 end
 
 function set_gold_map_cards(gold_map_cards_array)
