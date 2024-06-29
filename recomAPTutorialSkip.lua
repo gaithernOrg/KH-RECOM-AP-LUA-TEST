@@ -60,12 +60,6 @@ Blizzaga = ReadLong(0x87C508)+0x5, true
 	if ReadByte(TutorialFlag, true) == 0x0A and ReadInt(EventCheck2, true) == 0x5F463130 then
 		WriteArray(TutorialFlag, {0x28, 0x00, 0x00, 0x00, 0x07}, true)
 	end
-	
-	--- Give Missing Abilities
-	if ReadByte(Blizzara, true) == 0 then
-		WriteByte(Blizzara, 0x20, true)
-		WriteByte(Blizzaga, 0x48, true)
-	end
 end
 
 ---------- Steam Version
