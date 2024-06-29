@@ -79,21 +79,21 @@ card_set_data_reset_value = 2
 card_set_data_read = false
 
 function get_journal_array()
-    journal_pointer_address = {0x87C508, 0x0}
+    journal_pointer_address = {0x87C508, 0x87CC08}
     journal_pointer_offset = 0x11B
     journal_pointer = GetPointer(journal_pointer_address[game_version], journal_pointer_offset)
     return ReadArray(journal_pointer, 108, true)
 end
 
 function get_heartless_array()
-    journal_heartless_pointer_address = {0x87C508, 0x0}
+    journal_heartless_pointer_address = {0x87C508, 0x87CC08}
     journal_heartless_pointer_offset = 0x1F4
     journal_heartless_pointer = GetPointer(journal_heartless_pointer_address[game_version], journal_heartless_pointer_offset)
     return ReadArray(journal_heartless_pointer, 62, true)
 end
 
 function get_room_array()
-    room_array_pointer_address = {0x87C498, 0x0}
+    room_array_pointer_address = {0x87C498, 0x87CB98}
     room_array_pointer_offset = 0x18
     room_array_pointer = GetPointer(room_array_pointer_address[game_version], room_array_pointer_offset)
     room_array = ReadArray(room_array_pointer, 39, true)
@@ -101,12 +101,12 @@ function get_room_array()
 end
 
 function get_current_floor()
-    current_floor_address = {0x87B144, 0x0}
-    return ReadByte(0x87B144)
+    current_floor_address = {0x87B144, 0x87B844}
+    return ReadByte(current_floor_address[game_version])
 end
 
 function get_time_played()
-    time_played_pointer_address = {0x87A9E0, 0x0}
+    time_played_pointer_address = {0x87A9E0, 0x87B0E0}
     time_played_pointer_offset_1 = 0x8
     time_played_pointer_offset_2 = 0x300
     time_played_pointer_1 = GetPointer(time_played_pointer_address[game_version], time_played_pointer_offset_1)
@@ -159,9 +159,9 @@ function get_empty_sleights_array()
 end
 
 function get_calculated_cutscene_array()
-    journal_array_pointer_address = {0x87C508, 0x0}
+    journal_array_pointer_address = {0x87C508, 0x87CC08}
     world_jounal_entry_array_offset = 0x68
-    dp_pointer_address = {0x87C4F8, 0x0}
+    dp_pointer_address = {0x87C4F8, 0x87CBF8}
     dp_pointer_offset = 0x14
     journal_array_pointer = GetPointer(journal_array_pointer_address[game_version])
     world_journal_entry_array = ReadArray(journal_array_pointer + world_jounal_entry_array_offset, 13, true)
@@ -205,8 +205,8 @@ function get_calculated_cutscene_array()
         cutscene_array[48] = 0x07
     end
     
-    current_room_address = {0x87B160, 0x0}
-    world_pointer_address = {0x87C508, 0x0}
+    current_room_address = {0x87B160, 0x87B860}
+    world_pointer_address = {0x87C508, 0x87CC08}
     world_pointer_offset = -0xFC8
     world_pointer = GetPointer(world_pointer_address[game_version])
     if ReadShort(current_room_address[game_version]) == 0x17 and ReadShort(world_pointer + world_pointer_offset, true) == 0x0 and cutscene_array[45] == 0xE7 then
@@ -217,14 +217,14 @@ function get_calculated_cutscene_array()
 end
 
 function get_world_assignments_array()
-    world_assignment_array_pointer_address = {0x87C498, 0x0}
+    world_assignment_array_pointer_address = {0x87C498, 0x87CB98}
     world_assignment_array_pointer_offset = 0x48
     world_assignment_array_pointer = GetPointer(world_assignment_array_pointer_address[game_version], world_assignment_array_pointer_offset)
     return ReadArray(world_assignment_array_pointer, 39, true)
 end
 
 function get_friend_cards_array()
-    friend_pointer_address = {0x87C508, 0x0}
+    friend_pointer_address = {0x87C508, 0x87CC08}
     friend_pointer_offset = 0x147
     friend_pointer = GetPointer(friend_pointer_address[game_version], friend_pointer_offset)
     friends_array = ReadArray(friend_pointer, 8, true)
@@ -232,7 +232,7 @@ function get_friend_cards_array()
 end
 
 function get_rewards_bounties_array()
-    rewards_bounties_array_pointer_address = {0x87C4D0, 0x0}
+    rewards_bounties_array_pointer_address = {0x87C4D0, 0x87CBD0}
     rewards_bounties_array_pointer_offset = 0xE1
     rewards_bounties_array_pointer = GetPointer(rewards_bounties_array_pointer_address[game_version], rewards_bounties_array_pointer_offset)
     rewards_bounties_array = ReadArray(rewards_bounties_array_pointer, 46, true)
@@ -240,7 +240,7 @@ function get_rewards_bounties_array()
 end
 
 function get_minigames_array()
-    minigames_array_pointer_address = {0x87C508, 0x0}
+    minigames_array_pointer_address = {0x87C508, 0x87CC08}
     minigames_array_pointer_offset = 0x1EE
     mingames_array_pointer = GetPointer(minigames_array_pointer_address[game_version], minigames_array_pointer_offset)
     mingames_array = ReadArray(mingames_array_pointer, 6, true)
@@ -459,7 +459,7 @@ function get_extra_checks()
 end
 
 function get_soras_level()
-    soras_level_pointer_address = {0x87C4F8, 0x0}
+    soras_level_pointer_address = {0x87C4F8, 0x87CBF8}
     soras_level_pointer_offset = 0x1C
     soras_level_pointer = GetPointer(soras_level_pointer_address[game_version], soras_level_pointer_offset)
     soras_level = ReadInt(soras_level_pointer, true)
@@ -468,7 +468,7 @@ end
 
 function get_dp_checks()
     dp_location_ids = {}
-    dp_pointer_address = {0x87C4F8, 0x0}
+    dp_pointer_address = {0x87C4F8, 0x87CBF8}
     dp_pointer_offset = 0x14
     dp_pointer = GetPointer(dp_pointer_address[game_version])
     dp = ReadByte(dp_pointer + dp_pointer_offset, true)
@@ -483,28 +483,28 @@ function get_dp_checks()
 end
 
 function set_gold_map_cards(gold_map_cards_array)
-    gold_map_cards_pointer_address = {0x87A0F0, 0x0}
+    gold_map_cards_pointer_address = {0x87A0F0, 0x87A7F0}
     gold_map_cards_pointer_offset = 0x2
     gold_map_cards_pointer = GetPointer(gold_map_cards_pointer_address[game_version], gold_map_cards_pointer_offset)
     WriteArray(gold_map_cards_pointer, gold_map_cards_array, true)
 end
 
 function set_battle_cards(battle_cards_array)
-    cards_pointer_address = {0x87C4F8, 0x0}
+    cards_pointer_address = {0x87C4F8, 0x87CBF8}
     card_pointer_offset = -0xD74
     cards_pointer = GetPointer(cards_pointer_address[game_version], card_pointer_offset)
     WriteArray(cards_pointer, battle_cards_array, true)
 end
 
 function set_enemy_cards(enemy_cards_array)
-    enemy_cards_pointer_address = {0x87C4F8, 0x0}
+    enemy_cards_pointer_address = {0x87C4F8, 0x87CBF8}
     enemy_cards_pointer_offset = -0x914
     enemy_cards_pointer = GetPointer(enemy_cards_pointer_address[game_version], enemy_cards_pointer_offset)
     WriteArray(enemy_cards_pointer, enemy_cards_array, true)
 end
 
 function set_world_assignment(world_assignment_array)
-    world_assignment_pointer_address = {0x87C498, 0x0}
+    world_assignment_pointer_address = {0x87C498, 0x87CB98}
     world_assignment_pointer_offset = 0x48
     world_assignment_pointer = GetPointer(world_assignment_pointer_address[game_version], world_assignment_pointer_offset)
     current_world_assignments = ReadArray(world_assignment_pointer, #world_assignment_array, true)
@@ -514,7 +514,7 @@ function set_world_assignment(world_assignment_array)
 end
 
 function set_map_cards()
-    map_cards_pointer_address = {0x87C4F8, 0x0}
+    map_cards_pointer_address = {0x87C4F8, 0x87CBF8}
     map_cards_pointer_offset = -0xA0E
     map_cards_pointer = GetPointer(map_cards_pointer_address[game_version], map_cards_pointer_offset)
     map_cards_array = {}
@@ -537,7 +537,7 @@ function set_initial_battle_cards(battle_cards_array)
 end
 
 function set_cutscene_array(cutscene_array)
-    cutscene_array_pointer_address = {0x87C4D0, 0x0}
+    cutscene_array_pointer_address = {0x87C4D0, 0x87CBD0}
     cutscene_array_pointer_offset = 0x272
     cutscene_array_pointer = GetPointer(cutscene_array_pointer_address[game_version], cutscene_array_pointer_offset)
     WriteArray(cutscene_array_pointer, cutscene_array, true)
@@ -576,7 +576,7 @@ function set_initial_deck()
         initial_deck_array[(i*4)+4] = 0
         i = i + 1
     end
-    deck_pointer_address = {0x87C4F8, 0x0}
+    deck_pointer_address = {0x87C4F8, 0x87CBF8}
     deck_pointer_offset = -0x8D8
     deck_pointer = GetPointer(deck_pointer_address[game_version], deck_pointer_offset)
     WriteArray(deck_pointer, initial_deck_array, true)
@@ -603,14 +603,14 @@ function set_sleights(sleights_array)
         i = i + 4
     end
     
-    sleights_pointer_address = {0x87C508, 0x0}
+    sleights_pointer_address = {0x87C508, 0x87CC08}
     sleights_pointer_offset = 0x1
     sleights_pointer = GetPointer(sleights_pointer_address[game_version], sleights_pointer_offset)
     WriteArray(sleights_pointer, sleights_bytes_array, true)
 end
 
 function set_level_up_sleights()
-    level_up_sleight_table_address = {0x10EBE2, 0x0}
+    level_up_sleight_table_address = {0x10EBE2, 0x10EF72}
     WriteByte(level_up_sleight_table_address[game_version], 0x65)
     WriteByte(level_up_sleight_table_address[game_version]+0x02, 0x65)
     WriteByte(level_up_sleight_table_address[game_version]+0x07, 0x65)
@@ -627,7 +627,7 @@ end
 
 function set_attack_power()
     if attack_power ~= 10 then
-        attack_power_pointer_address = {0x87AC90, 0x0}
+        attack_power_pointer_address = {0x87AC90, 0x87B390}
         attack_power_pointer_offset = 0x43C
         attack_power_pointer = GetPointer(attack_power_pointer_address[game_version], attack_power_pointer_offset)
         if ReadInt(attack_power_pointer, true) == 10 then
@@ -637,7 +637,7 @@ function set_attack_power()
 end
 
 function set_friend_cards_on_deck_3(friends_array)
-    deck_3_cards_pointer_address = {0x87C4F8, 0x0}
+    deck_3_cards_pointer_address = {0x87C4F8, 0x87CBF8}
     deck_3_cards_pointer_offset = -0x5C0
     deck_3_cards_pointer = GetPointer(deck_3_cards_pointer_address[game_version], deck_3_cards_pointer_offset)
     deck_3_array = {}
@@ -656,7 +656,7 @@ function set_friend_cards_on_deck_3(friends_array)
 end
 
 function set_friends()
-    friend_pointer_address = {0x87A9E0, 0x0}
+    friend_pointer_address = {0x87A9E0, 0x87B0E0}
     friend_pointer_offset_1 = 0x8
     friend_pointer_offset_2 = 0x300
     friend_pointer_1 = GetPointer(friend_pointer_address[game_version], friend_pointer_offset_1)
@@ -737,8 +737,8 @@ function read_set_data()
 end
 
 function final_marluxia_slain()
-    world_address = {0x87B162, 0x0}
-    room_address = {0x87B160, 0x0}
+    world_address = {0x87B162, 0x87B862}
+    room_address = {0x87B160, 0x87B860}
     if ReadByte(world_address[game_version]) == 0x0D and ReadArray(room_address[game_version],2)[1] == 0xD4 and ReadArray(room_address[game_version],2)[2] == 0x07 then
         return true
     end
@@ -746,7 +746,7 @@ function final_marluxia_slain()
 end
 
 function piglet_found()
-    piglet_found_byte_pointer_address = {0x87C508, 0x0}
+    piglet_found_byte_pointer_address = {0x87C508, 0x87CC08}
     piglet_found_byte_pointer_offset = 0xB7
     piglet_found_byte_pointer = GetPointer(piglet_found_byte_pointer_address[game_version], piglet_found_byte_pointer_offset)
     if ReadByte(piglet_found_byte_pointer, true) > 0 then 
