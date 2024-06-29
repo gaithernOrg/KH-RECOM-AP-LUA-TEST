@@ -37,7 +37,7 @@ function write_exp_multiplier()
     exp_gem_calculation_table_address = {0x7C2C78, 0x0}
     exp_gem_vanilla_values = {1400, 99, 60, 30, 10, 5, 1}
     for i=1,7 do
-        WriteInt(exp_gem_calculation_table_address[game_version} + ((i-1)*8) + 4, math.max(math.floor(exp_gem_vanilla_values[i]/xp_mult),1))
+        WriteInt(exp_gem_calculation_table_address[game_version] + ((i-1)*8) + 4, math.max(math.floor(exp_gem_vanilla_values[i]/xp_mult),1))
     end
 end
 
