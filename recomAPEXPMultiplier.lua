@@ -2,6 +2,8 @@ LUAGUI_NAME = "recomAP"
 LUAGUI_AUTH = "Gicu"
 LUAGUI_DESC = "RE: Chain of Memories AP Integration"
 
+game_version = 1 --1 for EGS 2 for Steam
+
 if os.getenv('LOCALAPPDATA') ~= nil then
     client_communication_path = os.getenv('LOCALAPPDATA') .. "\\KHRECOM\\"
 else
@@ -18,7 +20,6 @@ function file_exists(name)
 end
 
 xp_mult = 1
-offset = 0x4E4660
 frame_count = 0
 
 function read_exp_multiplier()
@@ -33,17 +34,23 @@ function read_exp_multiplier()
 end
 
 function write_exp_multiplier()
-    exp_gem_calculation_table_address = 0x7BFC78 - offset
+    exp_gem_calculation_table_address = {0x7C2C78, 0x0}
     exp_gem_vanilla_values = {1400, 99, 60, 30, 10, 5, 1}
     for i=1,7 do
-        WriteInt(exp_gem_calculation_table_address + ((i-1)*8) + 4, math.max(math.floor(exp_gem_vanilla_values[i]/xp_mult),1))
+        WriteInt(exp_gem_calculation_table_address[game_version} + ((i-1)*8) + 4, math.max(math.floor(exp_gem_vanilla_values[i]/xp_mult),1))
     end
 end
 
 function _OnInit()
     if GAME_ID == 0x9E3134F5 and ENGINE_TYPE == "BACKEND" then
-        ConsolePrint("RE:CoM detected, running script")
         canExecute = true
+        if ReadByte(0x4E6C80) == 255 or ReadByte(0x4E6AC0) == 255 then
+            ConsolePrint("Epic Games Version Detected")
+            game_version = 1
+        elseif ReadByte(0x4E7040) == 255 or ReadByte(0x4E6DC0) == 255 then
+            ConsolePrint("Steam Version Detected")
+            game_version = 2
+        end
     else
         ConsolePrint("RE:CoM not detected, not running script")
     end
