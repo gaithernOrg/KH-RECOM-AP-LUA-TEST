@@ -159,13 +159,13 @@ function get_empty_sleights_array()
 end
 
 function get_calculated_cutscene_array()
-    journal_array_pointer_address = 0x879408 - offset
+    journal_array_pointer_address = {0x87C508, 0x0}
     world_jounal_entry_array_offset = 0x68
-    dp_pointer_address = 0x8793F8 - offset
+    dp_pointer_address = {0x87C4F8, 0x0}
     dp_pointer_offset = 0x14
-    journal_array_pointer = GetPointer(journal_array_pointer_address)
+    journal_array_pointer = GetPointer(journal_array_pointer_address[game_version])
     world_journal_entry_array = ReadArray(journal_array_pointer + world_jounal_entry_array_offset, 13, true)
-    dp_pointer = GetPointer(dp_pointer_address)
+    dp_pointer = GetPointer(dp_pointer_address[game_version])
     dp = ReadByte(dp_pointer + dp_pointer_offset, true)
     for world_num, journal_byte in pairs(world_journal_entry_array) do
         if journal_byte > 0 then
@@ -205,11 +205,11 @@ function get_calculated_cutscene_array()
         cutscene_array[48] = 0x07
     end
     
-    current_room_address = 0x878060 - offset
-    world_pointer_address = 0x879408 - offset
+    current_room_address = {0x87B160, 0x0}
+    world_pointer_address = {0x87C508, 0x0}
     world_pointer_offset = -0xFC8
-    world_pointer = GetPointer(world_pointer_address)
-    if ReadShort(current_room_address) == 0x17 and ReadShort(world_pointer + world_pointer_offset, true) == 0x0 and cutscene_array[45] == 0xE7 then
+    world_pointer = GetPointer(world_pointer_address[game_version])
+    if ReadShort(current_room_address[game_version]) == 0x17 and ReadShort(world_pointer + world_pointer_offset, true) == 0x0 and cutscene_array[45] == 0xE7 then
         dp = dp + 1
         WriteByte(dp_pointer + dp_pointer_offset, dp, true)
     end
