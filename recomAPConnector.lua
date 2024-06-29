@@ -668,7 +668,7 @@ function set_blizzard()
     blizzard_journal_pointer_address = {0x87C508, 0x87CC08}
     blizzard_journal_pointer_offset = 0x133
     blizzard_journal_pointer = GetPointer(blizzard_journal_pointer_address[game_version], blizzard_journal_pointer_offset)
-    WriteByte(blizzard_journal_pointer, 0x1)
+    WriteByte(blizzard_journal_pointer, 0x1, true)
 end
 
 function add_battle_card(battle_cards_array, battle_card_index, battle_card_value)
