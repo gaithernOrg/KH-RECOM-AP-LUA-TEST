@@ -603,7 +603,7 @@ function set_sleights(sleights_array)
         i = i + 4
     end
     
-    sleights_pointer_address = {0x87C508, 0x0} - offset
+    sleights_pointer_address = {0x87C508, 0x0}
     sleights_pointer_offset = 0x1
     sleights_pointer = GetPointer(sleights_pointer_address[game_version], sleights_pointer_offset)
     WriteArray(sleights_pointer, sleights_bytes_array, true)
