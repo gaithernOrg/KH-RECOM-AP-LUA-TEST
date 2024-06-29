@@ -666,7 +666,7 @@ end
 
 function set_blizzard()
     blizzard_journal_pointer_address = {0x87C508, 0x87CC08}
-    blizzard_journal_pointer_offset = 0x11B
+    blizzard_journal_pointer_offset = 0x133
     blizzard_journal_pointer = GetPointer(blizzard_journal_pointer_address[game_version], blizzard_journal_pointer_offset)
     WriteByte(blizzard_journal_pointer, 0x1)
 end
