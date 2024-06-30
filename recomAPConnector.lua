@@ -824,7 +824,7 @@ function receive_items()
         j = j + 1
     end
     
-    if friend_count >= 8 then
+    if friend_count >= 8 and get_journal_array()[107] > 0 then --if all friends are found and you have beaten Larxene II
         world_assignment_array[13] = 0xD
     end
     
