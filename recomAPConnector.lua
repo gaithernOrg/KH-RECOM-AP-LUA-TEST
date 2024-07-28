@@ -77,6 +77,8 @@ frame_count = 1
 card_set_data = {{0,1,2,3,4,5,6,7,8,9},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}}
 card_set_data_reset_value = 2
 card_set_data_read = false
+item_index = 1
+card_array = {}
 
 function get_journal_array()
     journal_pointer_address = {0x87C508, 0x87CC08}
@@ -774,13 +776,10 @@ function receive_items()
     current_floor = get_current_floor()
     victory = false
     card_sets_received = {}
-    
-    j = 1
-    
-    card_array = set_initial_battle_cards(card_array)
     set_map_cards()
-    while file_exists(client_communication_path .. "AP_" .. tostring(j) .. ".item") do
-        file = io.open(client_communication_path .. "AP_" .. tostring(j) .. ".item", "r")
+    
+    while file_exists(client_communication_path .. "AP_" .. tostring(item_index) .. ".item") do
+        file = io.open(client_communication_path .. "AP_" .. tostring(item_index) .. ".item", "r")
         io.input(file)
         received_item_id = tonumber(io.read())
         io.close(file)
@@ -821,7 +820,7 @@ function receive_items()
         elseif received_item_id == 2680000 then
             victory = true
         end
-        j = j + 1
+        item_index = item_index + 1
     end
     
     if friend_count >= 8 and get_journal_array()[107] > 0 then --if all friends are found and you have beaten Larxene II
@@ -841,7 +840,7 @@ function receive_items()
     set_world_assignment(world_assignment_array)
     set_friend_cards_on_deck_3(friends_array)
     
-    if get_time_played() < 10 then
+    if get_time_played() < 5 then
         set_initial_deck()
     end
     return victory
@@ -966,6 +965,7 @@ function _OnInit()
     else
         ConsolePrint("RE:CoM not detected, not running script")
     end
+    card_array = set_initial_battle_cards(card_array)
 end
 
 function _OnFrame()
@@ -978,11 +978,14 @@ function _OnFrame()
             read_set_data()
             set_attack_power()
             set_friends()
-            if get_time_played() > 10 then
+            if get_time_played() > 5 then
                 set_cutscene_array(get_calculated_cutscene_array())
+                victory = receive_items()
+                send_checks(victory)
+            else
+                card_array = set_initial_battle_cards(card_array)
+                card_index = 1
             end
-            victory = receive_items()
-            send_checks(victory)
         end
         frame_count = frame_count + 1
     end
