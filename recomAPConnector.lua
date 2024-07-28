@@ -77,6 +77,7 @@ frame_count = 1
 card_set_data = {{0,1,2,3,4,5,6,7,8,9},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}}
 card_set_data_reset_value = 2
 card_set_data_read = false
+initial_battle_cards_set = false
 item_index = 1
 battle_cards_array = {}
 enemy_cards_array = {}
@@ -986,6 +987,10 @@ function _OnFrame()
             read_set_data()
             set_attack_power()
             set_friends()
+            if card_set_data_read and not initial_battle_cards_set then
+                set_initial_battle_cards()
+                initial_battle_cards_set = true
+            end
             if get_time_played() > 5 then
                 set_cutscene_array(get_calculated_cutscene_array())
                 receive_items()
