@@ -78,7 +78,15 @@ card_set_data = {{0,1,2,3,4,5,6,7,8,9},{},{},{},{},{},{},{},{},{},{},{},{},{},{}
 card_set_data_reset_value = 2
 card_set_data_read = false
 item_index = 1
-card_array = {}
+battle_cards_array = {}
+enemy_cards_array = {}
+world_assignment_array = {}
+gold_map_cards_array = {}
+friends_array = {}
+sleights_array = {}
+card_sets_received = {}
+friend_count = 0
+victory = false
 
 function get_journal_array()
     journal_pointer_address = {0x87C508, 0x87CC08}
@@ -766,16 +774,7 @@ function piglet_found()
 end
 
 function receive_items()
-    battle_cards_array = get_empty_battle_cards_array()
-    enemy_cards_array = get_empty_enemy_cards_array()
-    world_assignment_array = get_empty_world_assignment_array()
-    gold_map_cards_array = get_empty_gold_map_cards_array()
-    friends_array = get_empty_friends_array()
-    sleights_array = get_empty_sleights_array()
-    friend_count = 0
     current_floor = get_current_floor()
-    victory = false
-    card_sets_received = {}
     set_map_cards()
     
     while file_exists(client_communication_path .. "AP_" .. tostring(item_index) .. ".item") do
@@ -952,6 +951,18 @@ function send_checks(victory)
     
 end
 
+function initialize()
+    battle_cards_array = get_empty_battle_cards_array()
+    enemy_cards_array = get_empty_enemy_cards_array()
+    world_assignment_array = get_empty_world_assignment_array()
+    gold_map_cards_array = get_empty_gold_map_cards_array()
+    friends_array = get_empty_friends_array()
+    sleights_array = get_empty_sleights_array()
+    card_sets_received = {}
+    friend_count = 0
+    victory = false
+end
+
 function _OnInit()
     if GAME_ID == 0x9E3134F5 and ENGINE_TYPE == "BACKEND" then
         canExecute = true
@@ -965,7 +976,6 @@ function _OnInit()
     else
         ConsolePrint("RE:CoM not detected, not running script")
     end
-    card_array = set_initial_battle_cards(card_array)
 end
 
 function _OnFrame()
@@ -983,8 +993,7 @@ function _OnFrame()
                 victory = receive_items()
                 send_checks(victory)
             else
-                card_array = set_initial_battle_cards(card_array)
-                card_index = 1
+                initialize()
             end
         end
         frame_count = frame_count + 1
