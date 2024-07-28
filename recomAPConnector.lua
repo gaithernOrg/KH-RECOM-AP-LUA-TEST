@@ -951,6 +951,7 @@ function send_checks()
 end
 
 function initialize()
+    read_set_data()
     battle_cards_array = get_empty_battle_cards_array()
     enemy_cards_array = get_empty_enemy_cards_array()
     world_assignment_array = get_empty_world_assignment_array()
