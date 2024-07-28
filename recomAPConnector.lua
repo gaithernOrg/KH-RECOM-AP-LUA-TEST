@@ -545,6 +545,7 @@ function set_initial_battle_cards()
     for k,v in pairs(card_set_data[1]) do
         add_battle_card(1, v)
     end
+    initial_battle_cards_set = true
 end
 
 function set_cutscene_array(cutscene_array)
@@ -958,7 +959,6 @@ function initialize()
     card_sets_received = {}
     friend_count = 0
     victory = false
-    set_initial_battle_cards()
 end
 
 function _OnInit()
@@ -989,7 +989,6 @@ function _OnFrame()
             set_friends()
             if card_set_data_read and not initial_battle_cards_set then
                 set_initial_battle_cards()
-                initial_battle_cards_set = true
             end
             if get_time_played() > 5 then
                 set_cutscene_array(get_calculated_cutscene_array())
