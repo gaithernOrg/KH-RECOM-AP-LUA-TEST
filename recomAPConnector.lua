@@ -838,10 +838,6 @@ function receive_items()
     set_gold_map_cards(gold_map_cards_array)
     set_world_assignment(world_assignment_array)
     set_friend_cards_on_deck_3()
-    
-    if get_time_played() < 5 then
-        set_initial_deck()
-    end
 end
 
 function send_checks()
@@ -996,6 +992,7 @@ function _OnFrame()
                 send_checks()
             else
                 initialize()
+                set_initial_deck()
             end
         end
         frame_count = frame_count + 1
