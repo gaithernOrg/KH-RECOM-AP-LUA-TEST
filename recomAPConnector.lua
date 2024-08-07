@@ -210,7 +210,7 @@ function get_calculated_cutscene_array()
     elseif dp == 6 then --Fix?
         cutscene_array[45] = 0xE7
         cutscene_array[46] = 0x07
-    elseif dp == 7 then --13F Exit Hall: Riku IV and Larxene II
+    elseif dp > 6 and get_journal_array()[107] == 0 then --12F Exit Hall: Riku IV and Larxene II
         cutscene_array[47] = 0xE8
         cutscene_array[48] = 0x07
     end
