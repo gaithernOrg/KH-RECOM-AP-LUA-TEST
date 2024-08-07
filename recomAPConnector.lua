@@ -210,11 +210,13 @@ function get_calculated_cutscene_array()
     elseif dp == 6 then --Fix?
         cutscene_array[45] = 0xE7
         cutscene_array[46] = 0x07
-    elseif dp > 6 and get_journal_array()[107] == 0 then --12F Exit Hall: Riku IV and Larxene II
+    elseif dp == 7 then --12F Exit Hall: Riku IV
         cutscene_array[47] = 0xE8
         cutscene_array[48] = 0x07
+    elseif dp > 7 and get_journal_array()[107] == 0 then --12F Exit Hall: Larxene II
+        cutscene_array[47] = 0xE1
+        cutscene_array[48] = 0x00
     end
-    
     current_room_address = {0x87B160, 0x87B860}
     world_pointer_address = {0x87C508, 0x87CC08}
     world_pointer_offset = -0xFC8
@@ -961,6 +963,7 @@ function initialize()
     sleights_array = get_empty_sleights_array()
     card_sets_received = {}
     friend_count = 0
+    item_index = 0
     victory = false
 end
 
