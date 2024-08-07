@@ -77,7 +77,7 @@ frame_count = 1
 card_set_data = {{0,1,2,3,4,5,6,7,8,9},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}}
 card_set_data_reset_value = 2
 card_set_data_read = false
-item_index = 1
+item_index = 0
 battle_cards_array = {}
 enemy_cards_array = {}
 world_assignment_array = {}
@@ -779,6 +779,7 @@ function receive_items()
     
     if item_index == 0 then 
         set_initial_battle_cards()
+        item_index = item_index + 1
     end
     
     while file_exists(client_communication_path .. "AP_" .. tostring(item_index) .. ".item") do
