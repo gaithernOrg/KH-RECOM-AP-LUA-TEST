@@ -77,6 +77,7 @@ frame_count = 1
 card_set_data = {{0,1,2,3,4,5,6,7,8,9},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}}
 card_set_data_reset_value = 2
 card_set_data_read = false
+card_set_data_fixed = false
 item_index = 0
 battle_cards_array = {}
 enemy_cards_array = {}
@@ -576,7 +577,11 @@ function set_initial_deck()
     else
         for k,v in pairs(card_set_data[1]) do
             initial_deck_array[((k-1)*4)+1] = 1
-            initial_deck_array[((k-1)*4)+2] = 0
+            if v < 10 then
+                initial_deck_array[((k-1)*4)+2] = 0
+            else
+                initial_deck_array[((k-1)*4)+2] = 1
+            end
             initial_deck_array[((k-1)*4)+3] = (v%10)
             initial_deck_array[((k-1)*4)+4] = 17
             i = i + 1
@@ -973,13 +978,20 @@ function initialize()
 end
 
 function fix_card_set_data()
-    i = 1
-    while i < 20 and card_set_data[i][1] == nil do
-        table.remove(card_set_data, i)
+    while card_set_data[1][1] == nil do
+        table.remove(card_set_data, 1)
     end
-    if card_set_data[i][1] == nil then
+    if card_set_data[1][1] == nil then
         card_set_data[1] = {0,1,2,3,4,5,6,7,8,9}
     end
+    i = 20
+    while i >= 1 do
+        if card_set_data[i] == nil then
+            card_set_data_reset_value = i
+        end
+        i = i - 1
+    end
+    card_set_data_fixed = true
 end
 
 function _OnInit()
@@ -1008,7 +1020,9 @@ function _OnFrame()
             read_set_data()
             set_attack_power()
             set_friends()
-            fix_card_set_data()
+            if card_set_data_read and not card_set_data_fixed then
+                fix_card_set_data()
+            end
             if get_time_played() > 5 then
                 set_cutscene_array(get_calculated_cutscene_array())
                 receive_items()
