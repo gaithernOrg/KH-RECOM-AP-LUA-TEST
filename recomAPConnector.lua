@@ -972,6 +972,16 @@ function initialize()
     victory = false
 end
 
+function fix_card_set_data()
+    i = 1
+    while i < 20 and card_set_data[i][1] == nil do
+        table.remove(card_set_data, i)
+    end
+    if card_set_data[i][1] == nil then
+        card_set_data[1] = {0,1,2,3,4,5,6,7,8,9}
+    end
+end
+
 function _OnInit()
     if GAME_ID == 0x9E3134F5 and ENGINE_TYPE == "BACKEND" then
         canExecute = true
@@ -998,6 +1008,7 @@ function _OnFrame()
             read_set_data()
             set_attack_power()
             set_friends()
+            fix_card_set_data()
             if get_time_played() > 5 then
                 set_cutscene_array(get_calculated_cutscene_array())
                 receive_items()
