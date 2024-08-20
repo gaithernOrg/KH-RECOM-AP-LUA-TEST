@@ -987,6 +987,9 @@ function fix_card_set_data()
     i = 20
     while i >= 1 do
         if card_set_data[i] == nil then
+            card_set_data[i] = {}
+            card_set_data_reset_value = i
+        elseif card_set_data[i][1] == nil then
             card_set_data_reset_value = i
         end
         i = i - 1
