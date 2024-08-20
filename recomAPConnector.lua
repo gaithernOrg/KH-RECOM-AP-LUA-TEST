@@ -82,6 +82,7 @@ battle_cards_array = {}
 enemy_cards_array = {}
 world_assignment_array = {}
 gold_map_cards_array = {}
+key_to_rewards_found = {}
 friends_array = {}
 sleights_array = {}
 card_sets_received = {}
@@ -812,11 +813,7 @@ function receive_items()
             end
         elseif received_item_id > 2683300 and received_item_id < 2684000 then
             world_id = received_item_id % 2683300
-            if current_floor == world_id and (current_floor < 2 or current_floor > 10) then
-                gold_map_cards_array[4] = 1
-            elseif current_floor == world_order[world_id-1] then
-                gold_map_cards_array[4] = 1
-            end
+            key_to_rewards_found[#key_to_rewards_found+1] = world_id
         elseif received_item_id > 2685000 and received_item_id < 2686000 then
             friend_id = received_item_id % 2685000
             if friends_array[friend_id] ~= 1 then
@@ -837,6 +834,13 @@ function receive_items()
         gold_map_cards_array[1] = 1
         gold_map_cards_array[2] = 1
         gold_map_cards_array[3] = 1
+    end
+    for key_index,key_world_id in pairs(key_to_rewards_found) do
+        if current_floor == key_world_id and (current_floor < 2 or current_floor > 10) then
+            gold_map_cards_array[4] = 1
+        elseif current_floor == world_order[key_world_id-1] then
+            gold_map_cards_array[4] = 1
+        end
     end
     
     set_battle_cards(battle_cards_array)
