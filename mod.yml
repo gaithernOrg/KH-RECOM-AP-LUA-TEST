@@ -11,7 +11,3 @@ assets:
   method: copy
   source:
   - name: recomAPEXPMultiplier.lua
-- name: scripts/recomAPTutorialSkip.lua
-  method: copy
-  source:
-  - name: recomAPTutorialSkip.lua

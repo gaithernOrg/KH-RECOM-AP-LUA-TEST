@@ -44,7 +44,7 @@ end
 function _OnInit()
     if GAME_ID == 0x9E3134F5 and ENGINE_TYPE == "BACKEND" then
         canExecute = true
-        if ReadByte(0x4E6C80) == 255 or ReadByte(0x4E6AC0) == 255 then
+        if ReadByte(0x4E6C80) == 15 or ReadByte(0x4E6AC0) == 242 then
             ConsolePrint("Epic Games Version Detected")
             game_version = 1
         elseif ReadByte(0x4E7040) == 255 or ReadByte(0x4E6DC0) == 255 then
@@ -54,6 +54,7 @@ function _OnInit()
     else
         ConsolePrint("RE:CoM not detected, not running script")
     end
+    initialize()
 end
 
 function _OnFrame()
