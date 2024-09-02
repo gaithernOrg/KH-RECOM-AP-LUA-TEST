@@ -54,7 +54,6 @@ function _OnInit()
     else
         ConsolePrint("RE:CoM not detected, not running script")
     end
-    initialize()
 end
 
 function _OnFrame()
