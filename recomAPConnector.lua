@@ -168,7 +168,7 @@ end
 function get_calculated_cutscene_array()
     journal_array_pointer_address = {0x87C608, 0x87CC08}
     world_jounal_entry_array_offset = 0x68
-    dp_pointer_address = {0x87C4F8, 0x87CBF8}
+    dp_pointer_address = {0x87C5F8, 0x87CBF8}
     dp_pointer_offset = 0x14
     journal_array_pointer = GetPointer(journal_array_pointer_address[game_version])
     world_journal_entry_array = ReadArray(journal_array_pointer + world_jounal_entry_array_offset, 13, true)
