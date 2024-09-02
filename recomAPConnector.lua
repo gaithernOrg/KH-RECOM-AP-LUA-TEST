@@ -157,11 +157,6 @@ function get_empty_friends_array()
     return friends_array
 end
 
-function get_empty_gold_map_cards_array()
-    gold_map_cards_array = {0,0,0,0}
-    return gold_map_cards_array
-end
-
 function get_empty_sleights_array()
     sleights_array = {}
     for i=1,84 do
@@ -234,7 +229,7 @@ function get_world_assignments_array()
     world_assignment_array_pointer_address = {0x87C598, 0x87CB98}
     world_assignment_array_pointer_offset = 0x48
     world_assignment_array_pointer = GetPointer(world_assignment_array_pointer_address[game_version], world_assignment_array_pointer_offset)
-    return ReadArray(world_assignment_array_pointer, 39, true)
+    return ReadArray(world_assignment_array_pointer, 13, true)
 end
 
 function get_friend_cards_array()
@@ -835,7 +830,6 @@ function receive_items()
     else
         world_assignment_array[13] = 0x1
     end
-    
     if current_floor == 1 or world_assignment_array[current_floor] ~= 1 then
         gold_map_cards_array[1] = 1
         gold_map_cards_array[2] = 1
@@ -974,7 +968,6 @@ function initialize()
     battle_cards_array = get_empty_battle_cards_array()
     enemy_cards_array = get_empty_enemy_cards_array()
     world_assignment_array = get_empty_world_assignment_array()
-    gold_map_cards_array = get_empty_gold_map_cards_array()
     friends_array = get_empty_friends_array()
     sleights_array = get_empty_sleights_array()
     card_sets_received = {}
