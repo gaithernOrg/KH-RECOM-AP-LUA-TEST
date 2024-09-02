@@ -842,9 +842,7 @@ function receive_items()
         gold_map_cards_array[4] = 0
     end
     for key_index,key_world_id in pairs(key_to_rewards_found) do
-        if current_floor == key_world_id and (current_floor < 2 or current_floor > 10) then
-            gold_map_cards_array[4] = 1
-        elseif current_floor == world_order[key_world_id-1] then
+        if ((current_floor == key_world_id and (current_floor < 2 or current_floor > 10)) or (current_floor == world_order[key_world_id-1])) and (current_floor == 1 or world_assignment_array[current_floor] ~= 1) then
             gold_map_cards_array[4] = 1
         end
     end
