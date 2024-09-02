@@ -840,6 +840,12 @@ function receive_items()
         gold_map_cards_array[1] = 1
         gold_map_cards_array[2] = 1
         gold_map_cards_array[3] = 1
+        gold_map_cards_array[4] = 0
+    else
+        gold_map_cards_array[1] = 0
+        gold_map_cards_array[2] = 0
+        gold_map_cards_array[3] = 0
+        gold_map_cards_array[4] = 0
     end
     for key_index,key_world_id in pairs(key_to_rewards_found) do
         if current_floor == key_world_id and (current_floor < 2 or current_floor > 10) then
