@@ -1000,7 +1000,7 @@ function _OnInit()
         if ReadByte(0x4E6C80) == 15 or ReadByte(0x4E6AC0) == 242 then
             ConsolePrint("Epic Games Version Detected")
             game_version = 1
-        elseif ReadByte(0x4E7040) == 255 or ReadByte(0x4E6DC0) == 255 then
+        elseif ReadByte(0x4E7040) == 15 or ReadByte(0x4E6DC0) == 77 then
             ConsolePrint("Steam Version Detected")
             game_version = 2
         end
