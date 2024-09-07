@@ -1007,7 +1007,9 @@ function _OnInit()
     else
         ConsolePrint("RE:CoM not detected, not running script")
     end
-    initialize()
+    if canExecute then
+        initialize()
+    end
 end
 function _OnFrame()
     if canExecute then
