@@ -519,7 +519,7 @@ function set_world_assignment(world_assignment_array)
     current_world_assignments = ReadArray(world_assignment_pointer, #world_assignment_array, true)
     copy_world_assignment_array = {}
     for k,v in pairs(world_assignment_array) do
-        copy_world_assignment_array[k] = world_assignment_array[k]
+        copy_world_assignment_array[k] = v
     end
     current_floor = get_current_floor()
     copy_world_assignment_array[current_floor] = current_world_assignments[current_floor]
