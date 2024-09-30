@@ -455,7 +455,6 @@ function get_extra_checks()
         ids[#ids+1] = 2692031
     end
     
-    world_assignment_array = get_world_assignments_array()
     if world_assignment_array[13] > 1 then --Trinity Limit
         ids[#ids+1] = 2692009
     end
@@ -874,7 +873,6 @@ function send_checks()
             end
         end
         room_array = get_room_array()
-        world_assignment_array = get_world_assignments_array()
         for k,v in pairs(room_array) do
             if v > 0 then
                 floor_num = math.floor((k-1)/3)+1
