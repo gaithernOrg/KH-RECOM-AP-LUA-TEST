@@ -11,3 +11,7 @@ assets:
   method: copy
   source:
   - name: recomAPEXPMultiplier.lua
+- name: scripts/recomAPHandleDeathLink.lua
+  method: copy
+  source:
+  - name: recomAPHandleDeathLink.lua
