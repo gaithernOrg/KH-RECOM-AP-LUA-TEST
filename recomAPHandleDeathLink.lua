@@ -57,10 +57,28 @@ function toBits(num)
     return t
 end
 
+function get_time_played()
+    time_played_pointer_address = {0x87AAE0, 0x87B0E0}
+    time_played_pointer_offset_1 = 0x8
+    time_played_pointer_offset_2 = 0x300
+    time_played_pointer_1 = GetPointer(time_played_pointer_address[game_version], time_played_pointer_offset_1)
+    time_played_pointer_2 = GetPointer(time_played_pointer_1, time_played_pointer_offset_2, true)
+    time_played = ReadInt(time_played_pointer_2, true)
+    return time_played
+end
+
 function get_current_hp()
-    soras_current_hp_pointer_address = {0x87C5F8, 0x87CBF8}
-    soras_current_hp_pointer = GetPointer(soras_hp_pointer_address[game_version])
-    return ReadInt(soras_current_hp_pointer, true)
+    if get_time_played() > 0 then
+        soras_current_hp_pointer_address = {0x0, 0x87B380}
+        soras_current_hp_pointer_offset = 0x42C
+        if ReadInt(soras_current_hp_pointer_address[game_version]) ~= 0 then
+            soras_current_hp_pointer = GetPointer(soras_current_hp_pointer_address[game_version], soras_current_hp_pointer_offset)
+            return ReadInt(soras_current_hp_pointer, true)
+        else
+            return 100
+        end
+    end
+    return 100
 end
 
 function kill_player()
@@ -70,7 +88,7 @@ function kill_player()
         control_pointer = GetPointer(control_pointer_address[game_version])
         death_pointer = GetPointer(death_pointer_address[game_version])
         if toBits(ReadInt(death_pointer + 0x88, true))[3] ~= 1 then
-            WriteInt(control_pointer + 0x4C, 29, true)
+            WriteInt(control_pointer + 0x40C, 29, true)
             WriteInt(death_pointer + 0x88, ReadInt(death_pointer + 0x88, true) + 4, true)
             WriteInt(death_pointer + 0x8C, 7, true)
         end
@@ -90,39 +108,35 @@ function _OnInit()
     else
         ConsolePrint("RE:CoM not detected, not running script")
     end
-    if canExecute then
-        initialize()
-    end
 end
 
 function _OnFrame()
     if canExecute then
         if file_exists(client_communication_path .. "dlreceive") then
-                file = io.open(client_communication_path .. "dlreceive")
-                io.input(file)
-                death_time = tonumber(io.read())
-                io.close(file)
-                if death_time ~= nil and last_death_time ~= nil then
-                    if death_time >= last_death_time + 3 then
-                        kill_player()
-                        last_death_time = death_time
-                    end
+            file = io.open(client_communication_path .. "dlreceive")
+            io.input(file)
+            death_time = tonumber(io.read())
+            io.close(file)
+            if death_time ~= nil and last_death_time ~= nil then
+                if death_time >= last_death_time + 3 then
+                    kill_player()
+                    last_death_time = death_time
                 end
             end
-            current_hp = get_current_hp()
-            if current_hp == 0 and last_hp > 0 then
-                ConsolePrint("Sending death")
-                ConsolePrint("Player's HP: " .. tostring(current_hp))
-                ConsolePrint("Player's Last HP: " .. tostring(last_hp))
-                death_date = os.date("!%Y%m%d%H%M%S")
-                if not file_exists(client_communication_path .. "dlsend" .. tostring(death_date)) then
-                    file = io.open(client_communication_path .. "dlsend" .. tostring(death_date), "w")
-                    io.output(file)
-                    io.write("")
-                    io.close(file)
-                end
-            end
-            last_hp = get_current_hp()
         end
+        current_hp = get_current_hp()
+        if current_hp == 0 and last_hp > 0 then
+            ConsolePrint("Sending death")
+            ConsolePrint("Player's HP: " .. tostring(current_hp))
+            ConsolePrint("Player's Last HP: " .. tostring(last_hp))
+            death_date = os.date("!%Y%m%d%H%M%S")
+            if not file_exists(client_communication_path .. "dlsend" .. tostring(death_date)) then
+                file = io.open(client_communication_path .. "dlsend" .. tostring(death_date), "w")
+                io.output(file)
+                io.write("")
+                io.close(file)
+            end
+        end
+        last_hp = get_current_hp()
     end
 end
