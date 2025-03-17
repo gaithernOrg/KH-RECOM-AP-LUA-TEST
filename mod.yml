@@ -15,3 +15,7 @@ assets:
   method: copy
   source:
   - name: recomAPHandleDeathLink.lua
+- name: scripts/recomAPEnableDaysLocations.lua
+  method: copy
+  source:
+  - name: recomAPEnableDaysLocations.lua
